@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
@@ -9,6 +9,7 @@
       margin: 10px 0;
     }
   </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script type="text/javascript">
     function xhr(url, cb) {
       var oReq = new XMLHttpRequest();
@@ -77,14 +78,16 @@
       var s = '<thead>';
       var colKeys = Object.keys(columns);
       for (var i = 0; i < colKeys.length; i++) {
-        s += '<td>' + colKeys[i];
+        s += '<th onclick="sort(' + i + ')">' + colKeys[i];
       }
       s += '</thead><tbody>';
       for (var i = 0; i < c.children.length; i++) {
         var data = c.data[c.children[i][0]];
-        s += '<tr>';
+        s += '<tr class="datarow">';
         for (var j = 0; j < colKeys.length; j++) {
-          s += '<td>' + columns[colKeys[j]](i, data);
+          var value = columns[colKeys[j]](i, data);
+          var sortValue = ($(value).text()) ? $(value).text() : value;
+          s += '<td data-sort-index="' + j + '" data-sort="' + sortValue +'">' + value;
         }
       }
       return s + '</tbody>';
@@ -137,6 +140,38 @@
         }
       }
       return s + '</tbody>';
+    }
+
+    var sortState = [1, 1];
+
+    function sort(i) {
+      var trs = $('table tr.datarow');
+      var tds = $(trs[0]).find('td');
+      var idx = 0;
+      for (var j=0; j<tds.length; j++) {
+        if ($(tds[j]).data('sort-index') == i) {
+          idx = j + 1;
+          break;
+        }
+      }
+
+      var mul = 1;
+      if (sortState[0] === idx) {
+        mul = sortState[1] * -1;
+      }
+      sortState = [idx, mul];
+
+      trs.sort(function(a, b) {
+        var ka = $(a).find('td:nth-child('+idx+')').data('sort');
+        var kb = $(b).find('td:nth-child('+idx+')').data('sort');
+        if (!ka && !kb) return 0 * mul;
+        if (!ka && !!kb) return -1 * mul;
+        if (!!ka && !kb) return 1 * mul;
+        if (!!ka.localeCompare) return ka.localeCompare(kb) * mul;
+        return (ka - kb) * mul;
+      });
+      $(trs).detach();
+      ($($('table tbody')[0])).append($(trs));
     }
 
     window.onload = render;
