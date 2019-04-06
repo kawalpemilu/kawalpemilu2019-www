@@ -4,10 +4,28 @@
 <head>
   <meta charset="utf-8">
   <title>KawalPemilu - Jaga Suara 2019</title>
-  <style>
-    #navigasi {
-      margin: 10px 0;
-    }
+  <style type="text/css">
+    #navigasi { margin: 10px 0; }
+    .tps td { white-space: nowrap; }
+    .aggregate tr:nth-child(even) { background: #EEE; }
+    .aggregate tr:nth-child(odd) { background: #FFF; }
+    .aggregate tbody > tr:hover { background-color: #CCF; }
+    #header { background-color: #CCC; }
+    #header { cursor: pointer; }
+    .aggregate td { padding: 5px; font-family: verdana; font-size:11px; }
+    .aggregate thead > tr > th { padding:8px; margin:8px; }
+    .delta { font-size:9px; }
+    .delta.complete {}
+    .delta.incomplete { color: #888; }
+    .aggregate tr.total td:first-child { text-align: right; }
+    .aggregate tr.total td { background: #ccc; font-weight: bold; }
+    .win { background-color: "lightgreen"; }
+    .winmistake { background-color: "lightgreen"; color: "red"; }
+    .lose { background-color: "lightpink"; }
+    .losemistake { background-color: "lightpink"; }
+    .mistake { background-color: "lightpink"; }
+    .c1diff { border: 2px solid red; }
+    .red { color: red; font-weight: bold }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script type="text/javascript">
@@ -43,7 +61,7 @@
       for (var i = 0; i < c.parentIds.length; i++) {
         var pid = c.parentIds[i];
         var pname = c.parentNames[i];
-        s += '<a href="#' + pid + '">' + pname + '</a> &gt;&nbsp; '
+        s += '<a href="#' + pid + '">' + pname + '</a> &gt;&nbsp; ';
       }
       s += c.name;
       return s;
@@ -57,15 +75,15 @@
           var cname = c.children[i][1];
           return '<a href="#' + cid + '">' + cname + '</a>';
         },
-        'pas1': function (i, data) { return (data && data.sum && data.sum.pas1) || 0; },
-        'pas2': function (i, data) { return (data && data.sum && data.sum.pas2) || 0; },
-        'jum': function (i, data) { return (data && data.sum && data.sum.jum) || 0; },
-        'sah': function (i, data) { return (data && data.sum && data.sum.sah) || 0; },
-        'tSah': function (i, data) { return (data && data.sum && data.sum.tSah) || 0; },
+        'Jokowi-Amin': function (i, data) { return (data && data.sum && data.sum.pas1) || 0; },
+        'Prabowo-Sandi': function (i, data) { return (data && data.sum && data.sum.pas2) || 0; },
+        'Jumlah': function (i, data) { return (data && data.sum && data.sum.jum) || 0; },
+        'Suara Sah': function (i, data) { return (data && data.sum && data.sum.sah) || 0; },
+        'Tidak Sah': function (i, data) { return (data && data.sum && data.sum.tSah) || 0; },
 
-        'error': function (i, data) { return (data && data.sum && data.sum.error) || 0; },
-        'cakupan': function (i, data) { return (data && data.sum && data.sum.cakupan) || 0; },
-        'pending': function (i, data) { return (data && data.sum && data.sum.pending) || 0; },
+        'TPS Error': function (i, data) { return (data && data.sum && data.sum.error) || 0; },
+        'Cakupan': function (i, data) { return (data && data.sum && data.sum.cakupan) || 0; },
+        'Pending': function (i, data) { return (data && data.sum && data.sum.pending) || 0; },
         'nTPS': function (i) { return c.children[i][2]; },
         'nDPT': function (i) {
           var nL = c.children[i][3];
@@ -75,22 +93,32 @@
         // Tambahin as necessary (ada "pkb", "nas", etc untuk suara partai ).
       };
 
-      var s = '<thead>';
+      var s = '<thead><tr class="header" id="header" bgcolor="#DDDDDD">';
       var colKeys = Object.keys(columns);
       for (var i = 0; i < colKeys.length; i++) {
         s += '<th onclick="sort(' + i + ')">' + colKeys[i];
       }
-      s += '</thead><tbody>';
+      s += '</tr></thead><tbody>';
       for (var i = 0; i < c.children.length; i++) {
         var data = c.data[c.children[i][0]];
         s += '<tr class="datarow">';
         for (var j = 0; j < colKeys.length; j++) {
           var value = columns[colKeys[j]](i, data);
           var sortValue = ($(value).text()) ? $(value).text() : value;
-          s += '<td data-sort-index="' + j + '" data-sort="' + sortValue +'">' + value;
+          s += '<td data-sort-index="' + j + '" data-sort="' + sortValue + '" ' + renderCellStyle(j) + '>' + format(value);
         }
       }
       return s + '</tbody>';
+    }
+
+    function renderCellStyle(c) {
+      if (c === 0) {
+        return 'align="center"';
+      } else if (c === 1) {
+        return 'align="left"';
+      } else {
+        return 'align="right"';
+      }
     }
 
     function renderTps(c) {
@@ -174,6 +202,20 @@
       ($($('table tbody')[0])).append($(trs));
     }
 
+    function format(str) {
+      if (isNaN(str)) return str;
+      if (str == 0) return '0';
+      var nres = '' + str;
+      var res = '';
+      for (var i =0; i< nres.length;i++) {
+        if (i > 0 && i%3 == 0) {
+          res = '.' + res;
+        }
+        res = nres[nres.length-i-1] + res;
+      }
+      return res;
+    }
+
     window.onload = render;
     window.onhashchange = render;
   </script>
@@ -182,7 +224,7 @@
 <body>
   <h1>Hasil KawalPemilu - Jaga Suara 2019</h1>
   <div id="navigasi"></div>
-  <table id="tabulasi" border="1" cellpadding="5"></table>
+  <table class="aggregate" id="tabulasi"></table>
 </body>
 
 </html>
