@@ -9,22 +9,22 @@ apt install -y ruby ruby-dev rsync build-essential
 rm -rf /kp/_build/
 mkdir -p /kp/_build/
 
-# dokumentasi
+# main/overall site
 
 gem install bundler
 
-cd /kp/src/dokumentasi
-bundle
+cd /kp/src/main
+bundle install
 
 rm -rf _site
-jekyll build
+bundle exec jekyll build
 
-rsync -avH _site/ /kp/_build/dokumentasi/
+rsync -avH _site/ /kp/_build/
 
-# public
+# tabulasi
 
-cd /kp
-rsync -avH public/ /kp/_build/
+cd /kp/src/tabulasi
+rsync -avH ./ /kp/_build/
 
 # finalize
 
