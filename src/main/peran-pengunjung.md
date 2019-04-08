@@ -35,14 +35,3 @@ Pengunjung situs Kawal Pemilu dikelompokkan menjadi **empat** jenis peran:
 
    * Memasukkan angka (digitisasi) foto yang di-*upload*.
 
-4. **Admin**. Selain melakukan peran sebagai Moderator, seorang Admin juga
-   dapat melakukan hal berikut:
-
-   * Memonitor semua aktivitas Relawan dan Moderator, termasuk memproses
-     laporan kesalahan yang masuk.
-
-   * Mengubah status Relawan menjadi Moderator dan sebaliknya.
-
-   * Mengeluarkan Relawan atau Moderator secara permanen dari sistem bila
-     melakukan hal-hal yang merusak kesahihan data di sistem kami.
-
