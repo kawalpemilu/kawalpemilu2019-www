@@ -45,7 +45,7 @@ untuk membantu memfoto hasil formulir [C1 PLANO](https://upload.kawalpemilu.org/
 yang terpajang di TPS masing-masing dan mengupload foto tersebut ke website:
 
 <div style="display: flex; justify-content: center; margin-bottom: 24px;">
-  <a style="font-size: x-large; background: #FFEE58; padding: 30px 50px; border-bottom: 1px solid #FDD835; border-radius: 5px;"
+  <a style="font-size: x-large; background: #FFEE58; padding: 30px 20px; border-bottom: 1px solid #FDD835; border-radius: 5px;"
     href="https://upload.kawalpemilu.org">upload.kawalpemilu.org</a>
 </div>
 
