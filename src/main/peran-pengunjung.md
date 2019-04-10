@@ -2,7 +2,7 @@
 layout: page
 title: Jenis/Peran Pengunjung
 permalink: /jenis-peran-pengunjung/
-nav_order: 60
+nav_order: 1000
 ---
 
 # Jenis/Peran Pengunjung

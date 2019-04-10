@@ -2,7 +2,7 @@
 layout: page
 title: Kebijakan Privasi
 permalink: /privasi/
-nav_order: 40
+nav_order: 8000
 ---
 
 # Kebijakan Privasi
