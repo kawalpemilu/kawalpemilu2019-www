@@ -7,7 +7,7 @@ nav_order: 60
 
 # Jenis/Peran Pengunjung
 
-Pengunjung situs Kawal Pemilu dikelompokkan menjadi **empat** jenis peran:
+Pengunjung situs Kawal Pemilu dikelompokkan menjadi **tiga** jenis peran:
 
 1. **Publik** adalah pengunjung laman utama
    [kawalpemilu.org](https://kawalpemilu.org) yang tidak melakukan
