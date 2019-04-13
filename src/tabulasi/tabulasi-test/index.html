@@ -160,51 +160,101 @@
       }
     }
 
-    function renderTps(c) {
-      var columns = {
-        'TPS': function (i) { return '#' + c.children[i][0]; },
-        'pas1': function (i, data) { return (data && data.sum && data.sum.pas1) || 0; },
-        'pas2': function (i, data) { return (data && data.sum && data.sum.pas2) || 0; },
-        'jum': function (i, data) { return (data && data.sum && data.sum.jum) || 0; },
-        'sah': function (i, data) { return (data && data.sum && data.sum.sah) || 0; },
-        'tSah': function (i, data) { return (data && data.sum && data.sum.tSah) || 0; },
+    function tpsSum(key, data) {
+       return (data && data.sum && data.sum[key]) || 0 ;;
+    }
 
-        'error': function (i, data) { return (data && data.sum && data.sum.error) || 0; },
-        'cakupan': function (i, data) { return (data && data.sum && data.sum.cakupan) || 0; },
-        'pending': function (i, data) { return (data && data.sum && data.sum.pending) || 0; },
-        'nDPT': function (i) {
-          var nL = c.children[i][1];
-          var nP = c.children[i][2];
-          return nL + nP;
-        },
-        // Tambahin as necessary.
+    function summarize( key, data, sumKeys, sortIdx) {
+        var keys = sumKeys[key];
+        var result = '';
+        for (var j = 0; j < keys.length; j++) {
+              var key = keys[j];
+              var value = tpsSum(key,data);
+              var sortValue = ($(value).text()) ? $(value).text() : value;
+              result += '<td data-sort-index="' + (sortIdx+j)+'" data-sort="'+sortValue+'">' + format(value) + '</td>';
+            }
+        return result;
+    }
+
+    function header(group, labels, sortIdx) {
+        var result = '';
+        var gLabels = labels[group];
+        for (var j = 0; j < gLabels.length; j++) {
+              result += '<th onClick="sort('+(sortIdx+j)+')" >'+gLabels[j]+'</th>';
+        }
+        return result;
+    }
+
+
+    function renderTps(c) { 
+      console.log("TPS Data", c);
+      var formType = ['SKIP_ZERO','PPWP','DPR','DPD','DPRP','DPRPB','DPRA','DPRD_PROV','DPRD_KAB_KOTA','DPRK','OTHERS','MALICIOUS'];
+      var isPlano =  ['SKIP_ZERO', 'YES', 'NO'];    
+      var sumKeys = { 
+         'pilpres': ['pas1', 'pas2', 'jum', 'sah', 'tSah'],
+         'pileg'  : [ 'pkb', 'ger', 'pdi', 'gol', 'nas', 'gar', 'ber', 'sej', 'per', 'ppp', 'psi', 'pan', 'han', 'dem', 
+                      'pa',  'ps', 'pda', 'pna', // Partai lokal Aceh 
+                      'pbb', 'pkp', 'pJum', 'pSah', 'pTSah' ],
+         'tps' : [ 'cakupan', 'pending', 'error', 'janggal'],
+      };
+      var sumLabels = { 
+         'pilpres': ['Jokowi-Amin', 'Prabowo-Sandi', 'Jumlah', 'Suara Sah', 'Tidak Sah'],
+         'pileg'  : [ 'PKB', 'Gerindra', 'PDI', 'Golkar', 'Nasdem', 'Garuda', 'Berkarya', 'PKS', 'Perindo', 'PPP', 'PSI', 'PAN', 'Hanura', 'Demokrat', 
+                      'PA',  'PS', 'PDA', 'PNA', // PARTAI LOKAL ACEH 
+                      'PBB', 'PKP', 'Jumlah', 'Suara Sah', 'Tidak Sah' ],
+         'tps' : [ 'Cakupan', 'Pending', 'Error', 'Janggal'],
       };
 
-      var imageSize = '120';
-      var s = '<tbody>';
-      var colKeys = Object.keys(columns);
-      for (var i = 0; i < c.children.length; i++) {
-        s += '<tr><td>';
-        var data = c.data[c.children[i][0]];
-        for (var j = 0; j < colKeys.length; j++) {
-          var key = colKeys[j];
-          s += key + ' = ' + columns[key](i, data) + '<br>';
-        }
 
-        if (data) {
-          s += '<td>Photos:<br>';
-          var urls = Object.keys(data.photos);
+      var imageSize = '120';
+      var s = '<thead><tr class="header" id="header"  bgcolor="#DDDDDD">';
+      s += '<th colspan=5> Pilpres</th>';
+      s += '<th colspan=23> Pileg </th>';
+      s += '<th colspan=4> TPS </th>';
+      s += '</tr><tr class="header" id="header" bgcolor="#DDDDDD">';
+      s += header('pilpres', sumLabels, 0);
+      s += header('pileg', sumLabels, 5);
+      s += header('tps', sumLabels, 28);
+      s += '</tr></thead>'; 
+
+
+      s += '<tbody>';
+      var nTps = c.children.length;
+      for (var i = 0; i < nTps; i++) {
+        var tpsRow = c.data[c.children[i][0]];
+
+        s += '<tr class="datarow">';
+        var tpsNo = c.children[i][0];
+        var nDPT  = c.children[i][1] + c.children[i][2];
+        //s += 'nDPT = '+ nDPT +'<br>';
+        //s += 'TPS = #'+ tpsNo +'<br>';
+
+        s += summarize('pilpres', tpsRow, sumKeys, 0)
+        s += summarize('pileg', tpsRow, sumKeys, 5)
+        s += summarize('tps', tpsRow, sumKeys, 28) 
+
+        if (tpsRow) {
+          s += '<td>';
+          var urls = Object.keys(tpsRow.photos);
           for (var j = 0; j < urls.length; j++) {
             var url = urls[j];
-            var p = data.photos[url];
-            s += '<div style="background-color: #DDD; margin: 20px 0;">'
-            s += 'Upload date: ' + new Date(p.ts) + '<br>';
-            s += 'Tipe form: ' + JSON.stringify(p.c1) + '<br>';
-            s += 'Sum: ' + JSON.stringify(p.sum) + '<br>';
-            s += '<img src="' + url + '=s' + imageSize + '">';
+            var p = tpsRow.photos[url];
+            s += '<div style="background-color: #DDD; title="'
+            s += ' Upload date: ' + new Date(p.ts) ;
+            s += ' Tipe form: ' + formType[p.c1.type] ;
+            s += ' Plano: ' + isPlano[p.c1.plano]+ '">' ;
+            //s += 'Sum: ' + JSON.stringify(p.sum) + '">';
+            if(j == 0){		
+                s += '<img src="' + url + '=s' + imageSize + '">';
+            } else {
+                s += '<a href="'+url+'"> foto: '+JSON.stringify(j)+ '</a>';
+            }
             s += '</div>';
           }
+	  s += '</td>';
         }
+    
+        s += '</tr>';
       }
       return s + '</tbody>';
     }
