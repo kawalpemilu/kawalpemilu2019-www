@@ -53,13 +53,17 @@
       get(id, function (c) {
         console.log(JSON.stringify(c, null, 2));
         document.getElementById('navigasi').innerHTML = renderNavigasi(c);
-        document.getElementById('tabulasi').innerHTML = c.depth < 4 ? renderHierarchy(c) : renderTps(c);
+        var isHierarchyTable = c.depth < 4;
+        document.getElementById('tabulasi').innerHTML = isHierarchyTable ? renderHierarchy(c) : renderTps(c);
         if (!isColumnListRendered) {
           document.getElementById('column_list').innerHTML = renderColumnList();
-        } else {
+        } else if (isHierarchyTable) {
+          $('#column_list').show();
           for (var i = 2; i < columnNamesList.length; i++) {
             hideShowColumn(i);
           }
+        } else {
+          $('#column_list').hide();
         }
       });
     }
@@ -229,9 +233,9 @@
         //s += 'nDPT = '+ nDPT +'<br>';
         //s += 'TPS = #'+ tpsNo +'<br>';
 
-        s += summarize('pilpres', tpsRow, sumKeys, 0)
-        s += summarize('pileg', tpsRow, sumKeys, 5)
-        s += summarize('tps', tpsRow, sumKeys, 28) 
+        s += summarize('pilpres', tpsRow, sumKeys, 0);
+        s += summarize('pileg', tpsRow, sumKeys, 5);
+        s += summarize('tps', tpsRow, sumKeys, 28);
 
         if (tpsRow) {
           s += '<td>';
@@ -239,7 +243,7 @@
           for (var j = 0; j < urls.length; j++) {
             var url = urls[j];
             var p = tpsRow.photos[url];
-            s += '<div style="background-color: #DDD; title="'
+            s += '<div style="background-color: #DDD; title="';
             s += ' Upload date: ' + new Date(p.ts) ;
             s += ' Tipe form: ' + formType[p.c1.type] ;
             s += ' Plano: ' + isPlano[p.c1.plano]+ '">' ;
