@@ -55,13 +55,15 @@
         document.getElementById('navigasi').innerHTML = renderNavigasi(c);
         var isHierarchyTable = c.depth < 4;
         document.getElementById('tabulasi').innerHTML = isHierarchyTable ? renderHierarchy(c) : renderTps(c);
-        if (!isColumnListRendered) {
-          document.getElementById('column_list').innerHTML = renderColumnList();
-        } else if (isHierarchyTable) {
-          $('#column_list').show();
-          for (var i = 2; i < columnNamesList.length; i++) {
-            hideShowColumn(i);
+        if (isHierarchyTable) {
+          if (!isColumnListRendered) {
+            document.getElementById('column_list').innerHTML = renderColumnList();
+          } else {
+            for (var i = 2; i < columnNamesList.length; i++) {
+              hideShowColumn(i);
+            }
           }
+          $('#column_list').show();
         } else {
           $('#column_list').hide();
         }
