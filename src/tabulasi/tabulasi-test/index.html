@@ -80,11 +80,10 @@
 
     function renderColumnList() {
       isColumnListRendered = true;
-      var s = '<table><tr>';
+      var s = '';
       for (var i = 2; i < columnNamesList.length; i++) {
-        s += '<td align="center"><input type="checkbox" checked="checked" id="colCheckbox' + i + '"onclick="hideShowColumn(' + i + ')" value=/>' + columnNamesList[i] + '&nbsp;</td>';
+        s += '<input type="checkbox" checked="checked" id="colCheckbox' + i + '"onclick="hideShowColumn(' + i + ')" value=>' + columnNamesList[i] + '&nbsp;&nbsp;</input>';
       }
-      s += '</tr></table>';
       return s;
     }
 
