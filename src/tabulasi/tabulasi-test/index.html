@@ -6,6 +6,7 @@
   <title>KawalPemilu - Jaga Suara 2019</title>
   <style type="text/css">
     #navigasi { margin: 10px 0; }
+    #column_list { margin: 10px 0; }
     .tps td { white-space: nowrap; }
     .aggregate tr:nth-child(even) { background: #EEE; }
     .aggregate tr:nth-child(odd) { background: #FFF; }
@@ -53,6 +54,13 @@
         console.log(JSON.stringify(c, null, 2));
         document.getElementById('navigasi').innerHTML = renderNavigasi(c);
         document.getElementById('tabulasi').innerHTML = c.depth < 4 ? renderHierarchy(c) : renderTps(c);
+        if (!isColumnListRendered) {
+          document.getElementById('column_list').innerHTML = renderColumnList();
+        } else {
+          for (var i = 2; i < columnNamesList.length; i++) {
+            hideShowColumn(i);
+          }
+        }
       });
     }
 
@@ -65,6 +73,29 @@
       }
       s += c.name;
       return s;
+    }
+
+    var columnNamesList;
+    var isColumnListRendered = false;
+
+    function renderColumnList() {
+      isColumnListRendered = true;
+      var s = '<table><tr>';
+      for (var i = 2; i < columnNamesList.length; i++) {
+        s += '<td align="center"><input type="checkbox" checked="checked" id="colCheckbox' + i + '"onclick="hideShowColumn(' + i + ')" value=/>' + columnNamesList[i] + '&nbsp;</td>';
+      }
+      s += '</tr></table>';
+      return s;
+    }
+
+    function hideShowColumn(i) {
+      var checkbox = document.getElementById('colCheckbox' + i);
+      var index = i + 1;
+      if (checkbox.checked) {
+        $('td:nth-child(' + index + '),th:nth-child(' + index + ')').show();
+      } else {
+        $('td:nth-child(' + index + '),th:nth-child(' + index + ')').hide();
+      }
     }
 
     function renderHierarchy(c) {
@@ -99,6 +130,15 @@
         s += '<th onclick="sort(' + i + ')">' + colKeys[i];
       }
       s += '</tr></thead><tbody>';
+
+      //populate columnList
+      if (!columnNamesList) {
+        columnNamesList = [];
+        for (var i = 0; i < colKeys.length; i++) {
+          columnNamesList.push(colKeys[i]);
+        }
+      }
+
       for (var i = 0; i < c.children.length; i++) {
         var data = c.data[c.children[i][0]];
         s += '<tr class="datarow">';
@@ -226,6 +266,7 @@
   <p>Halaman ini berisi hasil tabulasi dari <strong>DATA UJI COBA</strong> yang sudah masuk ke <a href="https://upload.kawalpemilu.org">upload.kawalpemilu.org</a>.</p>
   <p>Pada hari pemungutan suara, data ini akan diganti dengan data asli yang dikumpulkan oleh relawan dari lapangan.</p>
   <div id="navigasi"></div>
+  <div id="column_list"></div>
   <table class="aggregate" id="tabulasi"></table>
 </body>
 
