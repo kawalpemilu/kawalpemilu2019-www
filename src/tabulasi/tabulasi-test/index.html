@@ -82,7 +82,7 @@
       isColumnListRendered = true;
       var s = '';
       for (var i = 2; i < columnNamesList.length; i++) {
-        s += '<input type="checkbox" checked="checked" id="colCheckbox' + i + '"onclick="hideShowColumn(' + i + ')" value=>' + columnNamesList[i] + '&nbsp;&nbsp;</input>';
+        s += '<input type="checkbox" checked="checked" id="colCheckbox' + i + '"onclick="hideShowColumn(' + i + ')">' + columnNamesList[i] + '&nbsp;&nbsp;</input>';
       }
       return s;
     }
