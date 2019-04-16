@@ -27,6 +27,18 @@
     .mistake { background-color: "lightpink"; }
     .c1diff { border: 2px solid red; }
     .red { color: red; font-weight: bold }
+    #tipe { margin-bottom: 20px; }
+    #tipe a { padding: 10px 20px; border: 1px solid #888; margin-right: 10px; cursor: pointer; }
+    #tipe .active { background: yellow; }
+    footer {
+    }
+    footer ul {
+      padding: 0;
+    }
+    footer ul li {
+      display: inline;
+      margin-right: 20px;
+    }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script type="text/javascript">
@@ -48,44 +60,77 @@
 
     function render() {
       var h = document.location.hash;
-      var id = parseInt(h && h.length && h.substring(1), 10);
+      // '' -> default type=pilpres id=0
+      // '#4' -> default 'pilpres', id=4
+      // '#pilpres:4'
+      // '#pileg:4'
+      const tipeForms = {
+        'pilpres': 'PPWP',
+        'pileg': 'DPR',
+      }
+      
+      var tipe = 'pilpres';
+      var id = 0;
+      var pc = h.indexOf(':')
+      if (h && h.length) {
+        if (pc >= 0) {
+          tipe = h.substring(1, pc)
+          id = h.substring(pc+1);
+        } else {
+          id = h.substring(1);
+        }
+      }
+      tipe = tipe in tipeForms ? tipe : 'pilpres';
+      let tipeForm = tipeForms[tipe]
       id = isNaN(id) ? 0 : id;
+
       get(id, function (c) {
-        console.log(JSON.stringify(c, null, 2));
-        document.getElementById('navigasi').innerHTML = renderNavigasi(c);
+        // console.log(JSON.stringify(c, null, 2));
+        document.getElementById('tipe').innerHTML = renderTipe(tipe, id);
+        document.getElementById('navigasi').innerHTML = renderNavigasi(c, tipe);
         var isHierarchyTable = c.depth < 4;
-        document.getElementById('tabulasi').innerHTML = isHierarchyTable ? renderHierarchy(c) : renderTps(c);
+        document.getElementById('tabulasi').innerHTML = isHierarchyTable ? renderHierarchy(c, tipe, tipeForm) : renderTps(c, tipeForm);
         if (isHierarchyTable) {
-          if (!isColumnListRendered) {
-            document.getElementById('column_list').innerHTML = renderColumnList();
-          } else {
-            for (var i = 2; i < columnNamesList.length; i++) {
-              hideShowColumn(i);
-            }
+          
+          document.getElementById('column_list').innerHTML = renderColumnList();
+          for (var i = 2; i < columnNamesList.length; i++) {
+            hideShowColumn(i);
           }
+        
           $('#column_list').show();
         } else {
+          
           $('#column_list').hide();
         }
       });
     }
 
-    function renderNavigasi(c) {
+    function renderTipe(tipe, id) {
+      var R = function(t, n) {
+        return '<a href="#'+t+':'+id+'" class="'+(t===tipe && 'active')+'">'+n+'</a>';
+      }
+      var s = '';
+      s += R('pilpres', 'Presiden')
+      s += R('pileg', 'DPR')
+      return s;
+    }
+  
+    function renderNavigasi(c, tipe) {
       var s = '';
       for (var i = 0; i < c.parentIds.length; i++) {
         var pid = c.parentIds[i];
         var pname = c.parentNames[i];
-        s += '<a href="#' + pid + '">' + pname + '</a> &gt;&nbsp; ';
+        s += '<a href="#' + tipe + ':' + pid + '">' + pname + '</a> &gt;&nbsp; ';
       }
       s += c.name;
       return s;
     }
 
     var columnNamesList;
-    var isColumnListRendered = false;
+    
 
     function renderColumnList() {
-      isColumnListRendered = true;
+      
       var s = '';
       for (var i = 2; i < columnNamesList.length; i++) {
         s += '<input type="checkbox" checked="checked" id="colCheckbox' + i + '"onclick="hideShowColumn(' + i + ')">' + columnNamesList[i] + '&nbsp;&nbsp;</input>';
@@ -103,23 +148,44 @@
       }
     }
 
-    function renderHierarchy(c) {
+    function renderHierarchy(c, tipe, tipeForm) {
       var columns = {
         '#': function (i) { return i + 1; },
         'Nama Wilayah': function (i) {
           var cid = c.children[i][0];
           var cname = c.children[i][1];
-          return '<a href="#' + cid + '">' + cname + '</a>';
+          return '<a href="#' + tipe + ':' + cid + '">' + cname + '</a>';
         },
         'Jokowi-Amin': function (i, data) { return (data && data.sum && data.sum.pas1) || 0; },
         'Prabowo-Sandi': function (i, data) { return (data && data.sum && data.sum.pas2) || 0; },
         'Jumlah': function (i, data) { return (data && data.sum && data.sum.jum) || 0; },
         'Suara Sah': function (i, data) { return (data && data.sum && data.sum.sah) || 0; },
         'Tidak Sah': function (i, data) { return (data && data.sum && data.sum.tSah) || 0; },
-
+        'PKB': function (i, data) { return (data && data.sum && data.sum.pkb) || 0; },
+        'Gerindra': function (i, data) { return (data && data.sum && data.sum.ger) || 0; },
+        'PDI': function (i, data) { return (data && data.sum && data.sum.pdi) || 0; },
+        'Golkar': function (i, data) { return (data && data.sum && data.sum.gol) || 0; },
+        'Nasdem': function (i, data) { return (data && data.sum && data.sum.nas) || 0; },
+        'Garuda': function (i, data) { return (data && data.sum && data.sum.gar) || 0; },
+        'Berkarya': function (i, data) { return (data && data.sum && data.sum.ber) || 0; },
+        'PKS': function (i, data) { return (data && data.sum && data.sum.sej) || 0; },
+        'Perindo': function (i, data) { return (data && data.sum && data.sum.per) || 0; },
+        'PPP': function (i, data) { return (data && data.sum && data.sum.ppp) || 0; },
+        'PSI': function (i, data) { return (data && data.sum && data.sum.psi) || 0; },
+        'PAN': function (i, data) { return (data && data.sum && data.sum.pan) || 0; },
+        'Hanura': function (i, data) { return (data && data.sum && data.sum.han) || 0; },
+        'Demokrat': function (i, data) { return (data && data.sum && data.sum.dem) || 0; },
+        'PA': function (i, data) { return (data && data.sum && data.sum.pa) || 0; },
+        'PS': function (i, data) { return (data && data.sum && data.sum.ps) || 0; },
+        'PDA': function (i, data) { return (data && data.sum && data.sum.pda) || 0; },
+        'PNA': function (i, data) { return (data && data.sum && data.sum.pna) || 0; },
+        'PBB': function (i, data) { return (data && data.sum && data.sum.pbb) || 0; },
+        'PKP': function (i, data) { return (data && data.sum && data.sum.pkp) || 0; },
         'TPS Error': function (i, data) { return (data && data.sum && data.sum.error) || 0; },
         'Cakupan': function (i, data) { return (data && data.sum && data.sum.cakupan) || 0; },
         'Pending': function (i, data) { return (data && data.sum && data.sum.pending) || 0; },
+        'Janggal': function (i, data) { return (data && data.sum && data.sum.janggal) || 0; },
+        
         'nTPS': function (i) { return c.children[i][2]; },
         'nDPT': function (i) {
           var nL = c.children[i][3];
@@ -128,21 +194,30 @@
         },
         // Tambahin as necessary (ada "pkb", "nas", etc untuk suara partai ).
       };
+      
+      let daftarKolom = {
+        'PPWP': ['#','Nama Wilayah','Jokowi-Amin', 'Prabowo-Sandi', 'Jumlah', 'Suara Sah', 'Tidak Sah'],
+        'DPR': ['#','Nama Wilayah','PKB', 'Gerindra', 'PDI', 'Golkar', 'Nasdem', 'Garuda', 'Berkarya', 'PKS', 'Perindo', 'PPP', 'PSI', 'PAN', 'Hanura', 'Demokrat', 
+                      'PA',  'PS', 'PDA', 'PNA', 'PBB', 'PKP'],
+        'COMMON': ['Cakupan','Pending','Janggal','nDPT','nTPS']
+      };
+      let colKeys = daftarKolom[tipeForm].concat(daftarKolom['COMMON']);
 
       var s = '<thead><tr class="header" id="header" bgcolor="#DDDDDD">';
-      var colKeys = Object.keys(columns);
+      // var colKeys = Object.keys(columns);
       for (var i = 0; i < colKeys.length; i++) {
+        
         s += '<th onclick="sort(' + i + ')">' + colKeys[i];
       }
       s += '</tr></thead><tbody>';
 
       //populate columnList
-      if (!columnNamesList) {
-        columnNamesList = [];
-        for (var i = 0; i < colKeys.length; i++) {
+      
+      columnNamesList = [];
+      for (var i = 0; i < colKeys.length; i++) {
           columnNamesList.push(colKeys[i]);
-        }
       }
+      
 
       for (var i = 0; i < c.children.length; i++) {
         var data = c.data[c.children[i][0]];
@@ -182,20 +257,58 @@
         return result;
     }
 
-    function header(group, labels, sortIdx) {
+    function header(group, labels, tpsRow, sumKeys) {
         var result = '';
         var gLabels = labels[group];
+        var gKeys = sumKeys[group];
+        result += '<table><thead><tr><th colspan="2">'+group+'</th></tr><tbody>';
+        
         for (var j = 0; j < gLabels.length; j++) {
-              result += '<th onClick="sort('+(sortIdx+j)+')" >'+gLabels[j]+'</th>';
+              result += '<tr><td " >'+gLabels[j]+'</td><td>'+tpsSum(gKeys[j], tpsRow)+'</td></tr>';
         }
-        return result;
+        return result + '<tbody></table>';
     }
 
+    function photos(tipeForm, tpsRow){
+      if (!tpsRow) return '';
 
-    function renderTps(c) { 
-      console.log("TPS Data", c);
-      var formType = ['SKIP_ZERO','PPWP','DPR','DPD','DPRP','DPRPB','DPRA','DPRD_PROV','DPRD_KAB_KOTA','DPRK','OTHERS','MALICIOUS'];
-      var isPlano =  ['SKIP_ZERO', 'YES', 'NO'];    
+        var formType = ['SKIP_ZERO','PPWP','DPR','DPD','DPRP','DPRPB','DPRA','DPRD_PROV','DPRD_KAB_KOTA','DPRK','OTHERS','MALICIOUS'];
+        var isPlano =  ['SKIP_ZERO', 'YES', 'NO'];  
+        var imageSize = '120';
+        var s = '';
+        s += '<table><tbody>';
+          var urls = Object.keys(tpsRow.photos).filter( o => {
+            return formType[tpsRow.photos[o].c1.type] === tipeForm;
+          }).sort((a, b) => {
+            const pa = tpsRow.photos[a];
+            const pb = tpsRow.photos[b];
+            const ea = !!pa.sum.error ? 1 : 0;
+            const eb = !!pb.sum.error ? 1 : 0;
+            const va = ((ea-1)*100 + pa.c1.type * 10 + pa.c1.plano) * 1e14 + pa.ts ;
+            const vb = ((eb-1)*100 + pb.c1.type * 10 + pb.c1.plano) * 1e14 + pb.ts ;
+            return va - vb;
+          });
+          for (var j = 0; j < urls.length; j++) {
+            var url = urls[j];
+            var p = tpsRow.photos[url];
+            s += '<td>'
+            s += '<div style="background-color: #DDD;" >';
+            s += '<a href="'+url+'"><img src="' + url + '=s' + imageSize + '"></a>';
+            s += '<br> Upload date: ' + new Date(p.ts) ;
+            s += '<br> Tipe form: ' + formType[p.c1.type] ;
+            s += '<br> Plano: ' + isPlano[p.c1.plano];
+            s += '<br> Sum :' + JSON.stringify(p.sum);
+            s += '</div></td>';
+          }
+          s += '</tbody></table>';
+          return s;
+    }
+    
+    
+    function renderTps(c, tipeForm) { 
+      // console.log("TPS Data", c);
+      
+        
       var sumKeys = { 
          'pilpres': ['pas1', 'pas2', 'jum', 'sah', 'tSah'],
          'pileg'  : [ 'pkb', 'ger', 'pdi', 'gol', 'nas', 'gar', 'ber', 'sej', 'per', 'ppp', 'psi', 'pan', 'han', 'dem', 
@@ -203,6 +316,7 @@
                       'pbb', 'pkp', 'pJum', 'pSah', 'pTSah' ],
          'tps' : [ 'cakupan', 'pending', 'error', 'janggal'],
       };
+      
       var sumLabels = { 
          'pilpres': ['Jokowi-Amin', 'Prabowo-Sandi', 'Jumlah', 'Suara Sah', 'Tidak Sah'],
          'pileg'  : [ 'PKB', 'Gerindra', 'PDI', 'Golkar', 'Nasdem', 'Garuda', 'Berkarya', 'PKS', 'Perindo', 'PPP', 'PSI', 'PAN', 'Hanura', 'Demokrat', 
@@ -211,55 +325,32 @@
          'tps' : [ 'Cakupan', 'Pending', 'Error', 'Janggal'],
       };
 
-
-      var imageSize = '120';
-      var s = '<thead><tr class="header" id="header"  bgcolor="#DDDDDD">';
-      s += '<th colspan=5> Pilpres</th>';
-      s += '<th colspan=23> Pileg </th>';
-      s += '<th colspan=4> TPS </th>';
-      s += '</tr><tr class="header" id="header" bgcolor="#DDDDDD">';
-      s += header('pilpres', sumLabels, 0);
-      s += header('pileg', sumLabels, 5);
-      s += header('tps', sumLabels, 28);
-      s += '</tr></thead>'; 
-
-
+      var s = '<thead><tr class="header" id="header" bgcolor="#DDDDDD"><th>TPS</th><th>Hasil Perhitungan</th><th>Photos</th></tr></thead>';
+      
       s += '<tbody>';
       var nTps = c.children.length;
+
       for (var i = 0; i < nTps; i++) {
-        var tpsRow = c.data[c.children[i][0]];
-
+      
         s += '<tr class="datarow">';
-        var tpsNo = c.children[i][0];
-        var nDPT  = c.children[i][1] + c.children[i][2];
-        //s += 'nDPT = '+ nDPT +'<br>';
-        //s += 'TPS = #'+ tpsNo +'<br>';
 
-        s += summarize('pilpres', tpsRow, sumKeys, 0);
-        s += summarize('pileg', tpsRow, sumKeys, 5);
-        s += summarize('tps', tpsRow, sumKeys, 28);
+        var tpsRow = c.data[c.children[i][0]];
+        var tpsNo  = c.children[i][0];
+        var nDPT   = c.children[i][1] + c.children[i][2];
 
-        if (tpsRow) {
-          s += '<td>';
-          var urls = Object.keys(tpsRow.photos);
-          for (var j = 0; j < urls.length; j++) {
-            var url = urls[j];
-            var p = tpsRow.photos[url];
-            s += '<div style="background-color: #DDD; title="';
-            s += ' Upload date: ' + new Date(p.ts) ;
-            s += ' Tipe form: ' + formType[p.c1.type] ;
-            s += ' Plano: ' + isPlano[p.c1.plano]+ '">' ;
-            //s += 'Sum: ' + JSON.stringify(p.sum) + '">';
-            if(j == 0){		
-                s += '<img src="' + url + '=s' + imageSize + '">';
-            } else {
-                s += '<a href="'+url+'"> foto: '+JSON.stringify(j)+ '</a>';
-            }
-            s += '</div>';
-          }
-	  s += '</td>';
+        s += '<td>'+tpsNo+'</td>';
+
+        s += '<td>';
+        if(tipeForm === 'PPWP')  {
+          s += header('pilpres', sumLabels, tpsRow, sumKeys);
+        } else {
+          s += header('pileg', sumLabels, tpsRow, sumKeys);  
         }
-    
+        
+        
+        s += '</td><td>';
+        s += photos(tipeForm, tpsRow);  
+        s += '</td>';
         s += '</tr>';
       }
       return s + '</tbody>';
@@ -320,9 +411,21 @@
   <h1>Hasil Data Uji Coba Kawal Pemilu 2019</h1>
   <p>Halaman ini berisi hasil tabulasi dari <strong>DATA UJI COBA</strong> yang sudah masuk ke <a href="https://upload.kawalpemilu.org">upload.kawalpemilu.org</a>.</p>
   <p>Pada hari pemungutan suara, data ini akan diganti dengan data asli yang dikumpulkan oleh relawan dari lapangan.</p>
+  <div id="tipe"></div>
   <div id="navigasi"></div>
   <div id="column_list"></div>
   <table class="aggregate" id="tabulasi"></table>
-</body>
 
+
+  <footer>
+    <ul>
+      <li><a target="_blank" href="https://kawalpemilu.org/tentang/">Tentang Kami</a></li>
+      <li><a target="_blank" href="https://kawalpemilu.org/faq/">Pertanyaan Umum</a></li>
+      <li><a target="_blank" href="https://kawalpemilu.org/privasi/">Kebijakan Privasi</a></li>
+      <li><a target="_blank" href="https://kawalpemilu.org/disclaimer/">Disclaimer</a></li>
+      <li><a target="_blank" href="https://kawalpemilu.org/kontak/">Kontak</a></li>
+    </ul>
+  </footer>
+
+</body>
 </html>
