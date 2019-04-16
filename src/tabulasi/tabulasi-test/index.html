@@ -39,6 +39,16 @@
       display: inline;
       margin-right: 20px;
     }
+    .photos p { display: inline-block; max-width: 120px; overflow-x: hidden; margin-right: 10px; border: 1px solid #ccc; padding: 3px; background: white; }
+    table.tpssum { border-collapse: collapse; }
+    table.tpssum tr:hover { background-color: white; }
+    tbody.tps td:nth-child(1) { text-align: center; }
+    tbody.tps td:nth-child(2) { text-align: center; }
+    table.tpssum.summary { margin-top: 10px; border-top: 2px solid #ccc; }
+    table.tpssum.summary th { text-align: left; padding-right: 10px; white-space: nowrap;}
+    table.tpssum.sum th { text-align: left; padding: 5px 10px; white-space: nowrap;}
+    table.tpssum.sum td { text-align: left; padding: 5px 10px; white-space: nowrap; border-right: 1px solid #ccc;}
+    table.tpssum.sum td:last-child { border-right: 0px; }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script type="text/javascript">
@@ -257,16 +267,34 @@
         return result;
     }
 
-    function header(group, labels, tpsRow, sumKeys) {
-        var result = '';
-        var gLabels = labels[group];
-        var gKeys = sumKeys[group];
-        result += '<table><tbody>'
-        
-        for (var j = 0; j < gLabels.length; j++) {
-              result += '<tr><td " >'+gLabels[j]+'</td><td>'+tpsSum(gKeys[j], tpsRow)+'</td></tr>';
-        }
-        return result + '<tbody></table>';
+    function header(tpsRow, group, keys, labels, keysSummary, labelsSummary) {
+        var R = function(kk, ll) {
+          var s = '';
+          for (var i=0, j=0; i<ll.length; i++) {
+            var label = ll[i];
+            if (label === '@') {
+              s += '</tr><tr>';
+              continue;
+            }
+
+            var key = kk[j++];
+            s += '<th>'+label+'</th><td>'+tpsSum(key, tpsRow)+'</td>';
+          }
+          return s;
+        };
+
+        var s = '';
+
+        s += '<table class="tpssum sum '+group+'"><tr>'
+        s += R(keys, labels);
+        s += '</tr></table>';
+
+        s += '<table class="tpssum summary '+group+'"><tr>'
+        console.log(keysSummary, labelsSummary);
+        s += R(keysSummary, labelsSummary);
+        s += '</tr></table>';
+
+        return s;
     }
 
     function photos(tipeForm, tpsRow){
@@ -275,8 +303,7 @@
         var formType = ['SKIP_ZERO','PPWP','DPR','DPD','DPRP','DPRPB','DPRA','DPRD_PROV','DPRD_KAB_KOTA','DPRK','OTHERS','MALICIOUS'];
         var isPlano =  ['SKIP_ZERO', 'YES', 'NO'];  
         var imageSize = '120';
-        var s = '';
-        s += '<table><tbody>';
+        var s = '<div class="photos">';
           var urls = Object.keys(tpsRow.photos).filter( o => {
             return formType[tpsRow.photos[o].c1.type] === tipeForm;
           }).sort((a, b) => {
@@ -291,44 +318,47 @@
           for (var j = 0; j < urls.length; j++) {
             var url = urls[j];
             var p = tpsRow.photos[url];
-            s += '<td>'
-            s += '<div style="background-color: #DDD;" >';
-            s += '<a href="'+url+'"><img src="' + url + '=s' + imageSize + '"></a>';
+            s += '<p>'
+            s += '<a href="'+url+'" target="_blank"><img src="' + url + '=s' + imageSize + '"></a>';
             // s += '<br> Upload date: ' + new Date(p.ts) ;
             // s += '<br> Tipe form: ' + formType[p.c1.type] ;
             // s += '<br> Plano: ' + isPlano[p.c1.plano];
             // s += '<br> Sum :' + JSON.stringify(p.sum);
             // s += '<br> Raw :' + JSON.stringify(p);
-            s += '</div></td>';
+            s += '</p>';
           }
-          s += '</tbody></table>';
+          s += '</div>';
           return s;
     }
     
     
-    function renderTps(c, tipeForm) { 
-      // console.log("TPS Data", c);
-      
-        
-      var sumKeys = { 
+    function renderTps(c, tipeForm) {
+      var s = ''
+
+      var sumKeys = {
          'pilpres': ['pas1', 'pas2', 'sah', 'tSah', 'jum'],
+         'pilpresSummary': ['sah', 'tSah', 'jum'],
+
          'pileg'  : [ 'pkb', 'ger', 'pdi', 'gol', 'nas', 'gar', 'ber', 'sej', 'per', 'ppp', 'psi', 'pan', 'han', 'dem', 
                       'pa',  'ps', 'pda', 'pna', // Partai lokal Aceh 
-                      'pbb', 'pkp', 'pSah', 'pTSah', 'pJum' ],
+                      'pbb', 'pkp'],
+         'pilegSummary': ['pSah', 'pTSah', 'pJum' ],
          'tps' : [ 'cakupan', 'pending', 'error', 'janggal'],
-      };
-      
-      var sumLabels = { 
-         'pilpres': ['Jokowi-Amin', 'Prabowo-Sandi', 'Suara Sah', 'Tidak Sah', 'Pengguna Hak Pilih'],
-         'pileg'  : [ 'PKB', 'Gerindra', 'PDI', 'Golkar', 'Nasdem', 'Garuda', 'Berkarya', 'PKS', 'Perindo', 'PPP', 'PSI', 'PAN', 'Hanura', 'Demokrat', 
-                      'PA',  'PS', 'PDA', 'PNA', // PARTAI LOKAL ACEH 
-                      'PBB', 'PKP', 'Suara Sah', 'Tidak Sah', 'Pengguna Hak Pilih' ],
-         'tps' : [ 'Cakupan', 'Pending', 'Error', 'Janggal'],
+      }
+      var sumLabels = {
+        'pilpres': ['Jokowi-Amin', '@', 'Prabowo-Sandi' ],
+        'pileg'  : [ 'PKB', 'Gerindra', 'PDI', 'Golkar', 'Nasdem', '@',
+                     'Garuda', 'Berkarya', 'PKS', 'Perindo', 'PPP', '@',
+                     'PSI', 'PAN', 'Hanura', 'Demokrat', 
+                     'PA', '@', 'PS', 'PDA', 'PNA', // PARTAI LOKAL ACEH 
+                     'PBB', 'PKP' ],
+        'summary': ['Suara Sah', '@', 'Tidak Sah', '@', 'Pengguna Hak Pilih'],
+        'tps': ['Cakupan', 'Pending', 'Error', 'Janggal'],
       };
 
-      var s= '<thead class="tps"><tr class="header" id="header"><th>#TPS</th><th>#DPT</th><th>Hasil Perhitungan</th><th>Foto</th></tr></thead>';
-      
-      s += '<tbody>';
+      s += '<thead class="tps"><tr class="header" id="header"><th>#TPS</th><th>#DPT</th><th>Hasil Perhitungan</th><th>Foto</th></tr></thead>';
+      s += '<tbody class="tps">'
+
       var nTps = c.children.length;
       // console.log('tps', c)
 
@@ -344,10 +374,10 @@
         s += '<td>'+nDPT+'</td>';
 
         s += '<td>';
-        if(tipeForm === 'PPWP')  {
-          s += header('pilpres', sumLabels, tpsRow, sumKeys);
+        if(tipeForm !== 'DPR')  {
+          s += header(tpsRow, 'pilpres', sumKeys['pilpres'], sumLabels['pilpres'], sumKeys['pilegSummary'], sumLabels['summary']);
         } else {
-          s += header('pileg', sumLabels, tpsRow, sumKeys);  
+          s += header(tpsRow, 'pileg', sumKeys['pileg'], sumLabels['pileg'], sumKeys['pilegSummary'], sumLabels['summary']);
         }
         
         
@@ -356,7 +386,9 @@
         s += '</td>';
         s += '</tr>';
       }
-      return s + '</tbody>';
+
+      s += '</tbody>'
+      return s;
     }
 
     var sortState = [1, 1];
