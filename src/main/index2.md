@@ -28,5 +28,3 @@ Untuk melihat hasil tabulasi sementara, silakan masuk ke
 <a href="https://upload.kawalpemilu.org" target="_blank">upload.kawalpemilu.org</a>
 sebagai relawan.
 
-Data tabulasi akan ditampilkan setelah data mencakup **lebih dari 80%** TPS yang ada.
-

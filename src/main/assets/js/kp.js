@@ -46,7 +46,7 @@ function stat() {
       var id = ch[0];
       total += ch[2];
       var d = c.data[id]
-      cakupan += d.sum.cakupan;
+      cakupan += d && d.sum && d.sum.cakupan || 0
     }
     var cov = Math.round(cakupan / total * 100)
 

@@ -355,7 +355,12 @@
           },
           {
             t: '%TPS',
-            fn: function (i, data) { return [get_sum(data, 'cakupan'), c.children[i][3] + c.children[i][4]] },
+            fn: function (i, data) {
+              return [
+                get_sum(data, 'cakupan'),
+                c.children[i][3] + c.children[i][4]
+              ]
+            },
             format: format_persen_fn,
             acc_init: [0, 0],
             acc_fn: function (a, b) { return [a[0] + b[0], a[1] + b[1]] },
