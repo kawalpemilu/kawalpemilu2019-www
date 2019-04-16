@@ -5,53 +5,189 @@
   <meta charset="utf-8">
   <title>KawalPemilu - Jaga Suara 2019</title>
   <style type="text/css">
-    #navigasi { margin: 10px 0; }
-    #column_list { margin: 10px 0; }
-    .tps td { white-space: nowrap; }
-    .aggregate tr:nth-child(even) { background: #EEE; }
-    .aggregate tr:nth-child(odd) { background: #FFF; }
-    .aggregate tbody > tr:hover { background-color: #CCF; }
-    #header { background-color: #CCC; }
-    #header { cursor: pointer; }
-    .aggregate td { padding: 5px; font-family: verdana; font-size:11px; }
-    .aggregate thead > tr > th { padding:8px; margin:8px; }
-    .delta { font-size:9px; }
-    .delta.complete {}
-    .delta.incomplete { color: #888; }
-    .aggregate tr.total td:first-child { text-align: right; }
-    .aggregate tr.total td { background: #ccc; font-weight: bold; }
-    td.left { text-align: left }
-    td.right { text-align: right }
-    td.center { text-align: center }
-    .win { background-color: "lightgreen"; }
-    .winmistake { background-color: "lightgreen"; color: "red"; }
-    .lose { background-color: "lightpink"; }
-    .losemistake { background-color: "lightpink"; }
-    .mistake { background-color: "lightpink"; }
-    .c1diff { border: 2px solid red; }
-    .red { color: red; font-weight: bold }
-    #tipe { margin-bottom: 20px; }
-    #tipe a { padding: 10px 20px; border: 1px solid #888; margin-right: 10px; cursor: pointer; }
-    #tipe .active { background: yellow; }
-    footer {
+    #navigasi {
+      margin: 10px 0;
     }
+
+    #column_list {
+      margin: 10px 0;
+    }
+
+    .tps td {
+      white-space: nowrap;
+    }
+
+    .aggregate tr:nth-child(even) {
+      background: #EEE;
+    }
+
+    .aggregate tr:nth-child(odd) {
+      background: #FFF;
+    }
+
+    .aggregate tbody>tr:hover {
+      background-color: #CCF;
+    }
+
+    #header {
+      background-color: #CCC;
+    }
+
+    #header {
+      cursor: pointer;
+    }
+
+    .aggregate td {
+      padding: 5px;
+      font-family: verdana;
+      font-size: 11px;
+    }
+
+    .aggregate thead>tr>th {
+      padding: 8px;
+      margin: 8px;
+    }
+
+    .delta {
+      font-size: 9px;
+    }
+
+    .delta.complete {}
+
+    .delta.incomplete {
+      color: #888;
+    }
+
+    .aggregate tr.total td:first-child {
+      text-align: right;
+    }
+
+    .aggregate tr.total td {
+      background: #ccc;
+      font-weight: bold;
+    }
+
+    td.left {
+      text-align: left
+    }
+
+    td.right {
+      text-align: right
+    }
+
+    td.center {
+      text-align: center
+    }
+
+    .win {
+      background-color: "lightgreen";
+    }
+
+    .winmistake {
+      background-color: "lightgreen";
+      color: "red";
+    }
+
+    .lose {
+      background-color: "lightpink";
+    }
+
+    .losemistake {
+      background-color: "lightpink";
+    }
+
+    .mistake {
+      background-color: "lightpink";
+    }
+
+    .c1diff {
+      border: 2px solid red;
+    }
+
+    .red {
+      color: red;
+      font-weight: bold
+    }
+
+    #tipe {
+      margin-bottom: 20px;
+    }
+
+    #tipe a {
+      padding: 10px 20px;
+      border: 1px solid #888;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+    #tipe .active {
+      background: yellow;
+    }
+
+    footer {}
+
     footer ul {
       padding: 0;
     }
+
     footer ul li {
       display: inline;
       margin-right: 20px;
     }
-    .photos p { display: inline-block; max-width: 120px; overflow-x: hidden; margin-right: 10px; border: 1px solid #ccc; padding: 3px; background: white; }
-    table.tpssum { border-collapse: collapse; }
-    table.tpssum tr:hover { background-color: white; }
-    tbody.tps td:nth-child(1) { text-align: center; }
-    tbody.tps td:nth-child(2) { text-align: center; }
-    table.tpssum.summary { margin-top: 10px; border-top: 2px solid #ccc; }
-    table.tpssum.summary th { text-align: left; padding-right: 10px; white-space: nowrap;}
-    table.tpssum.sum th { text-align: left; padding: 5px 10px; white-space: nowrap;}
-    table.tpssum.sum td { text-align: left; padding: 5px 10px; white-space: nowrap; border-right: 1px solid #ccc;}
-    table.tpssum.sum td:last-child { border-right: 0px; }
+
+    .photos p {
+      display: inline-block;
+      max-width: 120px;
+      overflow-x: hidden;
+      margin-right: 10px;
+      border: 1px solid #ccc;
+      padding: 3px;
+      background: white;
+    }
+
+    table.tpssum {
+      border-collapse: collapse;
+    }
+
+    table.tpssum tr:hover {
+      background-color: white;
+    }
+
+    tbody.tps td:nth-child(1) {
+      text-align: center;
+    }
+
+    tbody.tps td:nth-child(2) {
+      text-align: center;
+    }
+
+    table.tpssum.summary {
+      margin-top: 10px;
+      border-top: 2px solid #ccc;
+    }
+
+    table.tpssum.summary th {
+      text-align: left;
+      padding-right: 10px;
+      white-space: nowrap;
+    }
+
+    table.tpssum.sum th {
+      text-align: left;
+      padding: 5px 10px;
+      white-space: nowrap;
+    }
+
+    table.tpssum.sum td {
+      text-align: left;
+      padding: 5px 10px;
+      white-space: nowrap;
+      border-right: 1px solid #ccc;
+    }
+
+    table.tpssum.sum td:last-child {
+      border-right: 0px;
+    }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script type="text/javascript">
@@ -81,14 +217,14 @@
         'pilpres': 'PPWP',
         'pileg': 'DPR',
       }
-      
+
       var tipe = 'pilpres';
       var id = 0;
       var pc = h.indexOf(':')
       if (h && h.length) {
         if (pc >= 0) {
           tipe = h.substring(1, pc)
-          id = h.substring(pc+1);
+          id = h.substring(pc + 1);
         } else {
           id = h.substring(1);
         }
@@ -120,15 +256,15 @@
     }
 
     function renderTipe(tipe, id) {
-      var R = function(t, n) {
-        return '<a href="#'+t+':'+id+'" class="'+(t===tipe && 'active')+'">'+n+'</a>';
+      var R = function (t, n) {
+        return '<a href="#' + t + ':' + id + '" class="' + (t === tipe && 'active') + '">' + n + '</a>';
       }
       var s = '';
       s += R('pilpres', 'Presiden')
       s += R('pileg', 'DPR')
       return s;
     }
-  
+
     function renderNavigasi(c, tipe) {
       var s = '';
       for (var i = 0; i < c.parentIds.length; i++) {
@@ -141,10 +277,10 @@
     }
 
     var columnNamesList;
-    
+
 
     function renderColumnList() {
-      
+
       var s = '';
       for (var i = 2; i < columnNamesList.length; i++) {
         s += '<input type="checkbox" checked="checked" id="colCheckbox' + i + '"onclick="hideShowColumn(' + i + ')">' + columnNamesList[i] + '&nbsp;&nbsp;</input>';
@@ -163,22 +299,22 @@
     }
 
     function renderHierarchy(c, tipe, tipeForm) {
-      let get_sum = function(d, key) {
+      let get_sum = function (d, key) {
         return d && d.sum && d.sum[key] || 0;
       };
-      let get_sum_fn = function(key) {
+      let get_sum_fn = function (key) {
         return (i, data) => get_sum(data, key)
       };
-      let format_persen_fn = function(value) {
+      let format_persen_fn = function (value) {
         return Math.round(value[0] / value[1] * 10000) / 100 + '%'
       };
-      let default_format_fn = function(value) {
+      let default_format_fn = function (value) {
         return value.toLocaleString('id')
       };
-      let format_vanilla_fn = function(value) { return value; }
+      let format_vanilla_fn = function (value) { return value; }
 
-      let acc_sum_fn = function(a, b) { return a + b }
-      let acc_empty_fn = function(a, b) { return '' }
+      let acc_sum_fn = function (a, b) { return a + b }
+      let acc_empty_fn = function (a, b) { return '' }
 
       let defaultEntry = {
         format: default_format_fn,
@@ -191,36 +327,40 @@
 
       let columns = {
         '@before': [
-          { t: '#',
-            fn: function(i) { return i + 1; },
+          {
+            t: '#',
+            fn: function (i) { return i + 1; },
             class: 'center',
             acc_fn: acc_empty_fn,
             acc_format: format_vanilla_fn,
           },
-          { t: 'Nama Wilayah',
-            fn: function(i) {
-             var cid = c.children[i][0];
-             var cname = c.children[i][1];
-             return '<a href="#' + tipe + ':' + cid + '">' + cname + '</a>';
+          {
+            t: 'Nama Wilayah',
+            fn: function (i) {
+              var cid = c.children[i][0];
+              var cname = c.children[i][1];
+              return '<a href="#' + tipe + ':' + cid + '">' + cname + '</a>';
             },
             format: format_vanilla_fn,
             class: 'left',
             acc_fn: acc_empty_fn,
-            acc_format: function() { return 'TOTAL' },
+            acc_format: function () { return 'TOTAL' },
             acc_class: 'right',
           },
         ],
         '@after': [
-           { t: 'TPS Error',
-             fn: get_sum_fn('error')
-           },
-           { t: '%TPS',
-             fn: function(i, data) { return [get_sum(data, 'cakupan'), c.children[i][3] + c.children[i][4] ] },
-             format: format_persen_fn,
-             acc_init: [0, 0],
-             acc_fn: function(a, b) { return [a[0] + b[0], a[1] + b[1]] },
-             acc_format: format_persen_fn,
-           },
+          {
+            t: 'TPS Error',
+            fn: get_sum_fn('error')
+          },
+          {
+            t: '%TPS',
+            fn: function (i, data) { return [get_sum(data, 'cakupan'), c.children[i][3] + c.children[i][4]] },
+            format: format_persen_fn,
+            acc_init: [0, 0],
+            acc_fn: function (a, b) { return [a[0] + b[0], a[1] + b[1]] },
+            acc_format: format_persen_fn,
+          },
         ],
         'pilpres': [
           { t: 'Jokowi-Amin', fn: get_sum_fn('pas1') },
@@ -255,162 +395,162 @@
       let cols = columns['@before'].concat(columns[tipe]).concat(columns['@after'])
 
       var total = []
-      for (var j=0; j<cols.length; j++) {
+      for (var j = 0; j < cols.length; j++) {
         var entry = Object.assign({}, defaultEntry, cols[j])
         total.push(entry.acc_init)
       }
 
       var sbody = ''
-      for (var i=0; i<c.children.length; i++) {
+      for (var i = 0; i < c.children.length; i++) {
         var data = c.data[c.children[i][0]];
         sbody += '<tr class="datarow">'
-        for (var j=0; j<cols.length; j++) {
+        for (var j = 0; j < cols.length; j++) {
           var entry = Object.assign({}, defaultEntry, cols[j])
           var value = entry.fn(i, data)
           total[j] = entry.acc_fn(total[j], value)
           var formatted = entry.format(value)
           var sortValue = $(value).text() ? $(value).text() : value
-          sbody += '<td data-sort-index="'+j+'" data-sort="'+sortValue+'" class="'+entry.class+'">' + formatted + '</td>'
+          sbody += '<td data-sort-index="' + j + '" data-sort="' + sortValue + '" class="' + entry.class + '">' + formatted + '</td>'
         }
         sbody += '</tr>'
       }
 
       var stotal = ''
       stotal += '<tr class="total">'
-      for (var j=0; j<cols.length; j++) {
+      for (var j = 0; j < cols.length; j++) {
         var entry = Object.assign({}, defaultEntry, cols[j])
         var value = total[j];
         var formatted = entry.acc_format(value)
-        stotal += '<td class="'+entry.acc_class+'">' + formatted + '</td>'
+        stotal += '<td class="' + entry.acc_class + '">' + formatted + '</td>'
       }
       stotal += '</tr>'
 
       var s = ''
       s += '<thead><tr class="header" id="header">'
-      for (var i=0; i<cols.length; i++) {
-        s += '<th onclick="sort('+i+')">' + cols[i].t + '</th>'
+      for (var i = 0; i < cols.length; i++) {
+        s += '<th onclick="sort(' + i + ')">' + cols[i].t + '</th>'
       }
       s += stotal
       s += '</thead>'
 
       s += '<tbody>' + sbody + '</tbody>'
       s += '<tfoot>' + stotal + '</tfoot>'
-
+      /*  */
       console.log('total', total)
 
       return s
     }
 
     function tpsSum(key, data) {
-       return (data && data.sum && data.sum[key]) || 0 ;;
+      return (data && data.sum && data.sum[key]) || 0;;
     }
 
-    function summarize( key, data, sumKeys, sortIdx) {
-        var keys = sumKeys[key];
-        var result = '';
-        for (var j = 0; j < keys.length; j++) {
-              var key = keys[j];
-              var value = tpsSum(key,data);
-              var sortValue = ($(value).text()) ? $(value).text() : value;
-              result += '<td data-sort-index="' + (sortIdx+j)+'" data-sort="'+sortValue+'">' + format(value) + '</td>';
-            }
-        return result;
+    function summarize(key, data, sumKeys, sortIdx) {
+      var keys = sumKeys[key];
+      var result = '';
+      for (var j = 0; j < keys.length; j++) {
+        var key = keys[j];
+        var value = tpsSum(key, data);
+        var sortValue = ($(value).text()) ? $(value).text() : value;
+        result += '<td data-sort-index="' + (sortIdx + j) + '" data-sort="' + sortValue + '">' + format(value) + '</td>';
+      }
+      return result;
     }
 
     function header(tpsRow, group, keys, labels, keysSummary, labelsSummary, laporanUrl) {
-        var R = function(kk, ll) {
-          var s = '';
-          for (var i=0, j=0; i<ll.length; i++) {
-            var label = ll[i];
-            if (label === '@') {
-              s += '</tr><tr>';
-              continue;
-            }
-
-            var key = kk[j++];
-            s += '<th>'+label+'</th><td>'+tpsSum(key, tpsRow)+'</td>';
-          }
-          return s;
-        };
-
+      var R = function (kk, ll) {
         var s = '';
+        for (var i = 0, j = 0; i < ll.length; i++) {
+          var label = ll[i];
+          if (label === '@') {
+            s += '</tr><tr>';
+            continue;
+          }
 
-        s += '<table class="tpssum sum '+group+'"><tr>'
-        s += R(keys, labels);
-        s += '</tr></table>';
-
-        s += '<table class="tpssum summary '+group+'"><tr>'
-        s += R(keysSummary, labelsSummary);
-        s += '</tr></table>';
-
-        s += '<p class="lapor"><a href="'+laporanUrl+'" target="_blank">Laporkan kesalahan</a></p>';
-
+          var key = kk[j++];
+          s += '<th>' + label + '</th><td>' + tpsSum(key, tpsRow) + '</td>';
+        }
         return s;
+      };
+
+      var s = '';
+
+      s += '<table class="tpssum sum ' + group + '"><tr>'
+      s += R(keys, labels);
+      s += '</tr></table>';
+
+      s += '<table class="tpssum summary ' + group + '"><tr>'
+      s += R(keysSummary, labelsSummary);
+      s += '</tr></table>';
+
+      s += '<p class="lapor"><a href="' + laporanUrl + '" target="_blank">Laporkan kesalahan</a></p>';
+
+      return s;
     }
 
-    function photos(tipeForm, tpsRow){
+    function photos(tipeForm, tpsRow) {
       if (!tpsRow) return '';
 
-        var formType = ['SKIP_ZERO','PPWP','DPR','DPD','DPRP','DPRPB','DPRA','DPRD_PROV','DPRD_KAB_KOTA','DPRK','OTHERS','MALICIOUS'];
-        var isPlano =  ['SKIP_ZERO', 'YES', 'NO'];  
-        var imageSize = '120';
-        var s = '<div class="photos">';
-          var urls = Object.keys(tpsRow.photos).filter( o => {
-            return formType[tpsRow.photos[o].c1.type] === tipeForm;
-          }).sort((a, b) => {
-            const pa = tpsRow.photos[a];
-            const pb = tpsRow.photos[b];
-            const ea = !!pa.sum.error ? 1 : 0;
-            const eb = !!pb.sum.error ? 1 : 0;
-            const va = ((ea-1)*100 + pa.c1.type * 10 + pa.c1.plano) * 1e14 + pa.ts ;
-            const vb = ((eb-1)*100 + pb.c1.type * 10 + pb.c1.plano) * 1e14 + pb.ts ;
-            return va - vb;
-          });
-          for (var j = 0; j < urls.length; j++) {
-            var url = urls[j];
-            var p = tpsRow.photos[url];
-            s += '<p>'
-            s += '<a href="'+url+'" target="_blank"><img src="' + url + '=s' + imageSize + '"></a>';
-            // s += '<br> Upload date: ' + new Date(p.ts) ;
-            // s += '<br> Tipe form: ' + formType[p.c1.type] ;
-            // s += '<br> Plano: ' + isPlano[p.c1.plano];
-            // s += '<br> Sum :' + JSON.stringify(p.sum);
-            // s += '<br> Raw :' + JSON.stringify(p);
-            s += '</p>';
-          }
-          s += '</div>';
-          return s;
+      var formType = ['SKIP_ZERO', 'PPWP', 'DPR', 'DPD', 'DPRP', 'DPRPB', 'DPRA', 'DPRD_PROV', 'DPRD_KAB_KOTA', 'DPRK', 'OTHERS', 'MALICIOUS'];
+      var isPlano = ['SKIP_ZERO', 'YES', 'NO'];
+      var imageSize = '120';
+      var s = '<div class="photos">';
+      var urls = Object.keys(tpsRow.photos).filter(o => {
+        return formType[tpsRow.photos[o].c1.type] === tipeForm;
+      }).sort((a, b) => {
+        const pa = tpsRow.photos[a];
+        const pb = tpsRow.photos[b];
+        const ea = !!pa.sum.error ? 1 : 0;
+        const eb = !!pb.sum.error ? 1 : 0;
+        const va = ((ea - 1) * 100 + pa.c1.type * 10 + pa.c1.plano) * 1e14 + pa.ts;
+        const vb = ((eb - 1) * 100 + pb.c1.type * 10 + pb.c1.plano) * 1e14 + pb.ts;
+        return va - vb;
+      });
+      for (var j = 0; j < urls.length; j++) {
+        var url = urls[j];
+        var p = tpsRow.photos[url];
+        s += '<p>'
+        s += '<a href="' + url + '" target="_blank"><img src="' + url + '=s' + imageSize + '"></a>';
+        // s += '<br> Upload date: ' + new Date(p.ts) ;
+        // s += '<br> Tipe form: ' + formType[p.c1.type] ;
+        // s += '<br> Plano: ' + isPlano[p.c1.plano];
+        // s += '<br> Sum :' + JSON.stringify(p.sum);
+        // s += '<br> Raw :' + JSON.stringify(p);
+        s += '</p>';
+      }
+      s += '</div>';
+      return s;
     }
 
     function getLaporanUrl(hash, tps, tipe, kecamatan, kelurahan) {
-        return 'https://docs.google.com/forms/d/e/1FAIpQLSdeoAqXjE-gd_YpsvpzeD1Cr21hWgwKM8MHS8CYXNajD6iKGA/viewform?usp=pp_url&' +
-            'entry.1587204645='+hash+
-            '&entry.446975413='+tps+
-            '&entry.828908754='+tipe+
-            '&entry.1325772197='+kecamatan+
-            '&entry.789113286='+kelurahan
+      return 'https://docs.google.com/forms/d/e/1FAIpQLSdeoAqXjE-gd_YpsvpzeD1Cr21hWgwKM8MHS8CYXNajD6iKGA/viewform?usp=pp_url&' +
+        'entry.1587204645=' + hash +
+        '&entry.446975413=' + tps +
+        '&entry.828908754=' + tipe +
+        '&entry.1325772197=' + kecamatan +
+        '&entry.789113286=' + kelurahan
     }
 
     function renderTps(c, tipe, tipeForm) {
       var s = ''
 
       var sumKeys = {
-         'pilpres': ['pas1', 'pas2', 'sah', 'tSah', 'jum'],
-         'pilpresSummary': ['sah', 'tSah', 'jum'],
+        'pilpres': ['pas1', 'pas2', 'sah', 'tSah', 'jum'],
+        'pilpresSummary': ['sah', 'tSah', 'jum'],
 
-         'pileg'  : [ 'pkb', 'ger', 'pdi', 'gol', 'nas', 'gar', 'ber', 'sej', 'per', 'ppp', 'psi', 'pan', 'han', 'dem', 
-                      'pa',  'ps', 'pda', 'pna', // Partai lokal Aceh 
-                      'pbb', 'pkp'],
-         'pilegSummary': ['pSah', 'pTSah', 'pJum' ],
-         'tps' : [ 'cakupan', 'pending', 'error', 'janggal'],
+        'pileg': ['pkb', 'ger', 'pdi', 'gol', 'nas', 'gar', 'ber', 'sej', 'per', 'ppp', 'psi', 'pan', 'han', 'dem',
+          'pa', 'ps', 'pda', 'pna', // Partai lokal Aceh 
+          'pbb', 'pkp'],
+        'pilegSummary': ['pSah', 'pTSah', 'pJum'],
+        'tps': ['cakupan', 'pending', 'error', 'janggal'],
       }
       var sumLabels = {
-        'pilpres': ['Jokowi-Amin', '@', 'Prabowo-Sandi' ],
-        'pileg'  : [ 'PKB', 'Gerindra', 'PDI', 'Golkar', 'Nasdem', '@',
-                     'Garuda', 'Berkarya', 'PKS', 'Perindo', 'PPP', '@',
-                     'PSI', 'PAN', 'Hanura', 'Demokrat', 
-                     'PA', '@', 'PS', 'PDA', 'PNA', // PARTAI LOKAL ACEH 
-                     'PBB', 'PKP' ],
+        'pilpres': ['Jokowi-Amin', '@', 'Prabowo-Sandi'],
+        'pileg': ['PKB', 'Gerindra', 'PDI', 'Golkar', 'Nasdem', '@',
+          'Garuda', 'Berkarya', 'PKS', 'Perindo', 'PPP', '@',
+          'PSI', 'PAN', 'Hanura', 'Demokrat',
+          'PA', '@', 'PS', 'PDA', 'PNA', // PARTAI LOKAL ACEH 
+          'PBB', 'PKP'],
         'summary': ['Suara Sah', '@', 'Tidak Sah', '@', 'Pengguna Hak Pilih'],
         'tps': ['Cakupan', 'Pending', 'Error', 'Janggal'],
       };
@@ -424,27 +564,27 @@
       var hash = location.hash.length > 0 ? location.hash.substring(1) : '';
 
       for (var i = 0; i < nTps; i++) {
-      
+
         s += '<tr class="datarow">';
 
         var tpsRow = c.data[c.children[i][0]];
-        var tpsNo  = c.children[i][0];
-        var nDPT   = c.children[i][1] + c.children[i][2];
+        var tpsNo = c.children[i][0];
+        var nDPT = c.children[i][1] + c.children[i][2];
 
-        s += '<td>'+tpsNo+'</td>';
-        s += '<td>'+nDPT+'</td>';
+        s += '<td>' + tpsNo + '</td>';
+        s += '<td>' + nDPT + '</td>';
 
-        var laporanUrl = getLaporanUrl(hash, tpsNo, tipe, c.parentNames[c.parentNames.length-1], c.name)
+        var laporanUrl = getLaporanUrl(hash, tpsNo, tipe, c.parentNames[c.parentNames.length - 1], c.name)
 
         s += '<td>';
-        if(tipeForm !== 'DPR')  {
+        if (tipeForm !== 'DPR') {
           s += header(tpsRow, 'pilpres', sumKeys['pilpres'], sumLabels['pilpres'], sumKeys['pilegSummary'], sumLabels['summary'], laporanUrl);
         } else {
           s += header(tpsRow, 'pileg', sumKeys['pileg'], sumLabels['pileg'], sumKeys['pilegSummary'], sumLabels['summary'], laporanUrl);
         }
-        
+
         s += '</td><td>';
-        s += photos(tipeForm, tpsRow);  
+        s += photos(tipeForm, tpsRow);
         s += '</td>';
         s += '</tr>';
       }
@@ -459,7 +599,7 @@
       var trs = $('table tr.datarow');
       var tds = $(trs[0]).find('td');
       var idx = 0;
-      for (var j=0; j<tds.length; j++) {
+      for (var j = 0; j < tds.length; j++) {
         if ($(tds[j]).data('sort-index') == i) {
           idx = j + 1;
           break;
@@ -472,9 +612,9 @@
       }
       sortState = [idx, mul];
 
-      trs.sort(function(a, b) {
-        var ka = $(a).find('td:nth-child('+idx+')').data('sort');
-        var kb = $(b).find('td:nth-child('+idx+')').data('sort');
+      trs.sort(function (a, b) {
+        var ka = $(a).find('td:nth-child(' + idx + ')').data('sort');
+        var kb = $(b).find('td:nth-child(' + idx + ')').data('sort');
         if (!ka && !kb) return 0 * mul;
         if (!ka && !!kb) return -1 * mul;
         if (!!ka && !kb) return 1 * mul;
@@ -490,11 +630,11 @@
       if (str == 0) return '0';
       var nres = '' + str;
       var res = '';
-      for (var i =0; i< nres.length;i++) {
-        if (i > 0 && i%3 == 0) {
+      for (var i = 0; i < nres.length; i++) {
+        if (i > 0 && i % 3 == 0) {
           res = '.' + res;
         }
-        res = nres[nres.length-i-1] + res;
+        res = nres[nres.length - i - 1] + res;
       }
       return res;
     }
@@ -506,7 +646,8 @@
 
 <body>
   <h1>Hasil Data Uji Coba Kawal Pemilu 2019</h1>
-  <p>Halaman ini berisi hasil tabulasi dari <strong>DATA UJI COBA</strong> yang sudah masuk ke <a href="https://upload.kawalpemilu.org">upload.kawalpemilu.org</a>.</p>
+  <p>Halaman ini berisi hasil tabulasi dari <strong>DATA UJI COBA</strong> yang sudah masuk ke <a
+      href="https://upload.kawalpemilu.org">upload.kawalpemilu.org</a>.</p>
   <p>Pada hari pemungutan suara, data ini akan diganti dengan data asli yang dikumpulkan oleh relawan dari lapangan.</p>
   <div id="tipe"></div>
   <div id="navigasi"></div>
@@ -525,4 +666,5 @@
   </footer>
 
 </body>
+
 </html>
