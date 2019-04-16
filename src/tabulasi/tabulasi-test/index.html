@@ -264,6 +264,8 @@
       let tipeForm = tipeForms[tipe]
       id = isNaN(id) ? 0 : id;
 
+      history.replaceState({}, 'Kawal Pemilu - Jaga Suara 2019', location.pathname + '#' + tipe + ':' + id)
+
       get(id, function (c) {
         // console.log(JSON.stringify(c, null, 2));
         document.getElementById('tipe').innerHTML = renderTipe(tipe, id);
