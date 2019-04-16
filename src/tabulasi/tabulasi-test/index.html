@@ -20,6 +20,9 @@
     .delta.incomplete { color: #888; }
     .aggregate tr.total td:first-child { text-align: right; }
     .aggregate tr.total td { background: #ccc; font-weight: bold; }
+    td.left { text-align: left }
+    td.right { text-align: right }
+    td.center { text-align: center }
     .win { background-color: "lightgreen"; }
     .winmistake { background-color: "lightgreen"; color: "red"; }
     .lose { background-color: "lightpink"; }
@@ -160,96 +163,100 @@
     }
 
     function renderHierarchy(c, tipe, tipeForm) {
-      var columns = {
-        '#': function (i) { return i + 1; },
-        'Nama Wilayah': function (i) {
-          var cid = c.children[i][0];
-          var cname = c.children[i][1];
-          return '<a href="#' + tipe + ':' + cid + '">' + cname + '</a>';
-        },
-        'Jokowi-Amin': function (i, data) { return (data && data.sum && data.sum.pas1) || 0; },
-        'Prabowo-Sandi': function (i, data) { return (data && data.sum && data.sum.pas2) || 0; },
-        'Jumlah': function (i, data) { return (data && data.sum && data.sum.jum) || 0; },
-        'Suara Sah': function (i, data) { return (data && data.sum && data.sum.sah) || 0; },
-        'Tidak Sah': function (i, data) { return (data && data.sum && data.sum.tSah) || 0; },
-        'PKB': function (i, data) { return (data && data.sum && data.sum.pkb) || 0; },
-        'Gerindra': function (i, data) { return (data && data.sum && data.sum.ger) || 0; },
-        'PDI': function (i, data) { return (data && data.sum && data.sum.pdi) || 0; },
-        'Golkar': function (i, data) { return (data && data.sum && data.sum.gol) || 0; },
-        'Nasdem': function (i, data) { return (data && data.sum && data.sum.nas) || 0; },
-        'Garuda': function (i, data) { return (data && data.sum && data.sum.gar) || 0; },
-        'Berkarya': function (i, data) { return (data && data.sum && data.sum.ber) || 0; },
-        'PKS': function (i, data) { return (data && data.sum && data.sum.sej) || 0; },
-        'Perindo': function (i, data) { return (data && data.sum && data.sum.per) || 0; },
-        'PPP': function (i, data) { return (data && data.sum && data.sum.ppp) || 0; },
-        'PSI': function (i, data) { return (data && data.sum && data.sum.psi) || 0; },
-        'PAN': function (i, data) { return (data && data.sum && data.sum.pan) || 0; },
-        'Hanura': function (i, data) { return (data && data.sum && data.sum.han) || 0; },
-        'Demokrat': function (i, data) { return (data && data.sum && data.sum.dem) || 0; },
-        'PA': function (i, data) { return (data && data.sum && data.sum.pa) || 0; },
-        'PS': function (i, data) { return (data && data.sum && data.sum.ps) || 0; },
-        'PDA': function (i, data) { return (data && data.sum && data.sum.pda) || 0; },
-        'PNA': function (i, data) { return (data && data.sum && data.sum.pna) || 0; },
-        'PBB': function (i, data) { return (data && data.sum && data.sum.pbb) || 0; },
-        'PKP': function (i, data) { return (data && data.sum && data.sum.pkp) || 0; },
-        'TPS Error': function (i, data) { return (data && data.sum && data.sum.error) || 0; },
-        'Cakupan': function (i, data) { return (data && data.sum && data.sum.cakupan) || 0; },
-        'Pending': function (i, data) { return (data && data.sum && data.sum.pending) || 0; },
-        'Janggal': function (i, data) { return (data && data.sum && data.sum.janggal) || 0; },
-        
-        'nTPS': function (i) { return c.children[i][2]; },
-        'nDPT': function (i) {
-          var nL = c.children[i][3];
-          var nP = c.children[i][4];
-          return nL + nP;
-        },
-        // Tambahin as necessary (ada "pkb", "nas", etc untuk suara partai ).
+      let get_sum = function(d, key) {
+        return d && d.sum && d.sum[key] || 0;
       };
-      
-      let daftarKolom = {
-        'PPWP': ['#','Nama Wilayah','Jokowi-Amin', 'Prabowo-Sandi', 'Jumlah', 'Suara Sah', 'Tidak Sah'],
-        'DPR': ['#','Nama Wilayah','PKB', 'Gerindra', 'PDI', 'Golkar', 'Nasdem', 'Garuda', 'Berkarya', 'PKS', 'Perindo', 'PPP', 'PSI', 'PAN', 'Hanura', 'Demokrat', 
-                      'PA',  'PS', 'PDA', 'PNA', 'PBB', 'PKP'],
-        'COMMON': ['Cakupan','Pending','Janggal','nDPT','nTPS']
+      let get_sum_fn = function(key) {
+        return (i, data) => get_sum(data, key)
       };
-      let colKeys = daftarKolom[tipeForm].concat(daftarKolom['COMMON']);
+      let format_persen_fn = function(value) {
+        return Math.round(value * 100) / 100 + '%'
+      };
+      let default_format_fn = function(value) {
+        return value.toLocaleString('id')
+      };
+      let format_vanilla_fn = function(value) { return value; }
 
-      var s = '<thead><tr class="header" id="header" bgcolor="#DDDDDD">';
-      // var colKeys = Object.keys(columns);
-      for (var i = 0; i < colKeys.length; i++) {
-        
-        s += '<th onclick="sort(' + i + ')">' + colKeys[i];
+      let defaultEntry = {
+        format: default_format_fn,
+        class: 'right',
+      };
+
+      let columns = {
+        '@before': [
+          {t: '#', fn: function(i) { return i + 1; }, class: 'center', },
+          {t: 'Nama Wilayah',
+           fn: function(i) {
+            var cid = c.children[i][0];
+            var cname = c.children[i][1];
+            return '<a href="#' + tipe + ':' + cid + '">' + cname + '</a>';
+           },
+           format: format_vanilla_fn,
+           class: 'left',
+          }
+        ],
+        '@after': [
+           {t: 'TPS Error', fn: get_sum_fn('error') },
+           {t: '%TPS',
+            fn: function(i, data) { return get_sum(data, 'cakupan') / (c.children[i][3] + c.children[i][4]) * 100 },
+            format: format_persen_fn,
+           },
+        ],
+        'pilpres': [
+          {t: 'Jokowi-Amin', fn: get_sum_fn('pas1') },
+          {t: 'Prabowo-Sandi', fn: get_sum_fn('pas2') },
+          {t: 'Suara Sah', fn: get_sum_fn('sah') },
+          {t: 'Tidak Sah', fn: get_sum_fn('tSah') },
+        ],
+        'pileg': [
+          {t: 'PKB', fn: get_sum_fn('pkb') },
+          {t: 'Gerindra', fn: get_sum_fn('ger') },
+          {t: 'PDI', fn: get_sum_fn('pdi') },
+          {t: 'Golkar', fn: get_sum_fn('gol') },
+          {t: 'Nasdem', fn: get_sum_fn('nas') },
+          {t: 'Garuda', fn: get_sum_fn('gar') },
+          {t: 'Berkarya', fn: get_sum_fn('ber') },
+          {t: 'PKS', fn: get_sum_fn('sej') },
+          {t: 'Perindo', fn: get_sum_fn('per') },
+          {t: 'PPP', fn: get_sum_fn('ppp') },
+          {t: 'PSI', fn: get_sum_fn('psi') },
+          {t: 'PAN', fn: get_sum_fn('pan') },
+          {t: 'Hanura', fn: get_sum_fn('han') },
+          {t: 'Demokrat', fn: get_sum_fn('dem') },
+          {t: 'PA', fn: get_sum_fn('pa') },
+          {t: 'PS', fn: get_sum_fn('ps') },
+          {t: 'PDA', fn: get_sum_fn('pda') },
+          {t: 'PNA', fn: get_sum_fn('pna') },
+          {t: 'PBB', fn: get_sum_fn('pbb') },
+          {t: 'PKP', fn: get_sum_fn('pkp') },
+        ],
       }
-      s += '</tr></thead><tbody>';
 
-      //populate columnList
-      
-      columnNamesList = [];
-      for (var i = 0; i < colKeys.length; i++) {
-          columnNamesList.push(colKeys[i]);
+      let cols = columns['@before'].concat(columns[tipe]).concat(columns['@after'])
+
+      var s = ''
+      s += '<thead><tr class="header" id="header">'
+      for (var i=0; i<cols.length; i++) {
+        s += '<th onclick="sort('+i+')">' + cols[i].t + '</th>'
       }
-      
+      s += '</thead>'
 
-      for (var i = 0; i < c.children.length; i++) {
+      s += '<tbody>'
+      for (var i=0; i<c.children.length; i++) {
         var data = c.data[c.children[i][0]];
-        s += '<tr class="datarow">';
-        for (var j = 0; j < colKeys.length; j++) {
-          var value = columns[colKeys[j]](i, data);
-          var sortValue = ($(value).text()) ? $(value).text() : value;
-          s += '<td data-sort-index="' + j + '" data-sort="' + sortValue + '" ' + renderCellStyle(j) + '>' + format(value);
+        s += '<tr class="datarow">'
+        for (var j=0; j<cols.length; j++) {
+          var entry = Object.assign({}, defaultEntry, cols[j])
+          var value = entry.fn(i, data)
+          var formatted = entry.format(value)
+          var sortValue = $(value).text() ? $(value).text() : value
+          s += '<td data-sort-index="'+j+'" data-sort="'+sortValue+'" class="'+entry.class+'">' + formatted + '</td>'
         }
+        s += '</tr>'
       }
-      return s + '</tbody>';
-    }
+      s += '</tbody>'
 
-    function renderCellStyle(c) {
-      if (c === 0) {
-        return 'align="center"';
-      } else if (c === 1) {
-        return 'align="left"';
-      } else {
-        return 'align="right"';
-      }
+      return s
     }
 
     function tpsSum(key, data) {
@@ -393,7 +400,6 @@
         } else {
           s += header(tpsRow, 'pileg', sumKeys['pileg'], sumLabels['pileg'], sumKeys['pilegSummary'], sumLabels['summary'], laporanUrl);
         }
-        
         
         s += '</td><td>';
         s += photos(tipeForm, tpsRow);  
