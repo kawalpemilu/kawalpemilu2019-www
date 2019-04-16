@@ -261,7 +261,7 @@
         var result = '';
         var gLabels = labels[group];
         var gKeys = sumKeys[group];
-        result += '<table><thead><tr><th colspan="2">'+group+'</th></tr><tbody>';
+        result += '<table><tbody>'
         
         for (var j = 0; j < gLabels.length; j++) {
               result += '<tr><td " >'+gLabels[j]+'</td><td>'+tpsSum(gKeys[j], tpsRow)+'</td></tr>';
@@ -294,10 +294,11 @@
             s += '<td>'
             s += '<div style="background-color: #DDD;" >';
             s += '<a href="'+url+'"><img src="' + url + '=s' + imageSize + '"></a>';
-            s += '<br> Upload date: ' + new Date(p.ts) ;
-            s += '<br> Tipe form: ' + formType[p.c1.type] ;
-            s += '<br> Plano: ' + isPlano[p.c1.plano];
-            s += '<br> Sum :' + JSON.stringify(p.sum);
+            // s += '<br> Upload date: ' + new Date(p.ts) ;
+            // s += '<br> Tipe form: ' + formType[p.c1.type] ;
+            // s += '<br> Plano: ' + isPlano[p.c1.plano];
+            // s += '<br> Sum :' + JSON.stringify(p.sum);
+            // s += '<br> Raw :' + JSON.stringify(p);
             s += '</div></td>';
           }
           s += '</tbody></table>';
@@ -310,25 +311,26 @@
       
         
       var sumKeys = { 
-         'pilpres': ['pas1', 'pas2', 'jum', 'sah', 'tSah'],
+         'pilpres': ['pas1', 'pas2', 'sah', 'tSah', 'jum'],
          'pileg'  : [ 'pkb', 'ger', 'pdi', 'gol', 'nas', 'gar', 'ber', 'sej', 'per', 'ppp', 'psi', 'pan', 'han', 'dem', 
                       'pa',  'ps', 'pda', 'pna', // Partai lokal Aceh 
-                      'pbb', 'pkp', 'pJum', 'pSah', 'pTSah' ],
+                      'pbb', 'pkp', 'pSah', 'pTSah', 'pJum' ],
          'tps' : [ 'cakupan', 'pending', 'error', 'janggal'],
       };
       
       var sumLabels = { 
-         'pilpres': ['Jokowi-Amin', 'Prabowo-Sandi', 'Jumlah', 'Suara Sah', 'Tidak Sah'],
+         'pilpres': ['Jokowi-Amin', 'Prabowo-Sandi', 'Suara Sah', 'Tidak Sah', 'Pengguna Hak Pilih'],
          'pileg'  : [ 'PKB', 'Gerindra', 'PDI', 'Golkar', 'Nasdem', 'Garuda', 'Berkarya', 'PKS', 'Perindo', 'PPP', 'PSI', 'PAN', 'Hanura', 'Demokrat', 
                       'PA',  'PS', 'PDA', 'PNA', // PARTAI LOKAL ACEH 
-                      'PBB', 'PKP', 'Jumlah', 'Suara Sah', 'Tidak Sah' ],
+                      'PBB', 'PKP', 'Suara Sah', 'Tidak Sah', 'Pengguna Hak Pilih' ],
          'tps' : [ 'Cakupan', 'Pending', 'Error', 'Janggal'],
       };
 
-      var s = '<thead><tr class="header" id="header" bgcolor="#DDDDDD"><th>TPS</th><th>Hasil Perhitungan</th><th>Photos</th></tr></thead>';
+      var s= '<thead class="tps"><tr class="header" id="header"><th>#TPS</th><th>#DPT</th><th>Hasil Perhitungan</th><th>Foto</th></tr></thead>';
       
       s += '<tbody>';
       var nTps = c.children.length;
+      // console.log('tps', c)
 
       for (var i = 0; i < nTps; i++) {
       
@@ -339,6 +341,7 @@
         var nDPT   = c.children[i][1] + c.children[i][2];
 
         s += '<td>'+tpsNo+'</td>';
+        s += '<td>'+nDPT+'</td>';
 
         s += '<td>';
         if(tipeForm === 'PPWP')  {
