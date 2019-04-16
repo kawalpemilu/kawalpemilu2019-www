@@ -68,3 +68,6 @@ node_modules/
 *.swp
 
 _build/
+_staging/
+_public/
+

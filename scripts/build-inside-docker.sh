@@ -6,8 +6,8 @@ set -x
 apt update
 apt install -y ruby ruby-dev rsync build-essential
 
-rm -rf /kp/_build/
-mkdir -p /kp/_build/
+rm -rf /kp/_build/ /kp/_public/
+mkdir -p /kp/_build/ /kp/_public/
 
 # main/overall site
 
@@ -30,4 +30,8 @@ rsync -avH ./ /kp/_build/
 
 cd /kp
 chown -R 1000:1000 /kp/_build
+
+# copy for public
+
+rsync -avH --exclude '*tabulasi*' --delete-excluded /kp/_build/ /kp/_public/
 
