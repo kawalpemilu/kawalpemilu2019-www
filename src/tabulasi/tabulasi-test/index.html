@@ -73,6 +73,24 @@
 
     #navigasi {
       margin: 10px 0;
+      white-space: nowrap;
+    }
+
+    #navigasi .nav {
+      color: black;
+    }
+
+    #navigasi a.nav {
+      color: blue;
+      text-decoration: none;
+    }
+
+    #navigasi a.nav:hover {
+      text-decoration: underline;
+    }
+
+    #navigasi span.sep {
+      padding: 0 5px;
     }
 
     #column_list {
@@ -175,19 +193,25 @@
     }
 
     #tipe {
-      margin-bottom: 20px;
+      margin: 10px 0 20px 0;
     }
 
     #tipe a {
       padding: 10px 20px;
-      border: 1px solid #888;
       margin-right: 10px;
       cursor: pointer;
       display: inline-block;
+      text-decoration: none;
+      background: #e0e0e0;
+      color: black;
+      border-radius: 5px;
+      border-bottom: 1px solid #bdbdbd;
     }
 
     #tipe .active {
-      background: yellow;
+      background: #616161;
+      color: white;
+      border-bottom: 1px solid #424242;
     }
 
     footer {
@@ -363,9 +387,9 @@
       for (var i = 0; i < c.parentIds.length; i++) {
         var pid = c.parentIds[i];
         var pname = c.parentNames[i];
-        s += '<a href="#' + tipe + ':' + pid + '">' + pname + '</a> &gt;&nbsp; ';
+        s += '<a class="nav" href="#' + tipe + ':' + pid + '">' + pname + '</a> <span class="sep">&gt;</span> ';
       }
-      s += c.name;
+      s += '<span class="nav">' + c.name + '</span>';
       return s;
     }
 
@@ -755,8 +779,9 @@
     </p>
 
     <p class="warn">
-      Data di halaman ini masih belum final dan akan terus diperbarui!
-      Terakhir diakses <script>document.write(new Date().toDateString());</script>
+      Data di halaman ini masih <strong>belum final</strong> dan akan terus diperbarui!
+      Terakhir diakses
+      <script>document.write(new Date());</script>
     </p>
 
     <div id="tipe"></div>
