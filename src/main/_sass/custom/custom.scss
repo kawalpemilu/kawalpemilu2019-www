@@ -1,3 +1,23 @@
 .page-content a {
   white-space: normal;
 }
+
+#stat {
+  text-align: center;
+
+  #chart {
+    display: inline-block;
+    margin: 0 auto;
+
+    table {
+      box-shadow: unset;
+    }
+  }
+
+  #cakupan, #ntps, #cov {
+    font-weight: bold;
+  }
+  #cov {
+    color: red;
+  }
+}
