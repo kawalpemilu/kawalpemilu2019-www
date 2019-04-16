@@ -33,8 +33,42 @@
   -->
 
   <style type="text/css">
+    body,
+    html {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0px;
+      padding: 0px;
+      height: 100%;
+      width: 100%;
+    }
+
     body {
-      font-family: Arial, Helvetica, sans-serif
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: #607d8b;
+      color: white;
+      font-size: 26px;
+      margin: 0px;
+      background-image: url(https://upload.kawalpemilu.org/assets/logo/android-icon-72x72.png);
+      background-repeat: no-repeat;
+      background-position: top left;
+      padding: 15px 20px 15px 90px;
+    }
+
+    main {
+      padding: 25px;
+      flex: 1;
+    }
+
+    h1 {
+      margin: 0px;
+    }
+
+    table.aggregate {
+      margin-top: 5px;
     }
 
     #navigasi {
@@ -149,21 +183,38 @@
       border: 1px solid #888;
       margin-right: 10px;
       cursor: pointer;
+      display: inline-block;
     }
 
     #tipe .active {
       background: yellow;
     }
 
-    footer {}
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      background: #37474f;
+      color: white;
+    }
+
+    footer a {
+      color: white;
+      text-decoration: none;
+      padding: 7px 15px;
+      display: inline-block;
+    }
+
+    footer a:hover {
+      background: #62727b;
+    }
 
     footer ul {
       padding: 0;
+      margin: 0px;
     }
 
     footer ul li {
       display: inline;
-      margin-right: 20px;
     }
 
     .photos p {
@@ -218,6 +269,15 @@
 
     table.tpssum.sum td:last-child {
       border-right: 0px;
+    }
+
+    p.warn {
+      border: 1px solid #e57373;
+      background: #ffebee;
+      border-radius: 5px;
+      padding: 15px;
+      margin: 15px -15px;
+      display: block;
     }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -683,15 +743,28 @@
 </head>
 
 <body>
-  <h1>Hasil Data Uji Coba Kawal Pemilu 2019</h1>
-  <p>Halaman ini berisi hasil tabulasi dari <strong>DATA UJI COBA</strong> yang sudah masuk ke <a
-      href="https://upload.kawalpemilu.org">upload.kawalpemilu.org</a>.</p>
-  <p>Pada hari pemungutan suara, data ini akan diganti dengan data asli yang dikumpulkan oleh relawan dari lapangan.</p>
-  <div id="tipe"></div>
-  <div id="navigasi"></div>
-  <div id="column_list"></div>
-  <table class="aggregate" id="tabulasi"></table>
+  <header>
+    Kawal Pemilu - Jaga Suara 2019
+  </header>
 
+  <main>
+    <h1>Hasil Data Uji Coba Kawal Pemilu 2019</h1>
+    <p>Halaman ini berisi hasil tabulasi dari <strong>DATA UJI COBA</strong> yang sudah masuk ke <a
+        href="https://upload.kawalpemilu.org">upload.kawalpemilu.org</a>.</p>
+    <p>Pada hari pemungutan suara, data ini akan diganti dengan data asli yang dikumpulkan oleh relawan dari lapangan.
+    </p>
+
+    <p class="warn">
+      Data di halaman ini masih belum final dan akan terus diperbarui!
+      Terakhir diakses <script>document.write(new Date().toDateString());</script>
+    </p>
+
+    <div id="tipe"></div>
+    <div id="navigasi"></div>
+    <div id="column_list"></div>
+
+    <table class="aggregate" id="tabulasi"></table>
+  </main>
 
   <footer>
     <ul>
