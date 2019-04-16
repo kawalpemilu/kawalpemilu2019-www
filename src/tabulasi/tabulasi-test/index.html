@@ -99,7 +99,7 @@
         document.getElementById('tipe').innerHTML = renderTipe(tipe, id);
         document.getElementById('navigasi').innerHTML = renderNavigasi(c, tipe);
         var isHierarchyTable = c.depth < 4;
-        document.getElementById('tabulasi').innerHTML = isHierarchyTable ? renderHierarchy(c, tipe, tipeForm) : renderTps(c, tipeForm);
+        document.getElementById('tabulasi').innerHTML = isHierarchyTable ? renderHierarchy(c, tipe, tipeForm) : renderTps(c, tipe, tipeForm);
         if (isHierarchyTable) {
           
           document.getElementById('column_list').innerHTML = renderColumnList();
@@ -267,7 +267,7 @@
         return result;
     }
 
-    function header(tpsRow, group, keys, labels, keysSummary, labelsSummary) {
+    function header(tpsRow, group, keys, labels, keysSummary, labelsSummary, laporanUrl) {
         var R = function(kk, ll) {
           var s = '';
           for (var i=0, j=0; i<ll.length; i++) {
@@ -290,9 +290,10 @@
         s += '</tr></table>';
 
         s += '<table class="tpssum summary '+group+'"><tr>'
-        console.log(keysSummary, labelsSummary);
         s += R(keysSummary, labelsSummary);
         s += '</tr></table>';
+
+        s += '<p class="lapor"><a href="'+laporanUrl+'" target="_blank">Laporkan kesalahan</a></p>';
 
         return s;
     }
@@ -330,9 +331,17 @@
           s += '</div>';
           return s;
     }
-    
-    
-    function renderTps(c, tipeForm) {
+
+    function getLaporanUrl(hash, tps, tipe, kecamatan, kelurahan) {
+        return 'https://docs.google.com/forms/d/e/1FAIpQLSdeoAqXjE-gd_YpsvpzeD1Cr21hWgwKM8MHS8CYXNajD6iKGA/viewform?usp=pp_url&' +
+            'entry.1587204645='+hash+
+            '&entry.446975413='+tps+
+            '&entry.828908754='+tipe+
+            '&entry.1325772197='+kecamatan+
+            '&entry.789113286='+kelurahan
+    }
+
+    function renderTps(c, tipe, tipeForm) {
       var s = ''
 
       var sumKeys = {
@@ -362,6 +371,8 @@
       var nTps = c.children.length;
       // console.log('tps', c)
 
+      var hash = location.hash.length > 0 ? location.hash.substring(1) : '';
+
       for (var i = 0; i < nTps; i++) {
       
         s += '<tr class="datarow">';
@@ -373,11 +384,13 @@
         s += '<td>'+tpsNo+'</td>';
         s += '<td>'+nDPT+'</td>';
 
+        var laporanUrl = getLaporanUrl(hash, tpsNo, tipe, c.parentNames[c.parentNames.length-1], c.name)
+
         s += '<td>';
         if(tipeForm !== 'DPR')  {
-          s += header(tpsRow, 'pilpres', sumKeys['pilpres'], sumLabels['pilpres'], sumKeys['pilegSummary'], sumLabels['summary']);
+          s += header(tpsRow, 'pilpres', sumKeys['pilpres'], sumLabels['pilpres'], sumKeys['pilegSummary'], sumLabels['summary'], laporanUrl);
         } else {
-          s += header(tpsRow, 'pileg', sumKeys['pileg'], sumLabels['pileg'], sumKeys['pilegSummary'], sumLabels['summary']);
+          s += header(tpsRow, 'pileg', sumKeys['pileg'], sumLabels['pileg'], sumKeys['pilegSummary'], sumLabels['summary'], laporanUrl);
         }
         
         
