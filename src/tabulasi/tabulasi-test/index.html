@@ -170,91 +170,133 @@
         return (i, data) => get_sum(data, key)
       };
       let format_persen_fn = function(value) {
-        return Math.round(value * 100) / 100 + '%'
+        return Math.round(value[0] / value[1] * 10000) / 100 + '%'
       };
       let default_format_fn = function(value) {
         return value.toLocaleString('id')
       };
       let format_vanilla_fn = function(value) { return value; }
 
+      let acc_sum_fn = function(a, b) { return a + b }
+      let acc_empty_fn = function(a, b) { return '' }
+
       let defaultEntry = {
         format: default_format_fn,
         class: 'right',
+        acc_init: 0,
+        acc_fn: acc_sum_fn,
+        acc_format: default_format_fn,
+        acc_class: 'right',
       };
 
       let columns = {
         '@before': [
-          {t: '#', fn: function(i) { return i + 1; }, class: 'center', },
-          {t: 'Nama Wilayah',
-           fn: function(i) {
-            var cid = c.children[i][0];
-            var cname = c.children[i][1];
-            return '<a href="#' + tipe + ':' + cid + '">' + cname + '</a>';
-           },
-           format: format_vanilla_fn,
-           class: 'left',
-          }
+          { t: '#',
+            fn: function(i) { return i + 1; },
+            class: 'center',
+            acc_fn: acc_empty_fn,
+            acc_format: format_vanilla_fn,
+          },
+          { t: 'Nama Wilayah',
+            fn: function(i) {
+             var cid = c.children[i][0];
+             var cname = c.children[i][1];
+             return '<a href="#' + tipe + ':' + cid + '">' + cname + '</a>';
+            },
+            format: format_vanilla_fn,
+            class: 'left',
+            acc_fn: acc_empty_fn,
+            acc_format: function() { return 'TOTAL' },
+            acc_class: 'right',
+          },
         ],
         '@after': [
-           {t: 'TPS Error', fn: get_sum_fn('error') },
-           {t: '%TPS',
-            fn: function(i, data) { return get_sum(data, 'cakupan') / (c.children[i][3] + c.children[i][4]) * 100 },
-            format: format_persen_fn,
+           { t: 'TPS Error',
+             fn: get_sum_fn('error')
+           },
+           { t: '%TPS',
+             fn: function(i, data) { return [get_sum(data, 'cakupan'), c.children[i][3] + c.children[i][4] ] },
+             format: format_persen_fn,
+             acc_init: [0, 0],
+             acc_fn: function(a, b) { return [a[0] + b[0], a[1] + b[1]] },
+             acc_format: format_persen_fn,
            },
         ],
         'pilpres': [
-          {t: 'Jokowi-Amin', fn: get_sum_fn('pas1') },
-          {t: 'Prabowo-Sandi', fn: get_sum_fn('pas2') },
-          {t: 'Suara Sah', fn: get_sum_fn('sah') },
-          {t: 'Tidak Sah', fn: get_sum_fn('tSah') },
+          { t: 'Jokowi-Amin', fn: get_sum_fn('pas1') },
+          { t: 'Prabowo-Sandi', fn: get_sum_fn('pas2') },
+          { t: 'Suara Sah', fn: get_sum_fn('sah') },
+          { t: 'Tidak Sah', fn: get_sum_fn('tSah') },
         ],
         'pileg': [
-          {t: 'PKB', fn: get_sum_fn('pkb') },
-          {t: 'Gerindra', fn: get_sum_fn('ger') },
-          {t: 'PDI', fn: get_sum_fn('pdi') },
-          {t: 'Golkar', fn: get_sum_fn('gol') },
-          {t: 'Nasdem', fn: get_sum_fn('nas') },
-          {t: 'Garuda', fn: get_sum_fn('gar') },
-          {t: 'Berkarya', fn: get_sum_fn('ber') },
-          {t: 'PKS', fn: get_sum_fn('sej') },
-          {t: 'Perindo', fn: get_sum_fn('per') },
-          {t: 'PPP', fn: get_sum_fn('ppp') },
-          {t: 'PSI', fn: get_sum_fn('psi') },
-          {t: 'PAN', fn: get_sum_fn('pan') },
-          {t: 'Hanura', fn: get_sum_fn('han') },
-          {t: 'Demokrat', fn: get_sum_fn('dem') },
-          {t: 'PA', fn: get_sum_fn('pa') },
-          {t: 'PS', fn: get_sum_fn('ps') },
-          {t: 'PDA', fn: get_sum_fn('pda') },
-          {t: 'PNA', fn: get_sum_fn('pna') },
-          {t: 'PBB', fn: get_sum_fn('pbb') },
-          {t: 'PKP', fn: get_sum_fn('pkp') },
+          { t: 'PKB', fn: get_sum_fn('pkb') },
+          { t: 'Gerindra', fn: get_sum_fn('ger') },
+          { t: 'PDI', fn: get_sum_fn('pdi') },
+          { t: 'Golkar', fn: get_sum_fn('gol') },
+          { t: 'Nasdem', fn: get_sum_fn('nas') },
+          { t: 'Garuda', fn: get_sum_fn('gar') },
+          { t: 'Berkarya', fn: get_sum_fn('ber') },
+          { t: 'PKS', fn: get_sum_fn('sej') },
+          { t: 'Perindo', fn: get_sum_fn('per') },
+          { t: 'PPP', fn: get_sum_fn('ppp') },
+          { t: 'PSI', fn: get_sum_fn('psi') },
+          { t: 'PAN', fn: get_sum_fn('pan') },
+          { t: 'Hanura', fn: get_sum_fn('han') },
+          { t: 'Demokrat', fn: get_sum_fn('dem') },
+          { t: 'PA', fn: get_sum_fn('pa') },
+          { t: 'PS', fn: get_sum_fn('ps') },
+          { t: 'PDA', fn: get_sum_fn('pda') },
+          { t: 'PNA', fn: get_sum_fn('pna') },
+          { t: 'PBB', fn: get_sum_fn('pbb') },
+          { t: 'PKP', fn: get_sum_fn('pkp') },
         ],
       }
 
       let cols = columns['@before'].concat(columns[tipe]).concat(columns['@after'])
+
+      var total = []
+      for (var j=0; j<cols.length; j++) {
+        var entry = Object.assign({}, defaultEntry, cols[j])
+        total.push(entry.acc_init)
+      }
+
+      var sbody = ''
+      for (var i=0; i<c.children.length; i++) {
+        var data = c.data[c.children[i][0]];
+        sbody += '<tr class="datarow">'
+        for (var j=0; j<cols.length; j++) {
+          var entry = Object.assign({}, defaultEntry, cols[j])
+          var value = entry.fn(i, data)
+          total[j] = entry.acc_fn(total[j], value)
+          var formatted = entry.format(value)
+          var sortValue = $(value).text() ? $(value).text() : value
+          sbody += '<td data-sort-index="'+j+'" data-sort="'+sortValue+'" class="'+entry.class+'">' + formatted + '</td>'
+        }
+        sbody += '</tr>'
+      }
+
+      var stotal = ''
+      stotal += '<tr class="total">'
+      for (var j=0; j<cols.length; j++) {
+        var entry = Object.assign({}, defaultEntry, cols[j])
+        var value = total[j];
+        var formatted = entry.acc_format(value)
+        stotal += '<td class="'+entry.acc_class+'">' + formatted + '</td>'
+      }
+      stotal += '</tr>'
 
       var s = ''
       s += '<thead><tr class="header" id="header">'
       for (var i=0; i<cols.length; i++) {
         s += '<th onclick="sort('+i+')">' + cols[i].t + '</th>'
       }
+      s += stotal
       s += '</thead>'
 
-      s += '<tbody>'
-      for (var i=0; i<c.children.length; i++) {
-        var data = c.data[c.children[i][0]];
-        s += '<tr class="datarow">'
-        for (var j=0; j<cols.length; j++) {
-          var entry = Object.assign({}, defaultEntry, cols[j])
-          var value = entry.fn(i, data)
-          var formatted = entry.format(value)
-          var sortValue = $(value).text() ? $(value).text() : value
-          s += '<td data-sort-index="'+j+'" data-sort="'+sortValue+'" class="'+entry.class+'">' + formatted + '</td>'
-        }
-        s += '</tr>'
-      }
-      s += '</tbody>'
+      s += '<tbody>' + sbody + '</tbody>'
+      s += '<tfoot>' + stotal + '</tfoot>'
+
+      console.log('total', total)
 
       return s
     }
