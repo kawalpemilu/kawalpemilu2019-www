@@ -351,6 +351,14 @@
       border-right: 0px;
     }
 
+    tbody.tps td.pending {
+      text-align: center;
+    }
+
+    tbody.tps tr.pending td.pending {
+      background: #ffcc80;
+    }
+
     p.warn {
       border: 1px solid #e57373;
       background: #ffebee;
@@ -807,7 +815,8 @@
         'tps': ['Cakupan', 'Pending', 'Error', 'Janggal'],
       };
 
-      s += '<thead class="tps"><tr class="header" id="header"><th>TPS & DPT</th><th>Hasil Perhitungan</th><th>Foto</th></tr></thead>';
+      s += '<thead class="tps"><tr class="header" id="header"><th>TPS & DPT</th><th>Hasil Perhitungan</th>'
+      s += '<th>Foto</th><th>Belum Diproses</th></tr></thead>';
       s += '<tbody class="tps">'
 
       var nTps = c.children.length;
@@ -817,12 +826,14 @@
 
       for (var i = 0; i < nTps; i++) {
 
-        s += '<tr class="datarow">';
-
         var tpsRow = c.data[c.children[i][0]];
         var tpsNo = c.children[i][0];
         var nDPT = c.children[i][1] + c.children[i][2];
 
+        var pending = tpsSum('pending', tpsRow)
+        var pendingClass = pending ? 'pending' : ''
+
+        s += '<tr class="datarow ' + pendingClass + '">';
         s += '<td><p class="tpsno">TPS ' + tpsNo + '</p>'
         s += '<p>DPT: ' + nDPT + '</p></td>'
 
@@ -841,7 +852,7 @@
         s += header(tpsRow, tipe, keys, labels, sumKeys[tipe + 'Summary'], sumLabels['summary'], laporanUrl);
         s += '</td><td>';
         s += photos(tipeForm, tpsRow);
-        s += '</td>';
+        s += '</td><td class="pending">' + pending + '</td>';
 
         s += '</tr>';
       }
@@ -928,7 +939,11 @@
     <div id="column_list"></div>
 
     <table class="aggregate" id="tabulasi">
-      <tr class="init"><td><p>sedang membaca data&hellip;</p></td></tr>
+      <tr class="init">
+        <td>
+          <p>sedang membaca data&hellip;</p>
+        </td>
+      </tr>
     </table>
 
     <div id="catatan">
