@@ -337,6 +337,10 @@
       margin: 15px -15px;
       display: block;
     }
+
+    .help {
+      cursor: help;
+    }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script type="text/javascript">
@@ -531,7 +535,7 @@
               var sum = get_sum_fn('sah')(i, data)
               var calc = p1 + p2
               if (sum === calc) return ''
-              return 'error'
+              return 'error help'
             },
             title_fn: function (i, data) {
               var p1 = get_sum_fn('pas1')(i, data)
@@ -855,7 +859,7 @@
     </p>
 
     <p class="warn">
-      Data di halaman ini masih <strong>belum final</strong> dan akan terus diperbarui <strong>secara berkala</strong>!
+      Data pada halaman ini masih <strong>belum final</strong> dan akan terus diperbarui <strong>secara berkala</strong>!
       <br><br>
       Terakhir diakses
       <script>document.write(new Date());</script>
