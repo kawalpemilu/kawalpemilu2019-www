@@ -169,6 +169,10 @@
       background: #ffcdd2;
     }
 
+    #catatan {
+      max-width: 1024px;
+    }
+
     #catatan span.error {
       display: inline-block;
       padding: 5px 15px;
@@ -290,31 +294,33 @@
       font-style: italic;
     }
 
-    table.tpssum.summary {
+    tbody.tps td.tabulasi {
+      padding: 0 10px;
+    }
+
+    tbody.tps td.tabulasi.neq {
+      background: #ffcdd2;
+    }
+
+    table.tpssum {
       margin-top: 10px;
       border-top: 2px solid #ccc;
     }
 
-    table.tpssum.summary th {
-      text-align: left;
-      padding-right: 10px;
-      white-space: nowrap;
-    }
-
-    table.tpssum.sum th {
+    table.tpssum th {
       text-align: left;
       padding: 5px 10px;
       white-space: nowrap;
     }
 
-    table.tpssum.sum td {
+    table.tpssum td {
       text-align: left;
       padding: 5px 10px;
       white-space: nowrap;
       border-right: 1px solid #ccc;
     }
 
-    table.tpssum.sum td:last-child {
+    table.tpssum td:last-child {
       border-right: 0px;
     }
 
@@ -604,7 +610,6 @@
       s += '<tbody>' + sbody + '</tbody>'
       s += '<tfoot>' + stotal + '</tfoot>'
       /*  */
-      console.log('total', total)
 
       return s
     }
@@ -627,6 +632,15 @@
 
     function header(tpsRow, group, keys, labels, keysSummary, labelsSummary, laporanUrl) {
       if (!tpsRow) {
+        return '<p class="nodata">data belum tersedia</p>'
+      }
+
+      var available = true
+      for (var i = 0; i < keys.length; i++) {
+        available = available && !!tpsRow.sum[keys[i]]
+      }
+
+      if (!available) {
         return '<p class="nodata">data belum tersedia</p>'
       }
 
@@ -707,7 +721,7 @@
       var s = ''
 
       var sumKeys = {
-        'pilpres': ['pas1', 'pas2', 'sah', 'tSah', 'jum'],
+        'pilpres': ['pas1', 'pas2'],
         'pilpresSummary': ['sah', 'tSah', 'jum'],
 
         'pileg': ['pkb', 'ger', 'pdi', 'gol', 'nas', 'gar', 'ber', 'sej', 'per', 'ppp', 'psi', 'pan', 'han', 'dem',
@@ -748,16 +762,21 @@
 
         var laporanUrl = getLaporanUrl(hash, tpsNo, tipe, c.parentNames[c.parentNames.length - 1], c.name)
 
-        s += '<td>';
-        if (tipeForm !== 'DPR') {
-          s += header(tpsRow, 'pilpres', sumKeys['pilpres'], sumLabels['pilpres'], sumKeys['pilpresSummary'], sumLabels['summary'], laporanUrl);
-        } else {
-          s += header(tpsRow, 'pileg', sumKeys['pileg'], sumLabels['pileg'], sumKeys['pilegSummary'], sumLabels['summary'], laporanUrl);
-        }
+        var labels = sumLabels[tipe]
+        var keys = sumKeys[tipe]
+        var sahKey = tipe === 'pilpres' ? 'sah' : 'pSah'
+        var total = 0;
+        for (var j = 0; j < keys.length; j++)
+          total += tpsSum(keys[j], tpsRow)
+        console.log('eq?', keys, total, sahKey, tpsSum(sahKey, tpsRow))
+        var tabClass = total === tpsSum(sahKey, tpsRow) ? 'eq' : 'neq'
 
+        s += '<td class="tabulasi ' + tabClass + '">';
+        s += header(tpsRow, tipe, keys, labels, sumKeys[tipe + 'Summary'], sumLabels['summary'], laporanUrl);
         s += '</td><td>';
         s += photos(tipeForm, tpsRow);
         s += '</td>';
+
         s += '</tr>';
       }
 
@@ -847,9 +866,9 @@
       <h2>Catatan</h2>
       <ul>
         <li>
-          <span class="error">Suara Sah</span> berwarna merah berarti jumlah data suara kedua
-          pasangan tidak sesuai dengan data suara sah. Silakan drill down data lalu temukan dan laporkan
-          data C1 yang bermasalh.
+          <span class="error">Suara Sah</span> atau <span class="error">Hasil Perhitungan</span>
+          berwarna merah berarti jumlah data suara kedua pasangan tidak sesuai dengan data suara sah.
+          Silakan drill down data lalu temukan dan laporkan data C1 yang bermasalah.
         </li>
       </ul>
     </div>
