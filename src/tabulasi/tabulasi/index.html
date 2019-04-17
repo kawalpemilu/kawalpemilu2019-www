@@ -275,6 +275,11 @@
       text-align: center;
     }
 
+    tbody.tps p.tpsno {
+      font-weight: bold;
+      font-size: large;
+    }
+
     table.tpssum.summary {
       margin-top: 10px;
       border-top: 2px solid #ccc;
@@ -708,7 +713,7 @@
         'tps': ['Cakupan', 'Pending', 'Error', 'Janggal'],
       };
 
-      s += '<thead class="tps"><tr class="header" id="header"><th>#TPS</th><th>#DPT</th><th>Hasil Perhitungan</th><th>Foto</th></tr></thead>';
+      s += '<thead class="tps"><tr class="header" id="header"><th>TPS & DPT</th><th>Hasil Perhitungan</th><th>Foto</th></tr></thead>';
       s += '<tbody class="tps">'
 
       var nTps = c.children.length;
@@ -724,8 +729,8 @@
         var tpsNo = c.children[i][0];
         var nDPT = c.children[i][1] + c.children[i][2];
 
-        s += '<td>' + tpsNo + '</td>';
-        s += '<td>' + nDPT + '</td>';
+        s += '<td><p class="tpsno">TPS ' + tpsNo + '</p>'
+        s += '<p>DPT: ' + nDPT + '</p></td>'
 
         var laporanUrl = getLaporanUrl(hash, tpsNo, tipe, c.parentNames[c.parentNames.length - 1], c.name)
 
