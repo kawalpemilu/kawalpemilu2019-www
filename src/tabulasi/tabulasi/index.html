@@ -280,6 +280,11 @@
       font-size: large;
     }
 
+    tbody.tps .nodata {
+      text-align: center;
+      font-style: italic;
+    }
+
     table.tpssum.summary {
       margin-top: 10px;
       border-top: 2px solid #ccc;
@@ -616,6 +621,10 @@
     }
 
     function header(tpsRow, group, keys, labels, keysSummary, labelsSummary, laporanUrl) {
+      if (!tpsRow) {
+        return '<p class="nodata">data belum tersedia</p>'
+      }
+
       var R = function (kk, ll) {
         var s = '';
         for (var i = 0, j = 0; i < ll.length; i++) {
