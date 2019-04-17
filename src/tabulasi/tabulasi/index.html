@@ -173,9 +173,14 @@
       max-width: 1024px;
     }
 
+    #catatan li {
+      margin-bottom: 10px;
+      line-height: 28px;
+    }
+
     #catatan span.error {
       display: inline-block;
-      padding: 5px 15px;
+      padding: 2px 15px;
       background: #ffcdd2;
     }
 
@@ -635,9 +640,9 @@
         return '<p class="nodata">data belum tersedia</p>'
       }
 
-      var available = true
+      var available = false
       for (var i = 0; i < keys.length; i++) {
-        available = available && !!tpsRow.sum[keys[i]]
+        available = available || !!tpsRow.sum[keys[i]]
       }
 
       if (!available) {
@@ -850,7 +855,7 @@
     </p>
 
     <p class="warn">
-      Data di halaman ini masih <strong>belum final</strong> dan akan terus diperbarui <strong>setiap jam</strong>!
+      Data di halaman ini masih <strong>belum final</strong> dan akan terus diperbarui <strong>secara berkala</strong>!
       <br><br>
       Terakhir diakses
       <script>document.write(new Date());</script>
@@ -867,8 +872,23 @@
       <ul>
         <li>
           <span class="error">Suara Sah</span> atau <span class="error">Hasil Perhitungan</span>
-          berwarna merah berarti jumlah data suara kedua pasangan tidak sesuai dengan data suara sah.
-          Silakan drill down data lalu temukan dan laporkan data C1 yang bermasalah.
+          berwarna merah menandakan adanya jumlah data suara kedua pasangan yang tidak sesuai dengan
+          data suara sah. Silakan drill down data lalu temukan dan laporkan data C1 yang bermasalah.
+        </li>
+        <li>
+          <p>
+            Kawal Pemilu menggunakan <a href="https://en.wikipedia.org/wiki/Cache_(computing)"
+              target="_blank"><em>cache</em></a>
+            dalam menyediakan data tabulasi. Walau <em>cache</em> membantu agar data dapat
+            disajikan lebih cepat, penggunaan <em>cache</em> juga membuat data yang disajikan
+            bukan berasal dari versi paling mutakhir. Umur <em>cache</em> diatur berjenjang
+            dari hitungan beberapa menit untuk level nasional sampai 90 menit untuk level TPS.
+          </p>
+          <p>
+            Singkat kata, data pada level nasional akan dimutakhirkan lebih sering dibanding
+            data pada level TPS. Jika Anda melihat data level atas tidak sesuai dengan level
+            dalamnya, kemungkinan besar itu disebabkan oleh penggunaan <em>cache</em> berjenjang.
+          </p>
         </li>
       </ul>
     </div>
