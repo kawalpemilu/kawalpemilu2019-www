@@ -164,6 +164,12 @@
       background: #ffcdd2;
     }
 
+    #catatan span.error {
+      display: inline-block;
+      padding: 5px 15px;
+      background: #ffcdd2;
+    }
+
     .win {
       background-color: "lightgreen";
     }
@@ -817,6 +823,17 @@
     <div id="column_list"></div>
 
     <table class="aggregate" id="tabulasi"></table>
+
+    <div id="catatan">
+      <h2>Catatan</h2>
+      <ul>
+        <li>
+          <span class="error">Suara Sah</span> berwarna merah berarti jumlah data suara kedua
+          pasangan tidak sesuai dengan data suara sah. Silakan drill down data lalu temukan dan laporkan
+          data C1 yang bermasalh.
+        </li>
+      </ul>
+    </div>
   </main>
 
   <footer>
