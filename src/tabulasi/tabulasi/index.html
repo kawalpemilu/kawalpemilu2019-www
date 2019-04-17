@@ -472,10 +472,14 @@
         return (i, data) => get_sum(data, key)
       };
       let format_persen_fn = function (value) {
-        return Math.round(value[0] / value[1] * 10000) / 100 + '%'
+        var p = Math.round(value[0] / value[1] * 10000) / 100
+        return p.toLocaleString('id') + '%'
       };
-      let default_format_fn = function (value) {
+      let thousands = function (value) {
         return value.toLocaleString('id')
+      }
+      let default_format_fn = function (value) {
+        return thousands(value)
       };
       let format_vanilla_fn = function (value) { return value; }
 
@@ -491,6 +495,7 @@
         acc_format: default_format_fn,
         acc_class: 'right',
         title_fn: function () { return '' },
+        acc_title_fn: function () { return '' },
       };
 
       let columns = {
@@ -533,14 +538,22 @@
             acc_init: [0, 0],
             acc_fn: function (a, b) { return [a[0] + b[0], a[1] + b[1]] },
             acc_format: format_persen_fn,
+            title_fn: function (i, data) {
+              return thousands(get_sum(data, 'cakupan')) + ' dari ' + thousands(c.children[i][2]) + ' TPS'
+            },
+            acc_title_fn: function(value, i, data) {
+              return thousands(value[0]) + ' dari ' + thousands(value[1]) + ' TPS'
+            }
           },
           {
             t: 'Belum Diproses',
             fn: get_sum_fn('pending'),
-            format: function(value, i, data) {
-              if (value===0) return 0
-              var p = Math.round(value / get_sum(data, 'cakupan') * 10000) / 100
-              return '<span>'+value+'</span> <span class="d" style="width:40px; display: inline-block; text-align: left">&raquo; '+p+'%</span>';
+            format: function (value, i, data) {
+              return thousands(value)
+              // if (value === 0) return 0
+              // var p = Math.round(value / get_sum(data, 'cakupan') * 10000) / 100
+              // p = p.toLocaleString('id')
+              // return '<span>' + thousands(value) + '</span> <span class="d" style="width:40px; display: inline-block; text-align: left">&raquo; ' + p + '%</span>';
             },
           }
         ],
@@ -624,7 +637,9 @@
         var entry = Object.assign({}, defaultEntry, cols[j])
         var value = total[j];
         var formatted = entry.acc_format(value)
-        stotal += '<td class="' + entry.acc_class + '">' + formatted + '</td>'
+        var title = entry.acc_title_fn(value, i, data)
+        var title_attr = title && 'title="' + title + '"' || ''
+        stotal += '<td class="' + entry.acc_class + '" ' + title_attr + '>' + formatted + '</td>'
       }
       stotal += '</tr>'
 
@@ -878,7 +893,8 @@
     </p>
 
     <p class="warn">
-      Data pada halaman ini masih <strong>belum final</strong> dan akan terus diperbarui <strong>secara berkala</strong>!
+      Data pada halaman ini masih <strong>belum final</strong> dan akan terus diperbarui <strong>secara
+        berkala</strong>!
       <br><br>
       Terakhir diakses
       <script>document.write(new Date());</script>
