@@ -11,5 +11,6 @@ rm -rf _build/*
 
 rsync -avH --progress src/main/_site/ _build/
 rsync -avH --progress src/tabulasi/ _build/
+rsync -avH --progress src/tabulasi/tabulasi/index.html _build/index.html
 rsync -avH --progress --exclude '*tabulasi*' --delete-excluded _build/ _public/
 

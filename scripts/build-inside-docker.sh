@@ -25,6 +25,7 @@ rsync -avH _site/ /kp/_build/
 
 cd /kp/src/tabulasi
 rsync -avH ./ /kp/_build/
+rsync -avH ./tabulasi/index.html /kp/_build/index.html
 
 # finalize
 
