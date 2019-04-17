@@ -24,7 +24,7 @@
   <meta property="fb:app_id" content="662471847169648" />
 
   <script>
-    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+    window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) }; ga.l = +new Date;
     ga('create', 'UA-176039-31', '');
     ga('send', 'pageview');
   </script>
@@ -158,6 +158,10 @@
 
     td.center {
       text-align: center
+    }
+
+    td.error {
+      color: red;
     }
 
     .win {
@@ -434,10 +438,12 @@
       let defaultEntry = {
         format: default_format_fn,
         class: 'right',
+        class_fn: function () { return '' },
         acc_init: 0,
         acc_fn: acc_sum_fn,
         acc_format: default_format_fn,
         acc_class: 'right',
+        title_fn: function () { return '' },
       };
 
       let columns = {
@@ -485,7 +491,25 @@
         'pilpres': [
           { t: 'Jokowi-Amin', fn: get_sum_fn('pas1') },
           { t: 'Prabowo-Sandi', fn: get_sum_fn('pas2') },
-          { t: 'Suara Sah', fn: get_sum_fn('sah') },
+          {
+            t: 'Suara Sah', fn: get_sum_fn('sah'),
+            class_fn: function (i, data) {
+              var p1 = get_sum_fn('pas1')(i, data)
+              var p2 = get_sum_fn('pas2')(i, data)
+              var sum = get_sum_fn('sah')(i, data)
+              var calc = p1 + p2
+              if (sum === calc) return ''
+              return 'error'
+            },
+            title_fn: function (i, data) {
+              var p1 = get_sum_fn('pas1')(i, data)
+              var p2 = get_sum_fn('pas2')(i, data)
+              var sum = get_sum_fn('sah')(i, data)
+              var calc = p1 + p2
+              if (sum === calc) return ''
+              return 'ada data suara sah yang tidak konsisten'
+            }
+          },
           { t: 'Tidak Sah', fn: get_sum_fn('tSah') },
         ],
         'pileg': [
@@ -530,7 +554,10 @@
           total[j] = entry.acc_fn(total[j], value)
           var formatted = entry.format(value)
           var sortValue = $(value).text() ? $(value).text() : value
-          sbody += '<td data-sort-index="' + j + '" data-sort="' + sortValue + '" class="' + entry.class + '">' + formatted + '</td>'
+          var css_class = entry.class + ' ' + entry.class_fn(i, data)
+          var title = entry.title_fn(i, data)
+          var title_attr = title && 'title="' + title + '"' || ''
+          sbody += '<td data-sort-index="' + j + '" data-sort="' + sortValue + '" class="' + css_class + '" ' + title_attr + '>' + formatted + '</td>'
         }
         sbody += '</tr>'
       }
@@ -781,7 +808,8 @@
     <p class="warn">
       Data di halaman ini masih <strong>belum final</strong> dan akan terus diperbarui <strong>setiap jam</strong>!
       <br><br>
-      Terakhir diakses <script>document.write(new Date());</script>
+      Terakhir diakses
+      <script>document.write(new Date());</script>
     </p>
 
     <div id="tipe"></div>
