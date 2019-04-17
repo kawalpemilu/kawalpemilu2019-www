@@ -367,6 +367,14 @@
     tbody.tabulasi tr.datarow td .d {
       font-size: smaller;
     }
+
+    #tabulasi tr.init td {
+      padding: 50px 100px;
+      font-size: 18px;
+      background: #eee;
+      border-radius: 10px;
+      font-style: italic;
+    }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script type="text/javascript">
@@ -919,7 +927,9 @@
     <div id="navigasi"></div>
     <div id="column_list"></div>
 
-    <table class="aggregate" id="tabulasi"></table>
+    <table class="aggregate" id="tabulasi">
+      <tr class="init"><td><p>sedang membaca data&hellip;</p></td></tr>
+    </table>
 
     <div id="catatan">
       <h2>Catatan</h2>
