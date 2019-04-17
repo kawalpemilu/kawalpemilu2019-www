@@ -184,6 +184,12 @@
       background: #ffcdd2;
     }
 
+    #catatan span.th {
+      display: inline-block;
+      padding: 2px 15px;
+      background: #ccc;
+    }
+
     .win {
       background-color: "lightgreen";
     }
@@ -340,6 +346,10 @@
 
     .help {
       cursor: help;
+    }
+
+    tbody.tabulasi tr.datarow td .d {
+      font-size: smaller;
     }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -523,6 +533,14 @@
             acc_fn: function (a, b) { return [a[0] + b[0], a[1] + b[1]] },
             acc_format: format_persen_fn,
           },
+          {
+            t: 'Belum Diproses',
+            fn: get_sum_fn('pending'),
+            format: function(value, i, data) {
+              var p = Math.round(value / get_sum(data, 'cakupan') * 10000) / 100
+              return '<div>'+value+'</value><div class="d">('+p+'%)</div>';
+            },
+          }
         ],
         'pilpres': [
           { t: 'Jokowi-Amin', fn: get_sum_fn('pas1') },
@@ -588,7 +606,7 @@
           var entry = Object.assign({}, defaultEntry, cols[j])
           var value = entry.fn(i, data)
           total[j] = entry.acc_fn(total[j], value)
-          var formatted = entry.format(value)
+          var formatted = entry.format(value, i, data)
           var sortValue = $(value).text() ? $(value).text() : value
           var css_class = entry.class + ' ' + entry.class_fn(i, data)
           var title = entry.title_fn(i, data)
@@ -616,9 +634,8 @@
       s += stotal
       s += '</thead>'
 
-      s += '<tbody>' + sbody + '</tbody>'
+      s += '<tbody class="tabulasi">' + sbody + '</tbody>'
       s += '<tfoot>' + stotal + '</tfoot>'
-      /*  */
 
       return s
     }
@@ -878,6 +895,14 @@
           <span class="error">Suara Sah</span> atau <span class="error">Hasil Perhitungan</span>
           berwarna merah menandakan adanya jumlah data suara kedua pasangan yang tidak sesuai dengan
           data suara sah. Silakan drill down data lalu temukan dan laporkan data C1 yang bermasalah.
+        </li>
+        <li>
+          <span class="th">%TPS</span> mengindikasikan jumlah TPS yang sudah memiliki foto, terlepas
+          apakah foto tersebut sudah diproses atau belum.
+        </li>
+        <li>
+          <span class="th">Belum Diproses</span> berisi jumlah TPS yang sudah memiliki foto
+          yang belum diproses.
         </li>
         <li>
           <p>
