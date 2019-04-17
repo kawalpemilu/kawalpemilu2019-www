@@ -132,6 +132,7 @@
     .aggregate thead>tr>th {
       padding: 8px;
       margin: 8px;
+      font-size: 12px;
     }
 
     .delta {
@@ -537,8 +538,9 @@
             t: 'Belum Diproses',
             fn: get_sum_fn('pending'),
             format: function(value, i, data) {
+              if (value===0) return 0
               var p = Math.round(value / get_sum(data, 'cakupan') * 10000) / 100
-              return '<div>'+value+'</value><div class="d">('+p+'%)</div>';
+              return '<span>'+value+'</span> <span class="d" style="width:40px; display: inline-block; text-align: left">&raquo; '+p+'%</span>';
             },
           }
         ],
