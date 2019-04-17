@@ -206,6 +206,12 @@
       background: #ccc;
     }
 
+    #catatan span.pending {
+      display: inline-block;
+      padding: 2px 15px;
+      background: #ffcc80;
+    }
+
     .win {
       background-color: "lightgreen";
     }
@@ -351,11 +357,7 @@
       border-right: 0px;
     }
 
-    tbody.tps td.pending {
-      text-align: center;
-    }
-
-    tbody.tps tr.pending td.pending {
+    tbody.tps tr.pending td:first-child {
       background: #ffcc80;
     }
 
@@ -554,10 +556,6 @@
         ],
         '@after': [
           {
-            t: 'TPS Error',
-            fn: get_sum_fn('error')
-          },
-          {
             t: '%TPS',
             fn: function (i, data) {
               return [
@@ -586,7 +584,11 @@
               // p = p.toLocaleString('id')
               // return '<span>' + thousands(value) + '</span> <span class="d" style="width:40px; display: inline-block; text-align: left">&raquo; ' + p + '%</span>';
             },
-          }
+          },
+          {
+            t: 'TPS Error',
+            fn: get_sum_fn('error')
+          },
         ],
         'pilpres': [
           { t: 'Jokowi-Amin', fn: get_sum_fn('pas1') },
@@ -815,8 +817,7 @@
         'tps': ['Cakupan', 'Pending', 'Error', 'Janggal'],
       };
 
-      s += '<thead class="tps"><tr class="header" id="header"><th>TPS & DPT</th><th>Hasil Perhitungan</th>'
-      s += '<th>Foto</th><th>Belum Diproses</th></tr></thead>';
+      s += '<thead class="tps"><tr class="header" id="header"><th>TPS & DPT</th><th>Hasil Perhitungan</th><th>Foto</th></tr></thead>';
       s += '<tbody class="tps">'
 
       var nTps = c.children.length;
@@ -852,7 +853,7 @@
         s += header(tpsRow, tipe, keys, labels, sumKeys[tipe + 'Summary'], sumLabels['summary'], laporanUrl);
         s += '</td><td>';
         s += photos(tipeForm, tpsRow);
-        s += '</td><td class="pending">' + pending + '</td>';
+        s += '</td>';
 
         s += '</tr>';
       }
@@ -961,6 +962,14 @@
         <li>
           <span class="th">Belum Diproses</span> berisi jumlah TPS yang memiliki foto
           yang belum diproses.
+        </li>
+        <li>
+          <span class="th">TPS Error</span> berisi jumlah TPS yang memiliki laporan yang belum
+          ditindaklanjuti.
+        </li>
+        <li>
+          <span class="pending">TPS</span> pada halaman TPS yang diwarnai oranye artinya
+          memiliki data yang belum diproses.
         </li>
         <li>
           <p>
