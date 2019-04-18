@@ -26,7 +26,6 @@
   <script>
     window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) }; ga.l = +new Date;
     ga('create', 'UA-176039-31', '');
-    ga('send', 'pageview');
   </script>
   <script async src="https://www.google-analytics.com/analytics.js"></script>
 
@@ -401,7 +400,11 @@
 
     function get(id, cb) {
       var url = 'https://kawal-c1.appspot.com/api/c/';
+      var start = new Date();
       xhr(url + id + '?' + new Date().getTime(), function (res) {
+        var end = new Date();
+        var duration = end.getTime() - start.getTime();
+        ga('send', 'timing', 'kp-data', 'load', duration)
         cb(JSON.parse(res));
       });
     }
@@ -434,7 +437,15 @@
 
       history.replaceState({}, 'Kawal Pemilu - Jaga Suara 2019', location.pathname + '#' + tipe + ':' + id)
 
+      ga('send', 'pageview');
+
       get(id, function (c) {
+        ga('send', 'event', 'kp-data', 'load', {
+          'dimension0': tipe,
+          'dimension1': c.id,
+          'dimension2': c.depth,
+        });
+
         // console.log(JSON.stringify(c, null, 2));
         document.getElementById('tipe').innerHTML = renderTipe(tipe, id);
         document.getElementById('navigasi').innerHTML = renderNavigasi(c, tipe);
