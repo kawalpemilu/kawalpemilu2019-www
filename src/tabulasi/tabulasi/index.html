@@ -375,6 +375,17 @@
       border-radius: 10px;
       font-style: italic;
     }
+
+    td span.n {
+      display: block;
+    }
+
+    td span.p {
+      display: block;
+      font-size: 9px;
+      color: #444;
+      margin-top: 2px;
+    }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script type="text/javascript">
@@ -505,6 +516,10 @@
         return thousands(value)
       };
       let format_vanilla_fn = function (value) { return value; }
+      let format_tps_persen_fn = function(value) {
+        var p = format_persen_fn(value)
+        return '<span class="n">'+thousands(value[0]) + '</span><span class="p">('+p+')</span>'
+      };
 
       let acc_sum_fn = function (a, b) { return a + b }
       let acc_empty_fn = function (a, b) { return '' }
@@ -546,17 +561,17 @@
         ],
         '@after': [
           {
-            t: '%TPS<br>dengan Foto',
+            t: '#TPS<br>dengan Foto',
             fn: function (i, data) {
               return [
                 get_sum(data, 'cakupan'),
                 c.children[i][2]
               ]
             },
-            format: format_persen_fn,
+            format: format_tps_persen_fn,
             acc_init: [0, 0],
             acc_fn: function (a, b) { return [a[0] + b[0], a[1] + b[1]] },
-            acc_format: format_persen_fn,
+            acc_format: format_tps_persen_fn,
             title_fn: function (i, data) {
               return thousands(get_sum(data, 'cakupan')) + ' dari ' + thousands(c.children[i][2]) + ' TPS'
             },
@@ -566,18 +581,29 @@
           },
           {
             t: '#TPS<br>Belum Diproses',
-            fn: get_sum_fn('pending'),
-            format: function (value, i, data) {
-              return thousands(value)
-              // if (value === 0) return 0
-              // var p = Math.round(value / get_sum(data, 'cakupan') * 10000) / 100
-              // p = p.toLocaleString('id')
-              // return '<span>' + thousands(value) + '</span> <span class="d" style="width:40px; display: inline-block; text-align: left">&raquo; ' + p + '%</span>';
+            fn: function(i, data) {
+              return [
+                get_sum(data, 'pending'),
+                get_sum(data, 'cakupan'),
+              ]
             },
+            format: format_tps_persen_fn,
+            acc_init: [0, 0],
+            acc_fn: function (a, b) { return [a[0] + b[0], a[1] + b[1]] },
+            acc_format: format_tps_persen_fn,
           },
           {
             t: '#TPS<br>dengan Error',
-            fn: get_sum_fn('error')
+            fn: function(i, data) {
+              return [
+                get_sum(data, 'error'),
+                get_sum(data, 'cakupan'),
+              ]
+            },
+            format: format_tps_persen_fn,
+            acc_init: [0, 0],
+            acc_fn: function (a, b) { return [a[0] + b[0], a[1] + b[1]] },
+            acc_format: format_tps_persen_fn,
           },
         ],
         'pilpres': [
@@ -971,7 +997,7 @@
       <h2>Catatan</h2>
       <ul>
         <li>
-          <span class="th">%TPS dengan Foto</span> mengindikasikan jumlah TPS yang sudah memiliki foto,
+          <span class="th">#TPS dengan Foto</span> berisi jumlah TPS yang sudah memiliki foto,
           terlepas apakah foto tersebut sudah diproses atau belum.
         </li>
         <li>
