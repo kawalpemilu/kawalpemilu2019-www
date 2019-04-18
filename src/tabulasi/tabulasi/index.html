@@ -280,16 +280,17 @@
       display: inline;
     }
 
-    .photos p {
+    .photos div {
       display: inline-block;
-      max-width: 120px;
+      max-width: 150px;
       overflow-x: hidden;
       margin-right: 10px;
       border: 1px solid #ccc;
       padding: 3px;
       background: white;
+      text-align: center;
+      vertical-align: top;
     }
-
     table.tpssum {
       border-collapse: collapse;
     }
@@ -739,7 +740,7 @@
       return s;
     }
 
-    function photos(tipeForm, tpsRow) {
+    function photos(tipeForm, tpsRow, keyLabels) {
       if (!tpsRow) return '';
 
       var formType = ['SKIP_ZERO', 'PPWP', 'DPR', 'DPD', 'DPRP', 'DPRPB', 'DPRA', 'DPRD_PROV', 'DPRD_KAB_KOTA', 'DPRK', 'OTHERS', 'MALICIOUS'];
@@ -760,14 +761,28 @@
       for (var j = 0; j < urls.length; j++) {
         var url = urls[j];
         var p = tpsRow.photos[url];
-        s += '<p>'
+        var errorClass = ('error' in p.sum) && p.sum['error'] == 1 ? ' class="error" ':'';
+
+        s += '<div >'
         s += '<a href="' + url + '=s1280" target="_blank"><img src="' + url + '=s' + imageSize + '"></a>';
         // s += '<br> Upload date: ' + new Date(p.ts) ;
-        // s += '<br> Tipe form: ' + formType[p.c1.type] ;
-        // s += '<br> Plano: ' + isPlano[p.c1.plano];
-        // s += '<br> Sum :' + JSON.stringify(p.sum);
-        // s += '<br> Raw :' + JSON.stringify(p);
-        s += '</p>';
+        // s += '<br>' + formType[p.c1.type] + (isPlano[p.c1.plano]? ' (Plano)' : '');        
+        s += '<table >'
+      
+        for(k in keyLabels) // terpaksa supaya urutan key value nya konsisten, aturan k in p.sum
+        {
+            // error udah ditampilkan sebagai class warna merah, pending gak ditampilkan.
+            if(k in p.sum && k !== 'pending' && k !== 'error'){
+              var curKey = keyLabels[k];
+              if(k === 'jum' || k == 'pJum'){
+                curKey = '<span title="Pengguna Hak Pilih">PHP</span>';
+              }
+              s+=  '<tr><td '+errorClass+'>' + curKey + '</td><td '+errorClass+'>' + p.sum[k]+ '</td></tr>';
+            }
+        }
+        s += '</table>'
+        
+        s += '</div>';
       }
       s += '</div>';
       return s;
@@ -806,6 +821,17 @@
         'tps': ['Cakupan', 'Pending', 'Error', 'Janggal'],
       };
 
+      var keyLabels = {}
+      for (sk in sumKeys){          
+          var k = sumKeys[sk];
+          var l = sumLabels[sk];
+          if(!l) l = sumLabels['summary']; // pilegSummary && pilpresSummary;
+          var l = l.filter(l => l !== '@');
+          for(var ii=0;ii<k.length;ii++)
+            keyLabels[k[ii]] = l[ii];
+      }
+      console.log('KEY LABEL', keyLabels);
+
       s += '<thead class="tps"><tr class="header" id="header"><th>TPS & DPT</th><th>Hasil Perhitungan</th><th>Foto</th></tr></thead>';
       s += '<tbody class="tps">'
 
@@ -835,13 +861,13 @@
         var total = 0;
         for (var j = 0; j < keys.length; j++)
           total += tpsSum(keys[j], tpsRow)
-        console.log('eq?', keys, total, sahKey, tpsSum(sahKey, tpsRow))
+        // console.log('eq?', keys, total, sahKey, tpsSum(sahKey, tpsRow))
         var tabClass = total === tpsSum(sahKey, tpsRow) ? 'eq' : 'neq'
 
         s += '<td class="tabulasi ' + tabClass + '">';
         s += header(tpsRow, tipe, keys, labels, sumKeys[tipe + 'Summary'], sumLabels['summary'], laporanUrl);
         s += '</td><td>';
-        s += photos(tipeForm, tpsRow);
+        s += photos(tipeForm, tpsRow, keyLabels);
         s += '</td>';
 
         s += '</tr>';
