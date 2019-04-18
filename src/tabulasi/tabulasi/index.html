@@ -949,8 +949,9 @@
     }
 
     function getCurrentTime() {
-      var date = new Date()
-      return date.toLocaleString('id')
+      var date = new Date().toString()
+      var p = date.indexOf('(')
+      return p < 0 ? date : date.substring(0, p).trim()
     }
 
     window.onload = render;
