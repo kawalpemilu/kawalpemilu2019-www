@@ -527,13 +527,13 @@
       let defaultEntry = {
         format: default_format_fn,
         class: 'right',
-        class_fn: function () { return '' },
+        class_fn: function (value, i, data) { return '' },
         acc_init: 0,
         acc_fn: acc_sum_fn,
         acc_format: default_format_fn,
         acc_class: 'right',
-        title_fn: function () { return '' },
-        acc_title_fn: function () { return '' },
+        title_fn: function (value, i, data) { return '' },
+        acc_title_fn: function (value, i, data) { return '' },
       };
 
       let columns = {
@@ -572,8 +572,8 @@
             acc_init: [0, 0],
             acc_fn: function (a, b) { return [a[0] + b[0], a[1] + b[1]] },
             acc_format: format_tps_persen_fn,
-            title_fn: function (i, data) {
-              return thousands(get_sum(data, 'cakupan')) + ' dari ' + thousands(c.children[i][2]) + ' TPS'
+            title_fn: function (value, i, data) {
+              return thousands(value[0]) + ' dari ' + thousands(value[1]) + ' TPS'
             },
             acc_title_fn: function (value, i, data) {
               return thousands(value[0]) + ' dari ' + thousands(value[1]) + ' TPS'
@@ -611,20 +611,18 @@
           { t: 'Prabowo-Sandi', fn: get_sum_fn('pas2') },
           {
             t: 'Suara Sah', fn: get_sum_fn('sah'),
-            class_fn: function (i, data) {
+            class_fn: function (value, i, data) {
               var p1 = get_sum_fn('pas1')(i, data)
               var p2 = get_sum_fn('pas2')(i, data)
-              var sum = get_sum_fn('sah')(i, data)
               var calc = p1 + p2
-              if (sum === calc) return ''
+              if (value === calc) return ''
               return 'error help'
             },
-            title_fn: function (i, data) {
+            title_fn: function (value, i, data) {
               var p1 = get_sum_fn('pas1')(i, data)
               var p2 = get_sum_fn('pas2')(i, data)
-              var sum = get_sum_fn('sah')(i, data)
               var calc = p1 + p2
-              if (sum === calc) return ''
+              if (value === calc) return ''
               return 'ada data suara sah yang tidak konsisten'
             }
           },
@@ -672,8 +670,8 @@
           total[j] = entry.acc_fn(total[j], value)
           var formatted = entry.format(value, i, data)
           var sortValue = $(value).text() ? $(value).text() : value
-          var css_class = entry.class + ' ' + entry.class_fn(i, data)
-          var title = entry.title_fn(i, data)
+          var css_class = entry.class + ' ' + entry.class_fn(value, i, data)
+          var title = entry.title_fn(value, i, data)
           var title_attr = title && 'title="' + title + '"' || ''
           sbody += '<td data-sort-index="' + j + '" data-sort="' + sortValue + '" class="' + css_class + '" ' + title_attr + '>' + formatted + '</td>'
         }
