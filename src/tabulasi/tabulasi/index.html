@@ -923,6 +923,11 @@
       return res;
     }
 
+    function getCurrentTime() {
+      var date = new Date()
+      return date.toLocaleString('id')
+    }
+
     window.onload = render;
     window.onhashchange = render;
   </script>
@@ -947,7 +952,7 @@
         berkala</strong>!
       <br><br>
       Terakhir diakses
-      <script>document.write(new Date());</script>
+      <script>document.write(getCurrentTime());</script>
     </p>
 
     <div id="tipe"></div>
