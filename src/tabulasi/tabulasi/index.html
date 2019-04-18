@@ -291,6 +291,7 @@
       text-align: center;
       vertical-align: top;
     }
+
     table.tpssum {
       border-collapse: collapse;
     }
@@ -516,9 +517,9 @@
         return thousands(value)
       };
       let format_vanilla_fn = function (value) { return value; }
-      let format_tps_persen_fn = function(value) {
+      let format_tps_persen_fn = function (value) {
         var p = format_persen_fn(value)
-        return '<span class="n">'+thousands(value[0]) + '</span><span class="p">('+p+')</span>'
+        return '<span class="n">' + thousands(value[0]) + '</span><span class="p">(' + p + ')</span>'
       };
 
       let acc_sum_fn = function (a, b) { return a + b }
@@ -581,7 +582,7 @@
           },
           {
             t: '#TPS<br>Belum Diproses',
-            fn: function(i, data) {
+            fn: function (i, data) {
               return [
                 get_sum(data, 'pending'),
                 get_sum(data, 'cakupan'),
@@ -594,7 +595,7 @@
           },
           {
             t: '#TPS<br>dengan Error',
-            fn: function(i, data) {
+            fn: function (i, data) {
               return [
                 get_sum(data, 'error'),
                 get_sum(data, 'cakupan'),
@@ -785,27 +786,27 @@
       for (var j = 0; j < urls.length; j++) {
         var url = urls[j];
         var p = tpsRow.photos[url];
-        var errorClass = ('error' in p.sum) && p.sum['error'] == 1 ? ' class="error" ':'';
+        var errorClass = ('error' in p.sum) && p.sum['error'] == 1 ? ' class="error" ' : '';
 
         s += '<div >'
         s += '<a href="' + url + '=s1280" target="_blank"><img src="' + url + '=s' + imageSize + '"></a>';
         // s += '<br> Upload date: ' + new Date(p.ts) ;
         // s += '<br>' + formType[p.c1.type] + (isPlano[p.c1.plano]? ' (Plano)' : '');        
         s += '<table >'
-      
-        for(k in keyLabels) // terpaksa supaya urutan key value nya konsisten, aturan k in p.sum
+
+        for (k in keyLabels) // terpaksa supaya urutan key value nya konsisten, aturan k in p.sum
         {
-            // error udah ditampilkan sebagai class warna merah, pending gak ditampilkan.
-            if(k in p.sum && k !== 'pending' && k !== 'error'){
-              var curKey = keyLabels[k];
-              if(k === 'jum' || k == 'pJum'){
-                curKey = '<span title="Pengguna Hak Pilih">PHP</span>';
-              }
-              s+=  '<tr><td '+errorClass+'>' + curKey + '</td><td '+errorClass+'>' + p.sum[k]+ '</td></tr>';
+          // error udah ditampilkan sebagai class warna merah, pending gak ditampilkan.
+          if (k in p.sum && k !== 'pending' && k !== 'error') {
+            var curKey = keyLabels[k];
+            if (k === 'jum' || k == 'pJum') {
+              curKey = '<span title="Pengguna Hak Pilih">PHP</span>';
             }
+            s += '<tr><td ' + errorClass + '>' + curKey + '</td><td ' + errorClass + '>' + p.sum[k] + '</td></tr>';
+          }
         }
         s += '</table>'
-        
+
         s += '</div>';
       }
       s += '</div>';
@@ -846,13 +847,13 @@
       };
 
       var keyLabels = {}
-      for (sk in sumKeys){          
-          var k = sumKeys[sk];
-          var l = sumLabels[sk];
-          if(!l) l = sumLabels['summary']; // pilegSummary && pilpresSummary;
-          var l = l.filter(l => l !== '@');
-          for(var ii=0;ii<k.length;ii++)
-            keyLabels[k[ii]] = l[ii];
+      for (sk in sumKeys) {
+        var k = sumKeys[sk];
+        var l = sumLabels[sk];
+        if (!l) l = sumLabels['summary']; // pilegSummary && pilpresSummary;
+        var l = l.filter(l => l !== '@');
+        for (var ii = 0; ii < k.length; ii++)
+          keyLabels[k[ii]] = l[ii];
       }
       console.log('KEY LABEL', keyLabels);
 
