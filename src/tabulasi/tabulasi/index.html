@@ -507,7 +507,7 @@
         return (i, data) => get_sum(data, key)
       };
       let format_persen_fn = function (value) {
-        var p = Math.round(value[0] / value[1] * 10000) / 100
+        var p = value[1] ? Math.round(value[0] / value[1] * 10000) / 100 : 0
         return p.toLocaleString('id') + '%'
       };
       let thousands = function (value) {
