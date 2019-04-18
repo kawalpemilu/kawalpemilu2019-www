@@ -565,7 +565,7 @@
             }
           },
           {
-            t: 'Belum Diproses',
+            t: '#TPS<br>Belum Diproses',
             fn: get_sum_fn('pending'),
             format: function (value, i, data) {
               return thousands(value)
@@ -576,7 +576,7 @@
             },
           },
           {
-            t: 'TPS Error',
+            t: '#TPS<br>dengan Error',
             fn: get_sum_fn('error')
           },
         ],
@@ -975,11 +975,11 @@
           terlepas apakah foto tersebut sudah diproses atau belum.
         </li>
         <li>
-          <span class="th">Belum Diproses</span> berisi jumlah TPS yang memiliki foto
+          <span class="th">#TPS Belum Diproses</span> berisi jumlah TPS yang memiliki foto
           yang belum diproses.
         </li>
         <li>
-          <span class="th">TPS Error</span> berisi jumlah TPS yang memiliki laporan yang belum
+          <span class="th">#TPS dengan Error</span> berisi jumlah TPS yang memiliki laporan yang belum
           ditindaklanjuti.
         </li>
         <li>
