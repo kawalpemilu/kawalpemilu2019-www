@@ -364,6 +364,10 @@
       cursor: help;
     }
 
+    *[title] {
+      cursor: help;
+    }
+
     tbody.tabulasi tr.datarow td .d {
       font-size: smaller;
     }
@@ -549,6 +553,7 @@
         acc_class: 'right',
         title_fn: function (value, i, data) { return '' },
         acc_title_fn: function (value, i, data) { return '' },
+        title_title: '',
       };
 
       let columns = {
@@ -583,7 +588,7 @@
                 c.children[i][2]
               ]
             },
-            format: format_tps_persen0_fn,
+            format: format_tps_persen_fn,
             acc_init: [0, 0],
             acc_fn: function (a, b) { return [a[0] + b[0], a[1] + b[1]] },
             acc_format: format_tps_persen0_fn,
@@ -592,7 +597,8 @@
             },
             acc_title_fn: function (value, i, data) {
               return thousands(value[0]) + ' dari ' + thousands(value[1]) + ' TPS'
-            }
+            },
+            title_title: 'Jumlah TPS yang memiliki foto, termasuk foto yang belum diproses',
           },
           {
             t: '#TPS Foto<br>Belum Diproses',
@@ -606,6 +612,7 @@
             acc_init: [0, 0],
             acc_fn: function (a, b) { return [a[0] + b[0], a[1] + b[1]] },
             acc_format: format_tps_persen0_fn,
+            title_title: 'Jumlah TPS yang memiliki foto yang belum diproses',
           },
           {
             t: '#TPS Foto<br>dengan Error',
@@ -619,6 +626,7 @@
             acc_init: [0, 0],
             acc_fn: function (a, b) { return [a[0] + b[0], a[1] + b[1]] },
             acc_format: format_tps_persen0_fn,
+            title_title: 'Jumlah TPS yang memiliki laporan yang belum ditindaklanjuti',
           },
         ],
         'pilpres': [
@@ -708,7 +716,9 @@
       var s = ''
       s += '<thead><tr class="header" id="header">'
       for (var i = 0; i < cols.length; i++) {
-        s += '<th onclick="sort(' + i + ')">' + cols[i].t + '</th>'
+        var entry = Object.assign({}, defaultEntry, cols[i])
+        var title_attr = entry.title_title ? ' title="' + entry.title_title + '"' : ''
+        s += '<th onclick="sort(' + i + ')" ' + title_attr + '>' + entry.t + '</th>'
       }
       s += stotal
       s += '</thead>'
