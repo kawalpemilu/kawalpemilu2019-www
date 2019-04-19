@@ -455,13 +455,13 @@
 
       history.replaceState({}, 'Kawal Pemilu - Jaga Suara 2019', location.pathname + '#' + tipe + ':' + id)
 
-      ga('send', 'pageview');
+      ga('send', 'event', 'page', 'first-load')
 
       get(id, function (c) {
-        ga('send', 'event', 'kp-data', 'load', {
-          'dimension0': tipe,
+        ga('send', 'pageview', {
           'dimension1': c.id,
           'dimension2': c.depth,
+          'dimension3': tipe,
         });
 
         // console.log(JSON.stringify(c, null, 2));
