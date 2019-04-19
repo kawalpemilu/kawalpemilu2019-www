@@ -554,6 +554,10 @@
 
       let acc_sum_fn = function (a, b) { return a + b }
       let acc_empty_fn = function (a, b) { return '' }
+      let sort_value_persen_fn = function (value, i, data) {
+        return !!value[1] ? value[0] / value[1] : 0
+      }
+      let sort_value_persen0_fn = function (value, i, data) { return value[0] }
 
       let defaultEntry = {
         format: default_format_fn,
@@ -566,6 +570,9 @@
         title_fn: function (value, i, data) { return '' },
         acc_title_fn: function (value, i, data) { return '' },
         title_title: '',
+        sort_value_fn: function (value, i, data) {
+          return $(value).text() ? $(value).text() : value
+        }
       };
 
       let columns = {
@@ -617,6 +624,7 @@
               return thousands(value[0]) + ' dari ' + thousands(value[1]) + ' TPS'
             },
             title_title: 'Jumlah TPS yang memiliki foto, termasuk foto yang belum diproses',
+            sort_value_fn: sort_value_persen0_fn,
           },
           {
             t: '#TPS dg Foto<br>yang<br>belum Diproses<br><br><br><br>(C)<br>(C/B)%',
@@ -637,6 +645,7 @@
             acc_title_fn: function (value, i, data) {
               return thousands(value[0]) + ' dari ' + thousands(value[1]) + ' TPS'
             },
+            sort_value_fn: sort_value_persen0_fn,
           },
           {
             t: '#TPS dg Foto<br>yang<br>dilaporkan<br>bermasalah<br><br><br>(D)<br>(D/C)%',
@@ -657,6 +666,7 @@
             acc_title_fn: function (value, i, data) {
               return thousands(value[0]) + ' dari ' + thousands(value[1]) + ' TPS'
             },
+            sort_value_fn: sort_value_persen0_fn,
           },
         ],
         'pilpres': [
@@ -722,7 +732,7 @@
           var value = entry.fn(i, data)
           total[j] = entry.acc_fn(total[j], value)
           var formatted = entry.format(value, i, data)
-          var sortValue = $(value).text() ? $(value).text() : value
+          var sortValue = entry.sort_value_fn(value, i, data)
           var css_class = entry.class + ' ' + entry.class_fn(value, i, data)
           var title = entry.title_fn(value, i, data)
           var title_attr = title && 'title="' + title + '"' || ''
