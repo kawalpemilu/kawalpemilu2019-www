@@ -581,13 +581,13 @@
         ],
         '@after': [
           {
-            t: '#TPS<br>Total',
+            t: '#TPS Total<br>data KPU',
             fn: function (i, data) {
               return c.children[i][2]
             },
           },
           {
-            t: '#TPS<br>dengan Foto',
+            t: '#TPS dg Foto<br>diterima<br>Kawal Pemilu<br>(termasuk yang<br>belum diproses)',
             fn: function (i, data) {
               return [
                 get_sum(data, 'cakupan'),
@@ -607,7 +607,7 @@
             title_title: 'Jumlah TPS yang memiliki foto, termasuk foto yang belum diproses',
           },
           {
-            t: '#TPS Foto<br>Belum Diproses',
+            t: '#TPS dg Foto<br>yang<br>belum Diproses',
             fn: function (i, data) {
               return [
                 get_sum(data, 'pending'),
@@ -627,7 +627,7 @@
             },
           },
           {
-            t: '#TPS Foto<br>dengan Error',
+            t: '#TPS dg Foto<br>yang<br>dilaporkan<br>bermasalah',
             fn: function (i, data) {
               return [
                 get_sum(data, 'error'),
