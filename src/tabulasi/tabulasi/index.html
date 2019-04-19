@@ -617,7 +617,7 @@
             format: format_tps_persen_fn,
             acc_init: [0, 0],
             acc_fn: function (a, b) { return [a[0] + b[0], a[1] + b[1]] },
-            acc_format: format_tps_persen_fn,
+            acc_format: format_tps_persen0_fn,
             title_title: 'Jumlah TPS yang memiliki foto yang belum diproses',
             title_fn: function (value, i, data) {
               return thousands(value[0]) + ' dari ' + thousands(value[1]) + ' TPS'
@@ -637,7 +637,7 @@
             format: format_tps_persen_fn,
             acc_init: [0, 0],
             acc_fn: function (a, b) { return [a[0] + b[0], a[1] + b[1]] },
-            acc_format: format_tps_persen_fn,
+            acc_format: format_tps_persen0_fn,
             title_title: 'Jumlah TPS yang memiliki laporan yang belum ditindaklanjuti',
             title_fn: function (value, i, data) {
               return thousands(value[0]) + ' dari ' + thousands(value[1]) + ' TPS'
