@@ -581,6 +581,12 @@
         ],
         '@after': [
           {
+            t: '#TPS<br>Total',
+            fn: function (i, data) {
+              return c.children[i][2]
+            },
+          },
+          {
             t: '#TPS<br>dengan Foto',
             fn: function (i, data) {
               return [
