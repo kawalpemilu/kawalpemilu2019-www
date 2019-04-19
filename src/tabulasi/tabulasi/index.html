@@ -613,6 +613,12 @@
             acc_fn: function (a, b) { return [a[0] + b[0], a[1] + b[1]] },
             acc_format: format_tps_persen0_fn,
             title_title: 'Jumlah TPS yang memiliki foto yang belum diproses',
+            title_fn: function (value, i, data) {
+              return thousands(value[0]) + ' dari ' + thousands(value[1]) + ' TPS'
+            },
+            acc_title_fn: function (value, i, data) {
+              return thousands(value[0]) + ' dari ' + thousands(value[1]) + ' TPS'
+            },
           },
           {
             t: '#TPS Foto<br>dengan Error',
@@ -627,6 +633,12 @@
             acc_fn: function (a, b) { return [a[0] + b[0], a[1] + b[1]] },
             acc_format: format_tps_persen0_fn,
             title_title: 'Jumlah TPS yang memiliki laporan yang belum ditindaklanjuti',
+            title_fn: function (value, i, data) {
+              return thousands(value[0]) + ' dari ' + thousands(value[1]) + ' TPS'
+            },
+            acc_title_fn: function (value, i, data) {
+              return thousands(value[0]) + ' dari ' + thousands(value[1]) + ' TPS'
+            },
           },
         ],
         'pilpres': [
