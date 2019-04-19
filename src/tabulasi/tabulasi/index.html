@@ -587,7 +587,7 @@
             },
           },
           {
-            t: '#TPS dg Foto<br>diterima<br>Kawal Pemilu<br>(termasuk yang<br>belum diproses)',
+            t: '#TPS dg Foto<br>diterima<br>Kawal Pemilu<br>(termasuk yang<br>belum diproses)<br><br>(A)',
             fn: function (i, data) {
               return [
                 get_sum(data, 'cakupan'),
@@ -607,17 +607,17 @@
             title_title: 'Jumlah TPS yang memiliki foto, termasuk foto yang belum diproses',
           },
           {
-            t: '#TPS dg Foto<br>yang<br>belum Diproses',
+            t: '#TPS dg Foto<br>yang<br>belum Diproses<br><br><br>(B)<br>(B/A)%',
             fn: function (i, data) {
               return [
                 get_sum(data, 'pending'),
                 get_sum(data, 'cakupan'),
               ]
             },
-            format: format_tps_persen0_fn,
+            format: format_tps_persen_fn,
             acc_init: [0, 0],
             acc_fn: function (a, b) { return [a[0] + b[0], a[1] + b[1]] },
-            acc_format: format_tps_persen0_fn,
+            acc_format: format_tps_persen_fn,
             title_title: 'Jumlah TPS yang memiliki foto yang belum diproses',
             title_fn: function (value, i, data) {
               return thousands(value[0]) + ' dari ' + thousands(value[1]) + ' TPS'
@@ -627,17 +627,17 @@
             },
           },
           {
-            t: '#TPS dg Foto<br>yang<br>dilaporkan<br>bermasalah',
+            t: '#TPS dg Foto<br>yang<br>dilaporkan<br>bermasalah<br><br>(C)<br>(C/A)%',
             fn: function (i, data) {
               return [
                 get_sum(data, 'error'),
                 get_sum(data, 'cakupan'),
               ]
             },
-            format: format_tps_persen0_fn,
+            format: format_tps_persen_fn,
             acc_init: [0, 0],
             acc_fn: function (a, b) { return [a[0] + b[0], a[1] + b[1]] },
-            acc_format: format_tps_persen0_fn,
+            acc_format: format_tps_persen_fn,
             title_title: 'Jumlah TPS yang memiliki laporan yang belum ditindaklanjuti',
             title_fn: function (value, i, data) {
               return thousands(value[0]) + ' dari ' + thousands(value[1]) + ' TPS'
