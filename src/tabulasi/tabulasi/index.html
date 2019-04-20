@@ -127,7 +127,8 @@
       background-color: #CCC;
     }
 
-    th.title, th.rumus {
+    th.title,
+    th.rumus {
       cursor: pointer;
     }
 
@@ -387,13 +388,23 @@
       background: #ffcc80;
     }
 
-    p.warn {
-      border: 1px solid #e57373;
-      background: #ffebee;
+    p.pengumuman {
+      max-width: 1024px;
       border-radius: 5px;
       padding: 15px;
       margin: 15px -15px;
       display: block;
+      line-height: 28px;
+    }
+
+    p.warn {
+      border: 1px solid #e57373;
+      background: #ffebee;
+    }
+
+    p.disclaimer {
+      border: 1px solid #4db6ac;
+      background: #e0f2f1;
     }
 
     .help {
@@ -1110,10 +1121,16 @@
       <a target="_blank" href="https://upload.kawalpemilu.org">upload.kawalpemilu.org</a>!
     </p>
 
-    <p class="warn">
+    <p class="pengumuman disclaimer">
+      Semua informasi di situs KawalPemilu.org dipublikasikan dengan itikad
+      baik dan hanya untuk tujuan informasi bagi publik dan adalah
+      <strong>bukan merupakan hasil resmi</strong> dari penyelenggara Pemilu.
+    </p>
+
+    <p class="pengumuman warn">
       Data pada halaman ini masih <strong>belum final</strong> dan akan terus diperbarui <strong>secara
         berkala</strong>!
-      <br><br>
+      <br>
       Terakhir diakses
       <script>document.write(getCurrentTime());</script>
     </p>
