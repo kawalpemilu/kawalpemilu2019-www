@@ -78,6 +78,7 @@
 
     table.aggregate {
       margin-top: 5px;
+      border-collapse: collapse;
     }
 
     #navigasi {
@@ -126,7 +127,7 @@
       background-color: #CCC;
     }
 
-    #header {
+    th.title, th.rumus {
       cursor: pointer;
     }
 
@@ -162,8 +163,23 @@
     }
 
     .aggregate tr.total td {
-      background: #ccc;
+      background: #aaa;
       font-weight: bold;
+    }
+
+    td,
+    th {
+      border-bottom: 1px solid white;
+      border-right: 1px solid white;
+    }
+
+    th.title {
+      border-bottom: 0px;
+    }
+
+    td:last-child,
+    th:last-child {
+      border-right: 0;
     }
 
     td.left {
@@ -797,7 +813,7 @@
       for (var i = 0; i < cols.length; i++) {
         var entry = Object.assign({}, defaultEntry, cols[i])
         var title_attr = entry.title_title ? ' title="' + entry.title_title + '"' : ''
-        s += '<th onclick="sort(' + i + ')" ' + title_attr + '>' + entry.t + '</th>'
+        s += '<th class="title" onclick="sort(' + i + ')" ' + title_attr + '>' + entry.t + '</th>'
       }
       s += '</tr><tr>'
       for (var i = 0; i < cols.length; i++) {
