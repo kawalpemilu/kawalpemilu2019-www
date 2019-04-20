@@ -141,6 +141,12 @@
       font-size: 12px;
     }
 
+    .aggregate thead>tr>th.rumus {
+      vertical-align: top;
+      padding: 2px 0;
+      background-color: #CCC;
+    }
+
     .delta {
       font-size: 9px;
     }
@@ -581,7 +587,8 @@
         title_title: '',
         sort_value_fn: function (value, i, data) {
           return $(value).text() ? $(value).text() : value
-        }
+        },
+        rumus: '',
       };
 
       let columns = {
@@ -609,13 +616,15 @@
         ],
         '@after': [
           {
-            t: '#TPS Total<br>data KPU<br><br><br><br><br>(A)<br><br>',
+            t: '#TPS Total<br>data KPU',
+            rumus: '(A)',
             fn: function (i, data) {
               return c.children[i][2]
             },
           },
           {
-            t: '#TPS dg Foto<br>diterima<br>Kawal Pemilu<br>(termasuk yang<br>belum diproses)<br><br>(B)<br>(B/A)%',
+            t: '#TPS dg Foto<br>diterima<br>Kawal Pemilu<br>(termasuk yang<br>belum diproses)',
+            rumus: '(B)<br>(B/A)%',
             fn: function (i, data) {
               return [
                 get_sum(data, 'cakupan'),
@@ -636,7 +645,8 @@
             sort_value_fn: sort_value_persen0_fn,
           },
           {
-            t: '#TPS dg Foto<br>yang<br>belum Diproses<br><br><br><br>(C)<br>(C/B)%',
+            t: '#TPS dg Foto<br>yang<br>belum Diproses',
+            rumus: '(C)<br>(C/B)%',
             fn: function (i, data) {
               return [
                 get_sum(data, 'pending'),
@@ -657,13 +667,14 @@
             sort_value_fn: sort_value_persen0_fn,
           },
           {
-            t: '#TPS dg Foto<br>yang<br>dilaporkan<br>bermasalah<br><br><br>(D)<br>(D/B)%',
+            t: '#TPS dg Foto<br>yang<br>dilaporkan<br>bermasalah',
             fn: function (i, data) {
               return [
                 get_sum(data, 'error'),
                 get_sum(data, 'cakupan'),
               ]
             },
+            rumus: '(D)<br>(D/B)%',
             format: format_tps_persen_fn,
             acc_init: [0, 0],
             acc_fn: function (a, b) { return [a[0] + b[0], a[1] + b[1]] },
@@ -679,8 +690,16 @@
           },
         ],
         'pilpres': [
-          { t: 'Jokowi-Amin', fn: get_sum_fn('pas1') },
-          { t: 'Prabowo-Sandi', fn: get_sum_fn('pas2') },
+          {
+            t: 'Jokowi-Amin',
+            fn: get_sum_fn('pas1'),
+            rumus: '(P1)',
+          },
+          {
+            t: 'Prabowo-Sandi',
+            fn: get_sum_fn('pas2'),
+            rumus: '(P2)',
+          },
           {
             t: 'Suara Sah', fn: function (i, data) {
               return [
@@ -689,6 +708,7 @@
                 get_sum_fn('pas2')(i, data),
               ]
             },
+            rumus: '(SS)<br>(SS-P1-P2)',
             sort_value_fn: function (value) { return value[0] },
             class_fn: function (value, i, data) {
               if (value[0] === value[1] + value[2]) return ''
@@ -779,6 +799,13 @@
         var title_attr = entry.title_title ? ' title="' + entry.title_title + '"' : ''
         s += '<th onclick="sort(' + i + ')" ' + title_attr + '>' + entry.t + '</th>'
       }
+      s += '</tr><tr>'
+      for (var i = 0; i < cols.length; i++) {
+        var entry = Object.assign({}, defaultEntry, cols[i])
+        var title_attr = entry.title_title ? ' title="' + entry.title_title + '"' : ''
+        s += '<th class="rumus" onclick="sort(' + i + ')" ' + title_attr + '>' + entry.rumus + '</th>'
+      }
+      s += '</tr>'
       s += stotal
       s += '</thead>'
 
