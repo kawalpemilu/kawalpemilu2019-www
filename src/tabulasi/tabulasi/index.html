@@ -388,21 +388,29 @@
       background: #ffcc80;
     }
 
-    p.pengumuman {
+    div.pengumuman {
       max-width: 1024px;
       border-radius: 5px;
-      padding: 15px;
+      padding: 10px 15px;
       margin: 15px -15px;
       display: block;
       line-height: 28px;
     }
 
-    p.warn {
+    div.pengumuman p {
+      margin: 0 0 10px 0;
+    }
+
+    div.pengumuman p:last-child {
+      margin: 0px;
+    }
+
+    div.warn {
       border: 1px solid #e57373;
       background: #ffebee;
     }
 
-    p.disclaimer {
+    div.disclaimer {
       border: 1px solid #4db6ac;
       background: #e0f2f1;
     }
@@ -1121,19 +1129,26 @@
       <a target="_blank" href="https://upload.kawalpemilu.org">upload.kawalpemilu.org</a>!
     </p>
 
-    <p class="pengumuman disclaimer">
-      Semua informasi di situs KawalPemilu.org dipublikasikan dengan itikad
-      baik dan hanya untuk tujuan informasi bagi publik dan adalah
-      <strong>bukan merupakan hasil resmi</strong> dari penyelenggara Pemilu.
-    </p>
+    <div class="pengumuman disclaimer">
+      <p>
+        Semua informasi di situs KawalPemilu.org dipublikasikan dengan itikad
+        baik dan hanya untuk tujuan informasi bagi publik dan adalah
+        <strong>bukan merupakan hasil resmi</strong> dari penyelenggara Pemilu.
+        Pengumpulan dan penginputan data pada situs ini dilakukan dengan cara
+        crowd sourcing atau gotong royong.
+      </p>
+    </div>
 
-    <p class="pengumuman warn">
-      Data pada halaman ini masih <strong>belum final</strong> dan akan terus diperbarui <strong>secara
-        berkala</strong>!
-      <br>
-      Terakhir diakses
-      <script>document.write(getCurrentTime());</script>
-    </p>
+    <div class="pengumuman warn">
+      <p>
+        Data pada halaman ini masih <strong>belum final</strong> dan akan terus diperbarui <strong>secara
+          berkala</strong>!
+      </p>
+      <p>
+        Terakhir diakses
+        <script>document.write(getCurrentTime());</script>
+      </p>
+    </div>
 
     <div id="tipe"></div>
     <div id="navigasi"></div>
