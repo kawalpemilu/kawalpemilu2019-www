@@ -551,6 +551,15 @@
       let format_tps_persen0_fn = function (value) {
         return thousands(value[0])
       }
+      let plus_min = function (value) {
+        if (value < 0) return value
+        return '+' + value
+      }
+      let format_delta_fn = function (value) {
+        if (value[0] === value[1] + value[2]) return thousands(value[0])
+        var d = plus_min(value[0] - (value[1] + value[2]))
+        return '<span class="n">' + thousands(value[0]) + '</span><span class="p">(' + d + ')</span>'
+      }
 
       let acc_sum_fn = function (a, b) { return a + b }
       let acc_empty_fn = function (a, b) { return '' }
@@ -673,21 +682,31 @@
           { t: 'Jokowi-Amin', fn: get_sum_fn('pas1') },
           { t: 'Prabowo-Sandi', fn: get_sum_fn('pas2') },
           {
-            t: 'Suara Sah', fn: get_sum_fn('sah'),
+            t: 'Suara Sah', fn: function (i, data) {
+              return [
+                get_sum_fn('sah')(i, data),
+                get_sum_fn('pas1')(i, data),
+                get_sum_fn('pas2')(i, data),
+              ]
+            },
+            sort_value_fn: function (value) { return value[0] },
             class_fn: function (value, i, data) {
-              var p1 = get_sum_fn('pas1')(i, data)
-              var p2 = get_sum_fn('pas2')(i, data)
-              var calc = p1 + p2
-              if (value === calc) return ''
+              if (value[0] === value[1] + value[2]) return ''
               return 'error help'
             },
             title_fn: function (value, i, data) {
-              var p1 = get_sum_fn('pas1')(i, data)
-              var p2 = get_sum_fn('pas2')(i, data)
-              var calc = p1 + p2
-              if (value === calc) return ''
+              if (value[0] === value[1] + value[2]) return ''
               return 'ada data suara sah yang tidak konsisten'
-            }
+            },
+            format: function (value) {
+              return thousands(value[0])
+            },
+            acc_format: function (value) {
+              return thousands(value[0])
+            },
+            acc_init: [0, 0, 0],
+            acc_fn: function (a, b) { return [a[0] + b[0], a[1] + b[1], a[1] + b[1]] },
+            format: format_delta_fn,
           },
           { t: 'Tidak Sah', fn: get_sum_fn('tSah') },
         ],
