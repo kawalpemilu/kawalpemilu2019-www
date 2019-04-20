@@ -933,7 +933,7 @@
 
         var tpsRow = c.data[c.children[i][0]];
         var tpsNo = c.children[i][0];
-        var nDPT = c.children[i][1] + c.children[i][2];
+        var nDPT = Max.math(0, c.children[i][1] + c.children[i][2])
 
         var pending = tpsSum('pending', tpsRow)
         var pendingClass = pending ? 'pending' : ''
