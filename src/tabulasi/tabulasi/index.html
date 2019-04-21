@@ -628,6 +628,9 @@
         sort_value_fn: function (value, i, data) {
           return $(value).text() ? $(value).text() : value
         },
+        sort_sec_value_fn: function (value, i, data) {
+          return $(value).text() ? $(value).text() : value
+        },
         rumus: '',
         style_fn: function (value, i, data) { return '' },
       };
@@ -684,6 +687,7 @@
             },
             title_title: 'Jumlah TPS yang memiliki foto, termasuk foto yang belum diproses',
             sort_value_fn: sort_value_persen0_fn,
+            sort_sec_value_fn: sort_value_persen_fn 
           },
           {
             t: 'Estimasi*<br>TPS terproses<br>(baca penjelasan<br>di bawah)',
@@ -713,6 +717,7 @@
             sort_value_fn: function (value) {
               return sort_value_persen0_fn([value[0] - value[1], value[2]])
             },
+              sort_sec_value_fn: value => sort_value_persen_fn([value[0]-value[1], value[2]]) 
           },
           {
             t: '#TPS dg Foto<br>yang<br>belum Diproses',
@@ -735,6 +740,7 @@
               return thousands(value[0]) + ' dari ' + thousands(value[1]) + ' TPS'
             },
             sort_value_fn: sort_value_persen0_fn,
+            sort_sec_value_fn: sort_value_persen_fn 
           },
           {
             t: '#TPS dg Foto<br>yang<br>dilaporkan<br>bermasalah',
@@ -771,7 +777,7 @@
             rumus: '(P2)',
           },
           {
-            t: 'Suara Sah', fn: function (i, data) {
+             t: 'Suara Sah', fn: function (i, data) {
               return [
                 get_sum_fn('sah')(i, data),
                 get_sum_fn('pas1')(i, data),
@@ -780,6 +786,7 @@
             },
             rumus: '(SS)<br>(SS-P1-P2)',
             sort_value_fn: function (value) { return value[0] },
+            sort_sec_value_fn: function (value) { return value[0]-value[1]-value[2] },
             class_fn: function (value, i, data) {
               if (value[0] === value[1] + value[2]) return ''
               return 'error help'
@@ -840,12 +847,13 @@
           total[j] = entry.acc_fn(total[j], value)
           var formatted = entry.format(value, i, data)
           var sortValue = entry.sort_value_fn(value, i, data)
+          var sortSecValue = entry.sort_sec_value_fn(value, i, data)
           var css_class = entry.class + ' ' + entry.class_fn(value, i, data)
           var title = entry.title_fn(value, i, data)
           var title_attr = title && 'title="' + title + '"' || ''
           var style = entry.style_fn(value, i, data)
           var style_attr = style ? 'style="' + style + '"' : ''
-          sbody += '<td data-sort-index="' + j + '" data-sort="' + sortValue + '" class="' + css_class + '" ' + title_attr + ' ' + style_attr + '>' + formatted + '</td>'
+          sbody += '<td data-sort-index="' + j + '" data-sort="' + sortValue + '" data-sortsec="'+ sortSecValue +'" class="' + css_class + '" ' + title_attr + ' ' + style_attr + '>' + formatted + '</td>'
         }
         sbody += '</tr>'
       }
@@ -875,7 +883,7 @@
       for (var i = 0; i < cols.length; i++) {
         var entry = Object.assign({}, defaultEntry, cols[i])
         var title_attr = entry.title_title ? ' title="' + entry.title_title + '"' : ''
-        s += '<th class="rumus" onclick="sort(' + i + ')" ' + title_attr + '>' + entry.rumus + '</th>'
+        s += '<th class="rumus" onclick="sort(' + i + ', true)" ' + title_attr + '>' + entry.rumus + '</th>'
       }
       s += '</tr>'
       s += stotal
@@ -1091,7 +1099,11 @@
 
     var sortState = [1, 1];
 
-    function sort(i) {
+    function sort(i, secondary) {
+
+      var sortField = 'sort';
+      if(secondary) sortField += 'sec';
+      console.log(i, sortField);
       var trs = $('table tr.datarow');
       var tds = $(trs[0]).find('td');
       var idx = 0;
@@ -1109,8 +1121,8 @@
       sortState = [idx, mul];
 
       trs.sort(function (a, b) {
-        var ka = $(a).find('td:nth-child(' + idx + ')').data('sort');
-        var kb = $(b).find('td:nth-child(' + idx + ')').data('sort');
+        var ka = $(a).find('td:nth-child(' + idx + ')').data(sortField);
+        var kb = $(b).find('td:nth-child(' + idx + ')').data(sortField);
         if (!ka && !kb) return 0 * mul;
         if (!ka && !!kb) return -1 * mul;
         if (!!ka && !kb) return 1 * mul;
