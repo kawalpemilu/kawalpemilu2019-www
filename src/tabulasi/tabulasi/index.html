@@ -1020,9 +1020,14 @@
         var pending = tpsSum('pending', tpsRow)
         var pendingClass = pending ? 'pending' : ''
 
+        var modUrl = 'https://upload.kawalpemilu.org/t/' + c.id + '/' + tpsNo + '?utm_source=wwwkp'
+
         s += '<tr class="datarow ' + pendingClass + '">';
-        s += '<td><p class="tpsno">TPS ' + tpsNo + '</p>'
-        s += '<p>DPT: ' + nDPT + '</p></td>'
+        s += '<td>'
+        s += '<p class="tpsno">TPS ' + tpsNo + '</p>'
+        s += '<p>DPT: ' + nDPT + '</p>'
+        s += '<p><a href="' + modUrl + '" title="Klik untuk membuka halaman moderator" target="_blank">Mod?</a></p>'
+        s += '</td>'
 
         var laporanUrl = getLaporanUrl(hash, tpsNo, tipe, c.parentNames[c.parentNames.length - 1], c.name)
 
