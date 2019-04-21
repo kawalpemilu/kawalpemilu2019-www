@@ -1045,7 +1045,7 @@
         for (var ii = 0; ii < k.length; ii++)
           keyLabels[k[ii]] = l[ii];
       }
-      console.log('KEY LABEL', keyLabels);
+      //console.log('KEY LABEL', keyLabels);
 
       s += '<thead class="tps"><tr class="header" id="header"><th>TPS & DPT</th><th>Hasil Perhitungan</th><th>Foto</th></tr></thead>';
       s += '<tbody class="tps">'
@@ -1103,7 +1103,7 @@
 
       var sortField = 'sort';
       if(secondary) sortField += 'sec';
-      console.log(i, sortField);
+
       var trs = $('table tr.datarow');
       var tds = $(trs[0]).find('td');
       var idx = 0;
