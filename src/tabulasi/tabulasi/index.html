@@ -791,12 +791,10 @@
             format: function (value) {
               return thousands(value[0])
             },
-            acc_format: function (value) {
-              return thousands(value[0])
-            },
             acc_init: [0, 0, 0],
-            acc_fn: function (a, b) { return [a[0] + b[0], a[1] + b[1], a[1] + b[1]] },
+            acc_fn: function (a, b) { return [a[0] + b[0], a[1] + b[1], a[2] + b[2]] },
             format: format_delta_fn,
+            acc_format: format_delta_fn,
           },
           { t: 'Tidak Sah', fn: get_sum_fn('tSah') },
         ],
