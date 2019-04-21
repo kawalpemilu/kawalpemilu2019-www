@@ -21,11 +21,12 @@ paling mutakhir yang dapat dilihat pada [kawalpemilu.org](https://kawalpemilu.or
 Ada keterlambatan 30+ menit dibanding data yang disajikan pada
 [kawalpemilu.org](https://kawalpemilu.org).
 
-* [Cakupan TPS](http://tenrio.la/cakupantps)
-* [Cakupan TPS per Provinsi](http://tenrio.la/cakupantpsdetil)
-* [Surat Suara Pilpres](http://tenrio.la/suratsuarapilpres)
-* [Hasil Sementara Real Count Pilpres](http://tenrio.la/pilpres)
-* [Hasil Sementara Real Count Pilpres per Provinsi](http://tenrio.la/pilpresdetil)
-* [Surat Suara Pileg DPR](http://tenrio.la/suratsuarapilegdpr)
-* [Hasil Sementara Real Count Pileg DPR per Partai](http://tenrio.la/pilegdpr)
+* [Perkembangan Proses Data Masuk](https://wibisono.github.io/kpviz/cakupan/?utm_source=wwwkp)
+* [Cakupan TPS](http://tenrio.la/cakupantps?utm_source=wwwkp)
+* [Cakupan TPS per Provinsi](http://tenrio.la/cakupantpsdetil?utm_source=wwwkp)
+* [Surat Suara Pilpres](http://tenrio.la/suratsuarapilpres?utm_source=wwwkp)
+* [Hasil Sementara Real Count Pilpres](http://tenrio.la/pilpres?utm_source=wwwkp)
+* [Hasil Sementara Real Count Pilpres per Provinsi](http://tenrio.la/pilpresdetil?utm_source=wwwkp)
+* [Surat Suara Pileg DPR](http://tenrio.la/suratsuarapilegdpr?utm_source=wwwkp)
+* [Hasil Sementara Real Count Pileg DPR per Partai](http://tenrio.la/pilegdpr?utm_source=wwwkp)
 
