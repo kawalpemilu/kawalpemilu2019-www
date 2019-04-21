@@ -594,11 +594,11 @@
         return thousands(value[0])
       }
       let plus_min = function (value) {
-        if (value < 0) return value
+        if (value <= 0) return value
         return '+' + value
       }
       let format_delta_fn = function (value) {
-        if (value[0] === value[1] + value[2]) return thousands(value[0])
+        // if (value[0] === value[1] + value[2]) return thousands(value[0])
         var d = plus_min(value[0] - (value[1] + value[2]))
         return '<span class="n">' + thousands(value[0]) + '</span><span class="p">(' + d + ')</span>'
       }
