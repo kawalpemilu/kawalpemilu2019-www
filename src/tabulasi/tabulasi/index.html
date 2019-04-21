@@ -674,7 +674,7 @@
             format: format_tps_persen_kpu_fn,
             acc_init: [0, 0],
             acc_fn: function (a, b) { return [a[0] + b[0], a[1] + b[1]] },
-            acc_format: format_tps_persen0_fn,
+            acc_format: format_tps_persen_kpu_fn,
             title_fn: function (value, i, data) {
               return thousands(value[0]) + ' dari ' + thousands(value[1]) + ' TPS'
             },
@@ -686,7 +686,7 @@
           },
           {
             t: 'Estimasi*<br>TPS terproses<br>(baca penjelasan<br>di bawah)',
-            rumus: '(E)=(B-C)',
+            rumus: '(E)=(B-C)<br>(E/A)%',
             fn: function (i, data) {
               return [
                 get_sum(data, 'cakupan'),
@@ -699,7 +699,9 @@
             format: function (value) {
               return format_tps_persen_kpu_fn([value[0] - value[1], value[2]])
             },
-            acc_format: function (value) { return value[0] - value[1] }
+            acc_format: function (value) {
+              return format_tps_persen_kpu_fn([value[0] - value[1], value[2]])
+            },
           },
           {
             t: '#TPS dg Foto<br>yang<br>belum Diproses',
