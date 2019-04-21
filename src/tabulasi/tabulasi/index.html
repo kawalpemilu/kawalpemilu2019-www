@@ -709,7 +709,10 @@
               var cw = 'rgba(255,255,255,0)'
               var cf = '#aed581'
               return 'background-image: linear-gradient(to right, ' + cw + ' 0%, ' + cw + ' ' + p + '%, ' + cf + ' ' + p + '%, ' + cf + ' 100%)'
-            }
+            },
+            sort_value_fn: function (value) {
+              return sort_value_persen0_fn([value[0] - value[1], value[2]])
+            },
           },
           {
             t: '#TPS dg Foto<br>yang<br>belum Diproses',
