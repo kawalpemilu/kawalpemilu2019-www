@@ -454,6 +454,10 @@
       color: #444;
       margin-top: 2px;
     }
+
+    a.mod {
+      text-decoration: none;
+    }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script type="text/javascript">
@@ -1073,7 +1077,9 @@
         s += '<td>'
         s += '<p class="tpsno">TPS ' + tpsNo + '</p>'
         s += '<p>DPT: ' + nDPT + '</p>'
-        s += '<p><a href="' + modUrl + '" title="Klik untuk membuka halaman moderator" target="_blank">Mod?</a></p>'
+        s += '<p><a href="' + modUrl + '" title="Klik untuk membuka halaman moderator" class="mod" target="_blank">'
+        s += 'Mod?<br>' + c.id + '/' + tpsNo
+        s += '</a></p>'
         s += '</td>'
 
         var laporanUrl = getLaporanUrl(hash, tpsNo, tipe, c.parentNames[c.parentNames.length - 1], c.name)
