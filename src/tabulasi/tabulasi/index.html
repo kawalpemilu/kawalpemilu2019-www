@@ -226,6 +226,11 @@
       background: #ffcc80;
     }
 
+    #catatan span.janggal {
+      display: inline-block;
+      padding: 2px 15px;
+      background: #fffacd;
+    }
     .win {
       background-color: "lightgreen";
     }
@@ -388,6 +393,9 @@
       background: #ffcc80;
     }
 
+    tbody.tps tr.janggal td:first-child {
+      background: #fffacd;
+    }
     div.pengumuman {
       max-width: 900px;
       border-radius: 5px;
@@ -1056,9 +1064,12 @@
         var pending = tpsSum('pending', tpsRow)
         var pendingClass = pending ? 'pending' : ''
 
+        var janggal = tpsSum('janggal', tpsRow)
+        var janggalClass = janggal ? 'janggal' : ''
+
         var modUrl = 'https://upload.kawalpemilu.org/t/' + c.id + '/' + tpsNo + '?utm_source=wwwkp'
 
-        s += '<tr class="datarow ' + pendingClass + '">';
+        s += '<tr class="datarow ' + pendingClass + ' ' + janggalClass + '">';
         s += '<td>'
         s += '<p class="tpsno">TPS ' + tpsNo + '</p>'
         s += '<p>DPT: ' + nDPT + '</p>'
@@ -1242,6 +1253,10 @@
         <li>
           <span class="pending">TPS</span> pada halaman TPS yang diwarnai oranye artinya
           memiliki data yang belum diproses.
+        </li>
+        <li>
+          <span class="janggal">TPS</span> pada halaman TPS yang diwarnai kuning artinya
+          memiliki data yang janggal.
         </li>
         <li>
           <p>
