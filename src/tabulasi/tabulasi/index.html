@@ -672,7 +672,7 @@
             },
           },
           {
-            t: '#TPS dg Foto<br>diterima<br>Kawal Pemilu<br>(termasuk yang<br>belum diproses)',
+            t: '#TPS dg Foto<br>diterima<br>Kawal Pemilu<br>(termasuk lembar<br>PHP, pileg, dpd, dll)',
             rumus: '(B)<br>(B/A)%',
             fn: function (i, data) {
               return [
@@ -690,7 +690,7 @@
             acc_title_fn: function (value, i, data) {
               return thousands(value[0]) + ' dari ' + thousands(value[1]) + ' TPS'
             },
-            title_title: 'Jumlah TPS yang memiliki foto, termasuk foto yang belum diproses',
+            title_title: 'Jumlah TPS yang memiliki foto, termasuk lembar 1 (pengguna hak pilih), pileg, DPD, dll',
             sort_value_fn: sort_value_persen0_fn,
           },
           {
@@ -1219,8 +1219,10 @@
       <h2>Catatan</h2>
       <ul>
         <li>
-          <span class="th">#TPS dengan Foto</span> berisi jumlah TPS yang sudah memiliki foto,
-          terlepas apakah foto tersebut sudah diproses atau belum.
+          <span class="th">#TPS dengan Foto</span> berisi jumlah TPS yang
+          sudah memiliki foto, baik foto suara pilpres (PPWP lembar 2),
+          pengguna hak pilih, DPD, atau yang lain; terlepas apakah foto
+          tersebut sudah diproses atau belum.
         </li>
         <li>
           <p>
