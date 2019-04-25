@@ -103,10 +103,6 @@
       padding: 0 5px;
     }
 
-    #column_list {
-      margin: 10px 0;
-    }
-
     .tps td {
       white-space: nowrap;
     }
@@ -521,19 +517,6 @@
         document.getElementById('navigasi').innerHTML = renderNavigasi(c, tipe);
         var isHierarchyTable = c.depth < 4;
         document.getElementById('tabulasi').innerHTML = isHierarchyTable ? renderHierarchy(c, tipe, tipeForm) : renderTps(c, tipe, tipeForm);
-        /*
-        if (isHierarchyTable) {
-          document.getElementById('column_list').innerHTML = renderColumnList();
-          for (var i = 2; i < columnNamesList.length; i++) {
-            hideShowColumn(i);
-          }
-        
-          $('#column_list').show();
-        } else {
-          
-          $('#column_list').hide();
-        }
-        */
       });
     }
 
@@ -556,28 +539,6 @@
       }
       s += '<span class="nav">' + c.name + '</span>';
       return s;
-    }
-
-    var columnNamesList;
-
-
-    function renderColumnList() {
-
-      var s = '';
-      for (var i = 2; i < columnNamesList.length; i++) {
-        s += '<input type="checkbox" checked="checked" id="colCheckbox' + i + '"onclick="hideShowColumn(' + i + ')">' + columnNamesList[i] + '&nbsp;&nbsp;</input>';
-      }
-      return s;
-    }
-
-    function hideShowColumn(i) {
-      var checkbox = document.getElementById('colCheckbox' + i);
-      var index = i + 1;
-      if (checkbox.checked) {
-        $('td:nth-child(' + index + '),th:nth-child(' + index + ')').show();
-      } else {
-        $('td:nth-child(' + index + '),th:nth-child(' + index + ')').hide();
-      }
     }
 
     function renderHierarchy(c, tipe, tipeForm) {
@@ -1211,7 +1172,6 @@
 
     <div id="tipe"></div>
     <div id="navigasi"></div>
-    <div id="column_list"></div>
 
     <table class="aggregate" id="tabulasi">
       <tr class="init">
