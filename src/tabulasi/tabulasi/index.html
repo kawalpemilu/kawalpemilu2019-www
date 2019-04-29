@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>KawalPemilu - Jaga Suara 2019</title>
 
@@ -455,8 +456,10 @@
       text-decoration: none;
     }
   </style>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script type="text/javascript">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link href="stacktable.css" rel="stylesheet" />
+<script src="stacktable.js" type="text/javascript"></script>
+<script type="text/javascript">
     function xhr(url, cb) {
       var oReq = new XMLHttpRequest();
       oReq.addEventListener("load", function () {
@@ -515,8 +518,10 @@
         // console.log(JSON.stringify(c, null, 2));
         document.getElementById('tipe').innerHTML = renderTipe(tipe, id);
         document.getElementById('navigasi').innerHTML = renderNavigasi(c, tipe);
+        document.getElementById('tableholder').innerHTML = '<table class="aggregate" id="tabulasi"><tr class="init"><td><p>sedang membaca data&hellip;</p></td></tr></table>';
         var isHierarchyTable = c.depth < 4;
         document.getElementById('tabulasi').innerHTML = isHierarchyTable ? renderHierarchy(c, tipe, tipeForm) : renderTps(c, tipe, tipeForm);
+        $('#tabulasi').stacktable();
       });
     }
 
@@ -1151,12 +1156,12 @@
 
     <div class="pengumuman disclaimer">
       <p><a href="https://kawalpemilu.org/disclaimer/" target="_blank" style="color:black; text-decoration: none">
-          Semua informasi di situs Kawal Pemilu dipublikasikan dengan itikad
-          baik dan hanya untuk tujuan informasi bagi publik dan
-          <strong>bukan merupakan hasil resmi</strong> dari penyelenggara Pemilu.
-          Pengumpulan dan penginputan data pada situs ini dilakukan dengan cara
-          <em>crowd sourcing</em> atau gotong royong.
-        </a></p>
+        Semua informasi di situs Kawal Pemilu dipublikasikan dengan itikad
+        baik dan hanya untuk tujuan informasi bagi publik dan
+        <strong>bukan merupakan hasil resmi</strong> dari penyelenggara Pemilu.
+        Pengumpulan dan penginputan data pada situs ini dilakukan dengan cara
+        <em>crowd sourcing</em> atau gotong royong.
+      </a></p>
     </div>
 
     <div class="pengumuman warn">
@@ -1173,14 +1178,15 @@
     <div id="tipe"></div>
     <div id="navigasi"></div>
 
-    <table class="aggregate" id="tabulasi">
-      <tr class="init">
-        <td>
-          <p>sedang membaca data&hellip;</p>
-        </td>
-      </tr>
-    </table>
-
+    <div id="tableholder">
+      <table class="aggregate" id="tabulasi">
+        <tr class="init">
+          <td>
+            <p>sedang membaca data&hellip;</p>
+          </td>
+        </tr>
+      </table>
+    </div>
     <div id="catatan">
       <h2>Catatan</h2>
       <ul>
@@ -1229,7 +1235,7 @@
         <li>
           <p>
             Kawal Pemilu menggunakan <a href="https://en.wikipedia.org/wiki/Cache_(computing)"
-              target="_blank"><em>cache</em></a>
+                                        target="_blank"><em>cache</em></a>
             dalam menyediakan data tabulasi. Walau <em>cache</em> membantu agar data dapat
             disajikan lebih cepat, penggunaan <em>cache</em> juga membuat data yang disajikan
             bukan berasal dari versi paling mutakhir. Umur <em>cache</em> diatur berjenjang
