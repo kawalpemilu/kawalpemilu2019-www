@@ -1,8 +1,8 @@
 import './tabulasi.scss'
 
 import { PageParam } from './common'
-import { HierarchyNode, TpsAggregate, FORM_TYPE, SumMap } from './types'
-import { TpsRenderer } from './tps-renderer'
+import { HierarchyNode, FORM_TYPE } from './types'
+import { PageRenderer } from './page'
 
 var isMobile = window.matchMedia('only screen and (max-width: 760px)').matches
 var isTablet = window.matchMedia('only screen and (min-width: 761px) and (max-width: 900px)').matches
@@ -56,39 +56,13 @@ function load() {
     var param = getPageParam()
     updatePageHash(param)
 
-    var renderer = new PageRenderer()
+    var renderer = new PageRenderer(
+        document.getElementById('navigasi'),
+        document.getElementById('tps')
+    )
     get(param.id, (node) => {
         renderer.render(param, node)
     })
-}
-
-class PageRenderer {
-    private navRenderer = new NavRenderer()
-    private tpsRenderer = new TpsRenderer()
-
-    constructor() { }
-
-    render(param: PageParam, node: HierarchyNode) {
-        document.getElementById('navigasi')
-            .innerHTML = this.navRenderer.render(param, node)
-
-        document.getElementById('tps')
-            .innerHTML = this.tpsRenderer.render(param, node)
-    }
-}
-
-class NavRenderer {
-    render(param: PageParam, node: HierarchyNode) {
-        var s = ''
-        for (var i = 0; i < node.parentIds.length; i++) {
-            var pid = node.parentIds[i]
-            var name = node.parentNames[i]
-            var hash = '#' + param.type + ':' + pid
-            s += `<span class="nav"><a href="${hash}">${name}</a></span> <span class="sep">&gt;</span> `
-        }
-        s += `<span class="nav">${node.name}</span>`
-        return s
-    }
 }
 
 window.onload = load

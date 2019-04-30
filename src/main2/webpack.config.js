@@ -6,7 +6,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 module.exports = {
     entry: {
         main: './src/main.js',
-        tabulasi: './src/tabulasi.ts',
+        tabulasi: './src/tabulasi/tabulasi.ts',
     },
     output: {
         filename: '[name].[contenthash].js',
