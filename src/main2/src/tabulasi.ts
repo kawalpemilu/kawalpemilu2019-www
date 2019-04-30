@@ -2,6 +2,9 @@ import './tabulasi.scss'
 
 import { HierarchyNode } from './types'
 
+var isMobile = window.matchMedia('only screen and (max-width: 760px)').matches
+document.querySelectorAll('body')[0].classList.add(isMobile ? 'mobile' : 'desktop')
+
 class PageParam {
     type: string
     id: number
@@ -53,8 +56,26 @@ function load() {
     updatePageHash(param)
 
     get(param.id, (node) => {
-        console.log('node', node)
+        render(param, node)
     })
+}
+
+function render(param: PageParam, node: HierarchyNode) {
+    renderNavigasi(param, node)
+}
+
+function renderNavigasi(param: PageParam, node: HierarchyNode) {
+    var s = ''
+    for (var i = 0; i < node.parentIds.length; i++) {
+        var pid = node.parentIds[i]
+        var name = node.parentNames[i]
+        var hash = '#' + param.type + ':' + pid
+        s += '<span class="nav"><a href="' + hash + '">' + name + '</a></span> <span class="sep">&gt;</span> '
+    }
+    s += '<span class="nav">' + node.name + '</span>'
+
+    var el = document.getElementById('navigasi')
+    el.innerHTML = s
 }
 
 window.onload = load
