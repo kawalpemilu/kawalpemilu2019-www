@@ -1,0 +1,155 @@
+body,
+html {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/** part:header **/
+
+header {
+  background: #607d8b;
+  margin: 0px;
+
+  a {
+    display: flex;
+    color: white;
+    background-image: url(https://upload.kawalpemilu.org/assets/logo/android-icon-72x72.png);
+    background-repeat: no-repeat;
+    background-position: top left;
+    text-decoration: none;
+    height: 60px;
+    padding: 0 10px 0 90px;
+    box-sizing: border-box;
+    align-items: center;
+  }
+}
+
+@media (min-width: 551px) {
+  header {
+    a {
+      font-size: 26px;
+    }
+  }
+}
+
+@media (max-width: 550px) {
+  header {
+    a {
+      font-size: 18px;
+      vertical-align: middle;
+    }
+  }
+}
+
+/** part:footer **/
+
+footer {
+  background: #37474f;
+  height: 20px;
+  display: block;
+  width: 100%;
+  color: white;
+  padding: 10px 0;
+  text-align: center;
+  font-size: 14px;
+}
+
+nav {
+  background: #37474f;
+  color: white;
+  font-size: 14px;
+
+  a {
+    color: white;
+    text-decoration: none;
+    padding: 7px 7px;
+    display: inline-block;
+  }
+
+  ul li:first-child a {
+    padding-left: 15px;
+  }
+}
+
+@media (min-width: 701px) {
+  nav.bottom {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  nav {
+    text-align: center;
+
+    a.bottom {
+      display: none;
+    }
+
+    a {
+      padding: 7px 5px;
+    }
+
+    ul li:first-child a {
+      padding-left: 0;
+    }
+  }
+}
+
+nav {
+  a:hover {
+    background: #62727b;
+  }
+
+  ul {
+    padding: 0;
+    margin: 0px;
+
+    li {
+      display: inline;
+    }
+  }
+}
+
+nav.bottom {
+  text-align: center;
+}
+
+/** part:main **/
+
+main {
+  flex: 1;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+@media (min-width: 701px) {
+  main > * {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+}
+
+@media (max-width: 700px) {
+  main {
+    padding: 10px 0;
+  }
+
+  main > * {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  main > .table {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
