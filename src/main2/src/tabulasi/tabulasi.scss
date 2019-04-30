@@ -1,3 +1,9 @@
+$phone-small: "only screen and (max-width: 400px)";
+$phone-wide: "only screen and (min-width: 401px) and (max-width: 760px)";
+$phone: "only screen and (max-width: 760px)";
+$tablet: "only screen and (min-width: 761px) and (max-width: 1000px)";
+$desktop: "only screen and (min-width: 1001px)";
+
 #navigasi {
   span.nav {
     white-space: nowrap;
@@ -5,6 +11,99 @@
   span.sep {
     padding-left: 5px;
     padding-right: 5px;
+  }
+}
+
+#agg {
+  overflow-x: scroll;
+
+  ul {
+    display: table;
+    border-collapse: collapse;
+
+    margin: 0px;
+    padding: 0px;
+
+    @media #{$phone} {
+      min-width: 100%;
+    }
+    @media #{$tablet} {
+      min-width: 100%;
+    }
+
+    li {
+      padding: 0px;
+      display: table-row;
+      line-height: 24px;
+
+      @media #{$phone} {
+        line-height: 24px;
+      }
+
+      &.header p {
+        font-weight: bold;
+      }
+
+      > p {
+        display: table-cell;
+        vertical-align: middle;
+        height: 50px;
+
+        &.idx {
+          text-align: center;
+          width: 30px;
+
+          @media #{$phone} {
+            display: none;
+          }
+        }
+
+        &.name {
+          @media #{$phone} {
+            padding-left: 5px;
+          }
+          // @media #{$phone-small} {
+          //   width: 125px;
+          // }
+          // @media #{$phone-wide} {
+          //   width: 170px;
+          // }
+        }
+
+        &.sum {
+          text-align: right;
+          padding-left: 20px;
+        }
+        &.summary {
+        }
+        &.tps {
+          padding-left: 20px;
+
+          &.estimasi {
+            text-align: center;
+            span {
+              display: inline-block;
+              width: 100%;
+              padding: 5px 10px;
+              box-sizing: border-box;
+              font-size: 14px;
+            }
+          }
+        }
+      }
+      > p:last-child {
+        @media #{$phone} {
+          padding-right: 5px;
+        }
+      }
+    }
+
+    li:nth-child(odd) {
+      background: white;
+    }
+    li:nth-child(even) {
+      background: #eceff1;
+    }
   }
 }
 

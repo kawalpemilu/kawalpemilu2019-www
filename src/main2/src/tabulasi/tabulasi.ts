@@ -58,6 +58,7 @@ function load() {
 
     var renderer = new PageRenderer(
         document.getElementById('navigasi'),
+        document.getElementById('agg'),
         document.getElementById('tps')
     )
     get(param.id, (node) => {
