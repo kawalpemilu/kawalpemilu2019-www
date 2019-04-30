@@ -1,14 +1,13 @@
 import './tabulasi.scss'
 
-import { HierarchyNode } from './types'
+import { PageParam } from './common'
+import { HierarchyNode, TpsAggregate, FORM_TYPE, SumMap } from './types'
+import { TpsRenderer } from './tps-renderer'
 
 var isMobile = window.matchMedia('only screen and (max-width: 760px)').matches
-document.querySelectorAll('body')[0].classList.add(isMobile ? 'mobile' : 'desktop')
-
-class PageParam {
-    type: string
-    id: number
-}
+var isTablet = window.matchMedia('only screen and (min-width: 761px) and (max-width: 900px)').matches
+var isDesktop = !isMobile && !isTablet
+document.querySelectorAll('body')[0].classList.add(isMobile ? 'mobile' : (isTablet ? 'tablet' : 'desktop'))
 
 function getPageParam(): PageParam {
     var h = document.location.hash;
@@ -25,7 +24,9 @@ function getPageParam(): PageParam {
         }
     }
 
-    return { type, id }
+    var form = type == 'pileg' ? FORM_TYPE.DPR : FORM_TYPE.PPWP
+
+    return { type, form, id }
 }
 
 function updatePageHash(param: PageParam) {
@@ -55,27 +56,39 @@ function load() {
     var param = getPageParam()
     updatePageHash(param)
 
+    var renderer = new PageRenderer()
     get(param.id, (node) => {
-        render(param, node)
+        renderer.render(param, node)
     })
 }
 
-function render(param: PageParam, node: HierarchyNode) {
-    renderNavigasi(param, node)
+class PageRenderer {
+    private navRenderer = new NavRenderer()
+    private tpsRenderer = new TpsRenderer()
+
+    constructor() { }
+
+    render(param: PageParam, node: HierarchyNode) {
+        document.getElementById('navigasi')
+            .innerHTML = this.navRenderer.render(param, node)
+
+        document.getElementById('tps')
+            .innerHTML = this.tpsRenderer.render(param, node)
+    }
 }
 
-function renderNavigasi(param: PageParam, node: HierarchyNode) {
-    var s = ''
-    for (var i = 0; i < node.parentIds.length; i++) {
-        var pid = node.parentIds[i]
-        var name = node.parentNames[i]
-        var hash = '#' + param.type + ':' + pid
-        s += '<span class="nav"><a href="' + hash + '">' + name + '</a></span> <span class="sep">&gt;</span> '
+class NavRenderer {
+    render(param: PageParam, node: HierarchyNode) {
+        var s = ''
+        for (var i = 0; i < node.parentIds.length; i++) {
+            var pid = node.parentIds[i]
+            var name = node.parentNames[i]
+            var hash = '#' + param.type + ':' + pid
+            s += `<span class="nav"><a href="${hash}">${name}</a></span> <span class="sep">&gt;</span> `
+        }
+        s += `<span class="nav">${node.name}</span>`
+        return s
     }
-    s += '<span class="nav">' + node.name + '</span>'
-
-    var el = document.getElementById('navigasi')
-    el.innerHTML = s
 }
 
 window.onload = load

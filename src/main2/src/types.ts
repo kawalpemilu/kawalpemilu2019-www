@@ -1,4 +1,4 @@
-export declare enum SUM_KEY {
+export const enum SUM_KEY {
     jum = "jum",
     pas1 = "pas1",
     pas2 = "pas2",
@@ -33,7 +33,7 @@ export declare enum SUM_KEY {
     pTSah = "pTSah"
 }
 
-export declare enum FORM_TYPE {
+export const enum FORM_TYPE {
     PPWP = 1,
     DPR = 2,
     DPD = 3,
@@ -51,7 +51,7 @@ export declare type SumMap = {
     [key in SUM_KEY]: number;
 };
 
-export declare enum IS_PLANO {
+export const enum IS_PLANO {
     YES = 1,
     NO = 2
 }

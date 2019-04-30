@@ -1,11 +1,18 @@
 body,
 html {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 16px;
   margin: 0px;
   padding: 0px;
   height: 100%;
   width: 100%;
+}
+
+body,
+html,
+table,
+th,
+td {
+  font-size: 16px;
 }
 
 body {
@@ -144,14 +151,25 @@ main {
   padding-bottom: 25px;
 }
 
-@media (min-width: 701px) {
+@media (min-width: 901px) {
   main > * {
     padding-left: 25px;
     padding-right: 25px;
   }
 }
 
-@media (max-width: 700px) {
+@media (min-width: 760px) and (max-width: 900px) {
+  main {
+    padding: 10px 0;
+  }
+
+  main > * {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+@media (max-width: 760px) {
   main {
     padding: 10px 0;
   }
