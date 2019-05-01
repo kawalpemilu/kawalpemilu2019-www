@@ -1,4 +1,7 @@
 import './tabulasi.scss'
+import './agg.scss'
+import './nav.scss'
+import './tps.scss'
 
 import { PageParam } from './common'
 import { HierarchyNode, FORM_TYPE } from './types'
