@@ -1,3 +1,5 @@
+@import 'sizes';
+
 body,
 html {
   font-family: Arial, Helvetica, sans-serif;
@@ -149,36 +151,31 @@ main {
   flex: 1;
   padding-top: 25px;
   padding-bottom: 25px;
-}
 
-@media (min-width: 901px) {
-  main > * {
-    padding-left: 25px;
-    padding-right: 25px;
-  }
-}
-
-@media (min-width: 760px) and (max-width: 900px) {
-  main {
+  @media #{$phone} {
     padding: 10px 0;
   }
+  @media #{$tablet} {
+    padding: 10px 0;
+  }
+}
 
-  main > * {
+main > * {
+  padding-left: 25px;
+  padding-right: 25px;
+
+  @media (min-width: 760px) and (max-width: 900px) {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  @media #{$phone} {
     padding-left: 10px;
     padding-right: 10px;
   }
 }
 
-@media (max-width: 760px) {
-  main {
-    padding: 10px 0;
-  }
-
-  main > * {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
+@media #{$phone} {
   main > .table {
     padding-left: 0px;
     padding-right: 0px;

@@ -1,8 +1,4 @@
-$phone-small: "only screen and (max-width: 400px)";
-$phone-wide: "only screen and (min-width: 401px) and (max-width: 760px)";
-$phone: "only screen and (max-width: 760px)";
-$tablet: "only screen and (min-width: 761px) and (max-width: 1000px)";
-$desktop: "only screen and (min-width: 1001px)";
+@import "../sizes";
 
 #navigasi {
   span.nav {
@@ -72,21 +68,31 @@ $desktop: "only screen and (min-width: 1001px)";
 
         &.sum {
           text-align: right;
-          padding-left: 20px;
+          padding-left: 15px;
         }
         &.summary {
         }
         &.tps {
-          padding-left: 20px;
+          padding-left: 15px;
 
           &.estimasi {
             text-align: center;
             span {
               display: inline-block;
               width: 100%;
-              padding: 5px 10px;
+              padding: 2px 0;
               box-sizing: border-box;
-              font-size: 14px;
+              font-size: 12px;
+
+              @media #{$phone} {
+                padding: 2px 5px;
+              }
+              @media #{$tablet} {
+                padding: 2px 5px;
+              }
+            }
+            @media #{$desktop} {
+              width: 70px;
             }
           }
         }
