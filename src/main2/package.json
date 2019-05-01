@@ -8,6 +8,7 @@
   },
   "author": "Kawal Pemilu",
   "devDependencies": {
+    "clean-webpack-plugin": "^2.0.1",
     "css-loader": "^2.1.1",
     "handlebars": "^4.1.2",
     "handlebars-loader": "^1.7.1",
