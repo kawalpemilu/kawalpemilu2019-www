@@ -164,7 +164,7 @@ main > * {
   padding-left: 25px;
   padding-right: 25px;
 
-  @media (min-width: 760px) and (max-width: 900px) {
+  @media #{$tablet} {
     padding-left: 10px;
     padding-right: 10px;
   }
