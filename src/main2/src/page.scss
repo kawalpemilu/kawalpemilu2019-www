@@ -1,4 +1,4 @@
-@import 'sizes';
+@import "sizes";
 
 body,
 html {
@@ -53,6 +53,10 @@ header {
     box-sizing: border-box;
     align-items: center;
   }
+
+  a:hover {
+    text-decoration: none;
+  }
 }
 
 @media (min-width: 551px) {
@@ -93,12 +97,8 @@ nav {
   a {
     color: white;
     text-decoration: none;
-    padding: 7px 7px;
+    padding: 7px 10px;
     display: inline-block;
-  }
-
-  ul li:first-child a {
-    padding-left: 15px;
   }
 }
 
@@ -119,16 +119,13 @@ nav {
     a {
       padding: 7px 5px;
     }
-
-    ul li:first-child a {
-      padding-left: 0;
-    }
   }
 }
 
 nav {
   a:hover {
     background: #62727b;
+    text-decoration: none;
   }
 
   ul {
