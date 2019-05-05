@@ -1,8 +1,9 @@
 import { PageParam, getSumValue } from './common'
 import { HierarchyNode, TpsAggregate } from './types'
+import { ScreenSize } from './screen';
 
 export class TpsRenderer {
-    constructor() { }
+    constructor(private screenSize: ScreenSize) { }
 
     private KEYS = {
         'pilpres': [

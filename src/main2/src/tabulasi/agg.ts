@@ -1,7 +1,10 @@
 import { PageParam, getSumValue } from "./common";
 import { HierarchyNode } from "./types";
+import { ScreenSize } from "./screen";
 
 export class AggRenderer {
+    constructor(private screenSize: ScreenSize) { }
+
     render(param: PageParam, node: HierarchyNode): string {
         if (node.depth >= 4) return ''
 

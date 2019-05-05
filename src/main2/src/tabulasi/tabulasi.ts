@@ -6,11 +6,10 @@ import './tps.scss'
 import { PageParam } from './common'
 import { HierarchyNode, FORM_TYPE } from './types'
 import { PageRenderer } from './page'
+import { debounce } from 'lodash'
+import { ScreenSize } from './screen';
 
-var isMobile = window.matchMedia('only screen and (max-width: 760px)').matches
-var isTablet = window.matchMedia('only screen and (min-width: 761px) and (max-width: 900px)').matches
-var isDesktop = !isMobile && !isTablet
-document.querySelectorAll('body')[0].classList.add(isMobile ? 'mobile' : (isTablet ? 'tablet' : 'desktop'))
+const screenSize = new ScreenSize()
 
 function getPageParam(): PageParam {
     var h = document.location.hash;
@@ -60,6 +59,7 @@ function load() {
     updatePageHash(param)
 
     var renderer = new PageRenderer(
+        screenSize,
         document.getElementById('navigasi'),
         document.getElementById('agg'),
         document.getElementById('tps')
@@ -69,5 +69,17 @@ function load() {
     })
 }
 
+function updateScreenSize() {
+    var isMobile = window.matchMedia('only screen and (max-width: 760px)').matches
+    var isTablet = window.matchMedia('only screen and (min-width: 761px) and (max-width: 900px)').matches
+    screenSize.update(isMobile, isTablet)
+}
+
 window.onload = load
 window.onhashchange = load
+
+window.addEventListener('resize', debounce(() => {
+    updateScreenSize()
+    load()
+}, 500))
+updateScreenSize()

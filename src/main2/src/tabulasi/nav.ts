@@ -1,7 +1,10 @@
 import { PageParam } from './common'
 import { HierarchyNode } from './types'
+import { ScreenSize } from './screen';
 
 export class NavRenderer {
+    constructor(private screenSize: ScreenSize) { }
+
     render(param: PageParam, node: HierarchyNode) {
         var s = ''
         for (var i = 0; i < node.parentIds.length; i++) {
