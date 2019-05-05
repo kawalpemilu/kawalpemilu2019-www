@@ -70,12 +70,13 @@ function updateStickyTableHeader() {
         ul.parentElement.insertBefore(dup, ul)
 
         dup.innerHTML = '<li class="header">' + el.innerHTML + '</li>'
-        var li = dup.querySelector('li')
-        for (var i=0; i<li.children.length; i++) {
-            var orig = el.children[i] as HTMLElement
-            var ch = li.children[i] as HTMLElement
-            ch.style.width = orig.offsetWidth + 'px'
-        }
+    }
+
+    var li = dup.querySelector('li')
+    for (var i=0; i<li.children.length; i++) {
+        var orig = el.children[i] as HTMLElement
+        var ch = li.children[i] as HTMLElement
+        ch.style.width = orig.offsetWidth + 'px'
     }
 
     if (window.pageYOffset > el.offsetTop)

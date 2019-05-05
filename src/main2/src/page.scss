@@ -115,13 +115,13 @@ nav {
   }
 }
 
-@media (min-width: 701px) {
+@media (min-width: 721px) {
   nav.bottom {
     display: none;
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 720px) {
   nav {
     text-align: center;
 
@@ -155,6 +155,36 @@ nav.bottom {
   text-align: center;
 }
 
+nav {
+  a {
+    span {
+      @media #{$phone-wide} {
+        &.w1 {
+          display: none;
+        }
+      }
+      @media (min-width: 411px) and (max-width: 720px) {
+        &.w1 {
+          display: none;
+        }
+      }
+      @media (min-width: 361px) and (max-width: 410px) {
+        &.w1,
+        &.w2 {
+          display: none;
+        }
+      }
+      @media (max-width: 360px) {
+        &.w1,
+        &.w2,
+        &.w3 {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
 /** part:main **/
 
 main {
@@ -167,6 +197,10 @@ main {
   }
   @media #{$tablet} {
     padding: 10px 0;
+  }
+
+  ul.lampiran {
+    margin-left: 25px;
   }
 }
 
