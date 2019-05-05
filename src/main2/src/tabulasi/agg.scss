@@ -1,7 +1,7 @@
 @import "../sizes";
 
 #agg {
-  overflow-x: scroll;
+  overflow-x: auto;
 
   ul {
     display: table;
@@ -17,6 +17,16 @@
       min-width: 100%;
     }
 
+    &.dup {
+      display: none;
+
+      &.sticky {
+        display: block;
+        position: fixed;
+        top: 0;
+      }
+    }
+
     li {
       padding: 0px;
       display: table-row;
@@ -30,11 +40,16 @@
       &.header p {
         font-weight: bold;
       }
+      &.header.sticky {
+        position: fixed;
+        top: 0;
+      }
 
       > p {
         display: table-cell;
         vertical-align: middle;
         height: 50px;
+        box-sizing: border-box;
 
         &.idx {
           text-align: center;

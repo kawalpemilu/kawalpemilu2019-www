@@ -3,14 +3,24 @@ import { HierarchyNode } from "./types";
 import { ScreenSize } from "./screen";
 
 export class AggRenderer {
-    constructor(private screenSize: ScreenSize) { }
+    constructor(private screenSize: ScreenSize) {
+
+    }
 
     render(param: PageParam, node: HierarchyNode): string {
         if (node.depth >= 4) return ''
 
         var keys = ['']
         var s = ''
-        s += '<ul>'
+        s += '<ul class="table">'
+
+        s += '<li class="header">'
+        s += '<p class="idx">#</p>'
+        s += '<p class="name">Wilayah</p>'
+        s += '<p class="sum pas1">Jokowi-Amin</p>'
+        s += '<p class="sum pas2">Prabowo-Sandi</p>'
+        s += '<p class="tps estimasi">Estimasi TPS</p>'
+        s += '</li>'
 
         for (var i = 0; i < node.children.length; i++) {
             let ch = node.children[i]
@@ -44,3 +54,34 @@ export class AggRenderer {
         return s
     }
 }
+
+function updateStickyTableHeader() {
+    var els = document.querySelectorAll('#agg ul.table li.header')
+    if (els.length == 0) return;
+    var el = els[0] as HTMLElement
+
+    var dup = document.getElementById('agg-dup-table-header')
+    if (!dup) {
+        dup = document.createElement('ul')
+        dup.id = 'agg-dup-table-header'
+        dup.classList.add('dup')
+
+        var ul = el.parentElement
+        ul.parentElement.insertBefore(dup, ul)
+
+        dup.innerHTML = '<li class="header">' + el.innerHTML + '</li>'
+        var li = dup.querySelector('li')
+        for (var i=0; i<li.children.length; i++) {
+            var orig = el.children[i] as HTMLElement
+            var ch = li.children[i] as HTMLElement
+            ch.style.width = orig.offsetWidth + 'px'
+        }
+    }
+
+    if (window.pageYOffset > el.offsetTop)
+        dup.classList.add('sticky')
+    else
+        dup.classList.remove('sticky')
+}
+
+window.addEventListener('scroll', updateStickyTableHeader)
