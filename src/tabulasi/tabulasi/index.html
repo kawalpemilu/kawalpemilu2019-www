@@ -628,15 +628,6 @@
             acc_class: 'right',
           },
         ],
-        '@after': [
-          {
-            t: '#TPS Total<br>data KPU',
-            rumus: '(A)',
-            fn: function (i, data) {
-              return c.children[i][2]
-            },
-          }
-        ],
         'pilpres': [
           {
             t: 'Jokowi-Amin',
@@ -675,6 +666,13 @@
             acc_format: format_delta_fn,
           },
           { t: 'Tidak Sah', fn: get_sum_fn('tSah') },
+          {
+            t: '#TPS Total<br>data KPU',
+            rumus: '(A)',
+            fn: function (i, data) {
+              return c.children[i][2]
+            },
+          },
           {
             t: '#TPS dg Foto<br>diterima<br>Kawal Pemilu<br>(termasuk lembar<br>PHP, pileg, dpd, dll)',
             rumus: '(B)<br>(B/A)%',
@@ -792,10 +790,17 @@
           { t: 'PNA', fn: get_sum_fn('pna') },
           { t: 'PBB', fn: get_sum_fn('pbb') },
           { t: 'PKP', fn: get_sum_fn('pkp') },
+          {
+            t: '#TPS Total<br>data KPU',
+            rumus: '(A)',
+            fn: function (i, data) {
+              return c.children[i][2]
+            },
+          }
         ],
       }
 
-      let cols = columns['@before'].concat(columns[tipe]).concat(columns['@after'])
+      let cols = columns['@before'].concat(columns[tipe])
 
       var total = []
       for (var j = 0; j < cols.length; j++) {
