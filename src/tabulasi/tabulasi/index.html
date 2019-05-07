@@ -628,7 +628,44 @@
             acc_class: 'right',
           },
         ],
-        '@after': [
+        'pilpres': [
+          {
+            t: 'Jokowi-Amin',
+            fn: get_sum_fn('pas1'),
+            rumus: '(P1)',
+          },
+          {
+            t: 'Prabowo-Sandi',
+            fn: get_sum_fn('pas2'),
+            rumus: '(P2)',
+          },
+          {
+            t: 'Suara Sah', fn: function (i, data) {
+              return [
+                get_sum_fn('sah')(i, data),
+                get_sum_fn('pas1')(i, data),
+                get_sum_fn('pas2')(i, data),
+              ]
+            },
+            rumus: '(SS)<br>(SS-P1-P2)',
+            sort_value_fn: function (value) { return value[0] },
+            class_fn: function (value, i, data) {
+              if (value[0] === value[1] + value[2]) return ''
+              return 'error help'
+            },
+            title_fn: function (value, i, data) {
+              if (value[0] === value[1] + value[2]) return ''
+              return 'ada data suara sah yang tidak konsisten'
+            },
+            format: function (value) {
+              return thousands(value[0])
+            },
+            acc_init: [0, 0, 0],
+            acc_fn: function (a, b) { return [a[0] + b[0], a[1] + b[1], a[2] + b[2]] },
+            format: format_delta_fn,
+            acc_format: format_delta_fn,
+          },
+          { t: 'Tidak Sah', fn: get_sum_fn('tSah') },
           {
             t: '#TPS Total<br>data KPU',
             rumus: '(A)',
@@ -732,45 +769,6 @@
             sort_value_fn: sort_value_persen0_fn,
           },
         ],
-        'pilpres': [
-          {
-            t: 'Jokowi-Amin',
-            fn: get_sum_fn('pas1'),
-            rumus: '(P1)',
-          },
-          {
-            t: 'Prabowo-Sandi',
-            fn: get_sum_fn('pas2'),
-            rumus: '(P2)',
-          },
-          {
-            t: 'Suara Sah', fn: function (i, data) {
-              return [
-                get_sum_fn('sah')(i, data),
-                get_sum_fn('pas1')(i, data),
-                get_sum_fn('pas2')(i, data),
-              ]
-            },
-            rumus: '(SS)<br>(SS-P1-P2)',
-            sort_value_fn: function (value) { return value[0] },
-            class_fn: function (value, i, data) {
-              if (value[0] === value[1] + value[2]) return ''
-              return 'error help'
-            },
-            title_fn: function (value, i, data) {
-              if (value[0] === value[1] + value[2]) return ''
-              return 'ada data suara sah yang tidak konsisten'
-            },
-            format: function (value) {
-              return thousands(value[0])
-            },
-            acc_init: [0, 0, 0],
-            acc_fn: function (a, b) { return [a[0] + b[0], a[1] + b[1], a[2] + b[2]] },
-            format: format_delta_fn,
-            acc_format: format_delta_fn,
-          },
-          { t: 'Tidak Sah', fn: get_sum_fn('tSah') },
-        ],
         'pileg': [
           { t: 'PKB', fn: get_sum_fn('pkb') },
           { t: 'Gerindra', fn: get_sum_fn('ger') },
@@ -792,10 +790,17 @@
           { t: 'PNA', fn: get_sum_fn('pna') },
           { t: 'PBB', fn: get_sum_fn('pbb') },
           { t: 'PKP', fn: get_sum_fn('pkp') },
+          {
+            t: '#TPS Total<br>data KPU',
+            rumus: '(A)',
+            fn: function (i, data) {
+              return c.children[i][2]
+            },
+          }
         ],
       }
 
-      let cols = columns['@before'].concat(columns[tipe]).concat(columns['@after'])
+      let cols = columns['@before'].concat(columns[tipe])
 
       var total = []
       for (var j = 0; j < cols.length; j++) {
@@ -934,10 +939,11 @@
         const pb = tpsRow.photos[b];
         const ea = !!pa.sum.error ? 1 : 0;
         const eb = !!pb.sum.error ? 1 : 0;
-        const va = ((ea - 1) * 100 + pa.c1.type * 10 + pa.c1.plano) * 1e14 + pa.ts;
-        const vb = ((eb - 1) * 100 + pb.c1.type * 10 + pb.c1.plano) * 1e14 + pb.ts;
+        const va = ((ea - 1) * 1000 + pa.c1.type * 100 + pa.c1.halaman*10 + pa.c1.plano) * 1e14 + pa.ts;
+        const vb = ((eb - 1) * 1000 + pb.c1.type * 100 + pb.c1.halaman*10 + pb.c1.plano) * 1e14 + pb.ts;
         return va - vb;
       });
+      
       for (var j = 0; j < urls.length; j++) {
         var url = urls[j];
         var p = tpsRow.photos[url];
