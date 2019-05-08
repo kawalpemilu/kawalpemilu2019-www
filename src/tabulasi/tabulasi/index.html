@@ -454,6 +454,10 @@
     a.mod {
       text-decoration: none;
     }
+
+    p.lapor.kpu {
+      color: red;
+    }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script type="text/javascript">
@@ -920,7 +924,15 @@
       s += R(keysSummary, labelsSummary);
       s += '</tr></table>';
 
-      s += '<p class="lapor"><a href="' + laporanUrl + '" target="_blank">Laporkan kesalahan</a></p>';
+      if (tpsRow.sum.laporKpu) {
+        s += '<p class="lapor kpu">TPS ini sudah ditandai<br>memiliki kejanggalan yang<br>perlu dilaporkan ke KPU</p>'
+      }
+      else if (tpsRow.sum.janggal) {
+        s += '<p class="lapor form">TPS ini sudah ditandai<br>memiliki kejanggalan</p>'
+      }
+      else {
+        s += '<p class="lapor form"><a href="' + laporanUrl + '" target="_blank">Laporkan kesalahan</a></p>';
+      }
 
       return s;
     }
