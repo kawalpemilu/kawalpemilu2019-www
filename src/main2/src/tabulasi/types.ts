@@ -30,7 +30,8 @@ export const enum SUM_KEY {
     pkp = "pkp",
     pJum = "pJum",
     pSah = "pSah",
-    pTSah = "pTSah"
+    pTSah = "pTSah",
+    laporKpu = "laporKpu"
 }
 
 export const enum FORM_TYPE {

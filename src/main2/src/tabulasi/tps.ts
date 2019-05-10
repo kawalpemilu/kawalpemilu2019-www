@@ -145,8 +145,16 @@ export class TpsRenderer {
 
         s += '</div>'
 
-        var laporanUrl = this.getLaporanUrl(param, tpsNo, node.parentNames[node.parentNames.length - 1], node.name)
-        s += '<p class="lapor"><a href="' + laporanUrl + '" target="_blank">laporkan kesalahan</a></p>';
+        if (data.sum.laporKpu) {
+            s += '<p class="lapor kpu">TPS ini sudah ditandai memiliki kejanggalan yang perlu dilaporkan ke KPU</p>'
+        }
+        else if (data.sum.janggal) {
+            s += '<p class="lapor marked">TPS ini sudah ditandai memiliki kejanggalan</p>'
+        }
+        else {
+            var laporanUrl = this.getLaporanUrl(param, tpsNo, node.parentNames[node.parentNames.length - 1], node.name)
+            s += '<p class="lapor form"><a href="' + laporanUrl + '" target="_blank">laporkan kesalahan</a></p>';
+        }
         return s
     }
 

@@ -135,6 +135,14 @@
         margin: 10px 0 0 0;
         font-size: 12px;
         text-align: center;
+
+        &.kpu {
+          color: red;
+        }
+        &.marked,
+        &.kpu {
+          max-width: 120px;
+        }
       }
     }
 
