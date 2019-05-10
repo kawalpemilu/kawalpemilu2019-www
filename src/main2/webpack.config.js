@@ -14,6 +14,11 @@ function staticPage(name) {
 }
 
 module.exports = {
+    devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        compress: true,
+        port: 9000
+    },
     entry: {
         main: './src/main.js',
         tabulasi: './src/tabulasi/tabulasi.ts',
