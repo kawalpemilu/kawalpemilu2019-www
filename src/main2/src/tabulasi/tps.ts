@@ -164,8 +164,8 @@ export class TpsRenderer {
                 const pb = data.photos[b]
                 const ea = !!pa.sum.error ? 1 : 0;
                 const eb = !!pb.sum.error ? 1 : 0;
-                const va = ((ea - 1) * 100 + pa.c1.type * 10 + pa.c1.plano) * 1e14 + pa.ts;
-                const vb = ((eb - 1) * 100 + pb.c1.type * 10 + pb.c1.plano) * 1e14 + pb.ts;
+                const va = ((ea - 1) * 1000 + pa.c1.type * 100 + parseFloat(pa.c1.halaman) * 10 + pa.c1.plano) * 1e14 + pa.ts;
+                const vb = ((eb - 1) * 1000 + pb.c1.type * 100 + parseFloat(pb.c1.halaman) * 10 + pb.c1.plano) * 1e14 + pb.ts;
                 return va - vb;
             });
 
