@@ -11,19 +11,19 @@ export class PageRenderer {
     private tpsRenderer: TpsRenderer
 
     constructor(
-        private screenSize: ScreenSize,
+        screenSize: ScreenSize,
         private nav: HTMLElement,
-        private agg: HTMLElement,
+        agg: HTMLElement,
         private tps: HTMLElement) {
 
         this.navRenderer = new NavRenderer(screenSize)
-        this.aggRenderer = new AggRenderer(screenSize)
+        this.aggRenderer = new AggRenderer(screenSize, agg)
         this.tpsRenderer = new TpsRenderer(screenSize)
     }
 
     render(param: PageParam, node: HierarchyNode) {
         this.nav.innerHTML = this.navRenderer.render(param, node)
-        this.agg.innerHTML = this.aggRenderer.render(param, node)
         this.tps.innerHTML = this.tpsRenderer.render(param, node)
+        this.aggRenderer.render(param, node)
     }
 }

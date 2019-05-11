@@ -3,7 +3,7 @@ import './agg.scss'
 import './nav.scss'
 import './tps.scss'
 
-import { PageParam } from './common'
+import { PageParam, PageTypes } from './common'
 import { HierarchyNode, FORM_TYPE } from './types'
 import { PageRenderer } from './page'
 import { debounce } from 'lodash'
@@ -26,6 +26,8 @@ function getPageParam(): PageParam {
         }
     }
 
+    if (PageTypes.indexOf(type) < 0)
+        type = 'pilpres'
     var form = type == 'pileg' ? FORM_TYPE.DPR : FORM_TYPE.PPWP
 
     return { type, form, id }
