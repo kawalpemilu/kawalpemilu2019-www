@@ -185,7 +185,7 @@ export class TpsRenderer {
             var errorClass = sum.error && sum.error == 1 ? 'error' : ''
 
             s += `<div class="photo ${errorClass}">`
-            s += `<p><a href="${url}=s1280" target="_blank"><img src="${url}=s120"/></a></p>`
+            s += `<p><a href="${url}=s1280" target="_blank"><img src="${url}=s120" loading="lazy"/></a></p>`
 
             s += '<ul class="detail">'
             for (var j = 0; j < keys.length; j++) {
