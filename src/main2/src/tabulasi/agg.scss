@@ -17,16 +17,6 @@
       min-width: 100%;
     }
 
-    &.dup {
-      display: none;
-
-      &.sticky {
-        display: block;
-        position: fixed;
-        top: 0;
-      }
-    }
-
     li {
       padding: 0px;
       display: table-row;
@@ -40,10 +30,6 @@
       &.header p {
         font-weight: bold;
         text-align: center !important;
-      }
-      &.header.sticky {
-        position: fixed;
-        top: 0;
       }
 
       > p {
@@ -115,16 +101,32 @@
         background: darken($color: #eceff1, $amount: 5%);
       }
     }
+
+    &.dup {
+      display: none;
+
+      &.sticky {
+        display: block;
+        position: fixed;
+        top: 0px;
+        box-shadow: 0px 0px 10px #aaa;
+        padding: 0 25px;
+        margin-left: -25px;
+      }
+    }
   }
 
   &.pilpres {
     ul li p.tps {
       padding-right: 0;
+      @media #{$phone} {
+        padding-right: 5px;
+      }
     }
   }
   &.pileg {
+    overflow-x: auto;
     ul {
-      overflow-x: auto;
       li p {
         border-right: 1px solid white;
         padding-left: 10px;
