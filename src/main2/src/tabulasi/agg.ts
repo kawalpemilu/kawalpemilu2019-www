@@ -24,20 +24,15 @@ export class AggRenderer {
             })
         })
 
-        if (node.depth >= 4)
-            return ''
-
         this.agg.innerHTML = this._render(param, node)
         this.agg.classList.add(param.type)
         this.agg.classList.add(param.type + '-' + this.screenSize.getType())
-
-        var t = this.agg.querySelectorAll('ul.table')
-        t[0].addEventListener('scroll', () => {
-            console.log('scroll')
-        })
     }
 
     private _render(param: PageParam, node: HierarchyNode) {
+        if (node.depth >= 4)
+            return ''
+
         if (param.type == 'pilpres')
             return this.pilpres.render(param, node)
         if (param.type == 'pileg')
