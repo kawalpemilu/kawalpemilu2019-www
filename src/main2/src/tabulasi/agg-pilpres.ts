@@ -7,9 +7,6 @@ export class AggPilpresRenderer {
     }
 
     render(param: PageParam, node: HierarchyNode): string {
-        if (node.depth >= 4) return ''
-
-        var keys = ['']
         var s = ''
         s += '<ul class="table">'
 
@@ -40,9 +37,9 @@ export class AggPilpresRenderer {
             let pCakupan = sum.cakupan / ntps * 100
             let estimasiStyle = `background-image: linear-gradient(to right, #aed581 0, #aed581 ${pEstimasi}%, #fff176 ${pEstimasi}%, #fff176 ${pCakupan}%, #e0e0e0 ${pCakupan}%, #e0e0e0 100%)`
 
-            s += '<li>'
+            s += '<li class="row">'
             s += `<p class="idx">${i + 1}</p>`
-            s += `<p class="name"><a href="${url}">${name}</a></p>`
+            s += `<p class="name darken"><a href="${url}">${name}</a></p>`
             s += `<p class="sum pas1">${FS('pas1')}</p>`
             s += `<p class="sum pas2">${FS('pas2')}</p>`
             s += `<p class="tps estimasi"><span style="${estimasiStyle}">${tpsEstimasi}%</span></p>`
