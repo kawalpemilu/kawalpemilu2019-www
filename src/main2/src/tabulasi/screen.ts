@@ -1,27 +1,26 @@
-export const ScreenTypes = [
-    'desktop', 'mobile', 'tablet'
-]
-
 export class ScreenSize {
+    properties: Map<string, boolean>
+
     isMobile: boolean = false
     isTablet: boolean = false
     get isDesktop() { return !this.isMobile && !this.isTablet }
 
-    update(isMobile: boolean, isTablet: boolean) {
-        this.isMobile = isMobile
-        this.isTablet = isTablet
-
+    update(properties: Map<string, boolean>) {
         var classList = document.querySelectorAll('body')[0].classList
-        ScreenTypes.forEach((type) => classList.remove(type))
+        for (var key in this.properties) {
+            classList.remove(key)
+        }
 
-        classList.add(this.getType())
+        this.properties = properties
+        console.log('ss', properties)
+
+        for (var key in this.properties) {
+            if (this.is(key))
+                classList.add(key)
+        }
     }
 
-    getType(): string {
-        if (this.isMobile)
-            return 'mobile'
-        if (this.isTablet)
-            return 'tablet'
-        return 'desktop'
+    is(type: string): boolean {
+        return !!(this.properties as any)[type] // FIXME as any
     }
 }

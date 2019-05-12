@@ -1,6 +1,6 @@
-import { PageParam, getSumValue, PageTypes } from "./common";
+import { PageParam } from "./common";
 import { HierarchyNode } from "./types";
-import { ScreenSize, ScreenTypes } from "./screen";
+import { ScreenSize } from "./screen";
 import { AggPilpresRenderer } from "./agg-pilpres";
 import { AggPilegRenderer } from "./agg-pileg";
 import { updateStickyTableHeader, updateStickyTableColumn, updateStickyTableCorner } from "./sticky";
@@ -18,16 +18,8 @@ export class AggRenderer {
     }
 
     render(param: PageParam, node: HierarchyNode) {
-        PageTypes.forEach((pageType) => {
-            this.agg.classList.remove(pageType)
-            ScreenTypes.forEach((screenType) => {
-                this.agg.classList.remove(pageType + '-' + screenType)
-            })
-        })
-
         this.agg.innerHTML = this._render(param, node)
         this.agg.classList.add(param.type)
-        this.agg.classList.add(param.type + '-' + this.screenSize.getType())
     }
 
     private _render(param: PageParam, node: HierarchyNode) {

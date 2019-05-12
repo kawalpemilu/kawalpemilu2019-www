@@ -72,9 +72,18 @@ function load() {
 }
 
 function updateScreenSize() {
-    var isMobile = window.matchMedia('only screen and (max-width: 760px)').matches
-    var isTablet = window.matchMedia('only screen and (min-width: 761px) and (max-width: 900px)').matches
-    screenSize.update(isMobile, isTablet)
+    function C(selector: string): boolean {
+        return window.matchMedia(selector).matches
+    }
+    // check sizes.scss
+    screenSize.update({
+        phoneSmall: C("only screen and (max-width: 400px)"),
+        phoneWide: C("only screen and (min-width: 401px) and (max-width: 760px)"),
+        phone: C("only screen and (max-width: 760px)"),
+        tablet: C("only screen and (min-width: 761px) and (max-width: 1000px)"),
+        mobile: C("only screen and (max-width: 1000px)"),
+        desktop: C("only screen and (min-width: 1001px)"),
+    })
 }
 
 window.onload = load
