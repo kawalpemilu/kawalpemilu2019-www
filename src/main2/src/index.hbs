@@ -16,12 +16,31 @@
 
     <main class="tabulasi">
         <h1>Hasil Tabulasi Data <span class="nowrap">Kawal Pemilu 2019</span></h1>
-        <p>Halaman ini berisi hasil tabulasi dari data yang sudah masuk ke
-            <a target="_blank" href="https://upload.kawalpemilu.org">upload.kawalpemilu.org</a>.</p>
+
+        {{!-- <p>Halaman ini berisi hasil tabulasi dari data yang sudah masuk ke
+            <a target="_blank" href="https://upload.kawalpemilu.org">upload.kawalpemilu.org</a>.</p> --}}
 
         <p>Data TPS kamu belum ada? Segera upload ke
             <a target="_blank" href="https://upload.kawalpemilu.org">upload.kawalpemilu.org</a>!
         </p>
+
+        <div class="pengumuman warn">
+            <p>
+                Data pada halaman ini masih <strong>belum final</strong> dan akan terus diperbarui <strong>secara
+                    berkala</strong>!
+            </p>
+            <p>
+                <span class="desktop">Terakhir diakses</span>
+                <script>
+                    function getCurrentTime() {
+                        var date = new Date().toString()
+                        var p = date.indexOf('(')
+                        return p < 0 ? date : date.substring(0, p).trim()
+                    }
+                    document.write(getCurrentTime());
+                </script>
+            </p>
+        </div>
 
         <div id="navigasi"></div>
         <div id="agg" class="table"></div>
