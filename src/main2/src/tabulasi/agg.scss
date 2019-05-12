@@ -36,8 +36,14 @@
         vertical-align: middle;
         height: 50px;
         box-sizing: border-box;
-        padding-left: 5px;
-        padding-right: 5px;
+        padding: 5px;
+
+        @media #{$phone-small} {
+          font-size: 12px;
+        }
+        @media #{$phone-wide} {
+          font-size: 14px;
+        }
 
         &.idx {
           text-align: center;
@@ -45,28 +51,35 @@
             display: none;
           }
         }
+        &.name {
+          @media #{$phone} {
+            max-width: 160px;
+          }
+        }
 
         &.sum {
           text-align: right;
+          border-right: 1px solid white;
         }
         &.summary {
         }
         &.tps {
-          padding-left: 15px;
-
           &.kpu {
             text-align: right;
           }
 
           &.estimasi {
             text-align: center;
-            max-width: 70px;
             span {
               display: inline-block;
               width: 100%;
               padding: 2px 0;
               box-sizing: border-box;
               font-size: 12px;
+
+              @media #{$phone-small} {
+                font-size: 10px;
+              }
 
               @media #{$phone} {
                 padding: 2px 5px;
@@ -75,8 +88,13 @@
                 padding: 2px 5px;
               }
             }
-            @media #{$desktop} {
-              width: 70px;
+
+            max-width: 90px;
+            min-width: 90px;
+
+            @media #{$phone} {
+              max-width: 50px;
+              min-width: 50px;
             }
           }
         }

@@ -3,7 +3,7 @@ import { HierarchyNode } from "./types";
 import { ScreenSize } from "./screen";
 
 export class AggPilpresRenderer {
-    constructor(screenSize: ScreenSize) {
+    constructor(private screenSize: ScreenSize) {
     }
 
     render(param: PageParam, node: HierarchyNode): string {
@@ -15,7 +15,10 @@ export class AggPilpresRenderer {
         s += '<td class="name">Wilayah</td>'
         s += '<td class="sum pas1">Jokowi-Amin</td>'
         s += '<td class="sum pas2">Prabowo-Sandi</td>'
-        s += '<td class="tps estimasi">Estimasi TPS</td>'
+        if (this.screenSize.is('phone'))
+            s += '<td class="tps estimasi">Est. TPS</td>'
+        else
+            s += '<td class="tps estimasi">Estimasi TPS</td>'
         s += '</tr>'
 
         for (var i = 0; i < node.children.length; i++) {

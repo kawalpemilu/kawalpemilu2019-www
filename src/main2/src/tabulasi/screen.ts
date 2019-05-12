@@ -12,7 +12,6 @@ export class ScreenSize {
         }
 
         this.properties = properties
-        console.log('ss', properties)
 
         for (var key in this.properties) {
             if (this.is(key))
