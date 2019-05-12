@@ -106,13 +106,23 @@
       display: none;
 
       &.sticky {
-        display: block;
-        position: fixed;
-        top: 0px;
-        box-shadow: 0px 0px 10px #aaa;
-        padding: 0 25px;
-        margin-left: -25px;
-        width: 100%;
+        &.header {
+          display: block;
+          position: fixed;
+          top: 0px;
+          box-shadow: 0px 0px 10px #aaa;
+          padding: 0 25px;
+          margin-left: -25px;
+          width: 100%;
+          z-index: 100;
+        }
+        &.column {
+          display: block;
+          position: absolute;
+          left: 0px;
+          top: 0px;
+          z-index: 50;
+        }
       }
     }
   }
