@@ -52,8 +52,24 @@
           }
         }
         &.name {
-          @media #{$phone} {
+          border-right: 1px solid white;
+          width: 250px;
+          min-width: 250px;
+          max-width: 250px;
+          @media #{$phone-small} {
+            width: 100px;
+            min-width: 100px;
+            max-width: 100px;
+          }
+          @media #{$phone-wide} {
+            width: 160px;
+            min-width: 160px;
             max-width: 160px;
+          }
+          @media #{$tablet} {
+            width: 250px;
+            min-width: 250px;
+            max-width: 250px;
           }
         }
 
@@ -115,10 +131,12 @@
 
             max-width: 90px;
             min-width: 90px;
+            width: 90px;
 
             @media #{$phone} {
               max-width: 50px;
               min-width: 50px;
+              width: 50px;
             }
           }
         }
