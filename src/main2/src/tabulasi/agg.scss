@@ -33,6 +33,13 @@
 
       &.footer td {
         background: #ddd;
+
+        &.name {
+          font-weight: bold;
+          text-align: right;
+          text-transform: uppercase;
+          padding-right: 15px;
+        }
       }
 
       > td {
@@ -193,6 +200,15 @@
           top: 0;
           left: 0px;
           z-index: 150;
+        }
+        &.footer {
+          display: block;
+          position: fixed;
+          bottom: 0px;
+          z-index: 100;
+          padding: 0 25px;
+          margin-left: -25px;
+          box-shadow: 0px 0px 10px #aaa;
         }
       }
     }
