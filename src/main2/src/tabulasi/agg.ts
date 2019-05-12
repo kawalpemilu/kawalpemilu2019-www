@@ -43,6 +43,7 @@ export class AggRenderer {
 }
 
 function updateStickyTableHeader() {
+    var agg = document.getElementById('agg')
     var els = document.querySelectorAll('#agg ul.table li.header')
     if (els.length == 0) return;
     var el = els[0] as HTMLElement
@@ -72,7 +73,9 @@ function updateStickyTableHeader() {
         dup.classList.add('sticky')
     else
         dup.classList.remove('sticky')
+
+    dup.style.marginLeft = (-1 * agg.scrollLeft - 25 /*check css*/) + 'px';
 }
 
 window.addEventListener('scroll', updateStickyTableHeader)
-
+document.getElementById('agg').addEventListener('scroll', updateStickyTableHeader)
