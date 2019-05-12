@@ -78,9 +78,9 @@ function updateScreenSize() {
     // check sizes.scss
     screenSize.update({
         phoneSmall: C("only screen and (max-width: 370px)"),
-        phoneWide: C("only screen and (min-width: 371px) and (max-width: 760px)"),
-        phone: C("only screen and (max-width: 760px)"),
-        tablet: C("only screen and (min-width: 761px) and (max-width: 1000px)"),
+        phoneWide: C("only screen and (min-width: 371px) and (max-width: 620px)"),
+        phone: C("only screen and (max-width: 620px)"),
+        tablet: C("only screen and (min-width: 621px) and (max-width: 1000px)"),
         mobile: C("only screen and (max-width: 1000px)"),
         desktop: C("only screen and (min-width: 1001px)"),
     })
