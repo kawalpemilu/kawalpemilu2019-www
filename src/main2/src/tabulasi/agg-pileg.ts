@@ -36,17 +36,17 @@ export class AggPilegRenderer {
 
     render(param: PageParam, node: HierarchyNode): string {
         var s = ''
-        s += '<ul class="table">'
+        s += '<table class="table">'
 
         // header
-        s += '<li class="header">'
-        s += '<p class="idx">#</p>'
-        s += '<p class="name">Wilayah</p>'
+        s += '<tr class="header">'
+        s += '<td class="idx">#</td>'
+        s += '<td class="name">Wilayah</td>'
         PartaiEntries.forEach((e) => {
-            s += '<p class="sum">' + e.label + '</p>'
+            s += '<td class="sum">' + e.label + '</td>'
         })
-        s += '<p class="tps kpu">#TPS data KPU</p>'
-        s += '</li>'
+        s += '<td class="tps kpu">#TPS data KPU</td>'
+        s += '</tr>'
 
         // rows
         for (var i = 0; i < node.children.length; i++) {
@@ -63,18 +63,18 @@ export class AggPilegRenderer {
             let name = ch[1]
             let ntps = ch[2]
 
-            s += '<li class="row">'
-            s += `<p class="idx">${i + 1}</p>`
-            s += `<p class="name darken"><a href="${url}">${name}</a></p>`
+            s += '<tr class="row">'
+            s += `<td class="idx">${i + 1}</td>`
+            s += `<td class="name darken"><a href="${url}">${name}</a></td>`
             PartaiEntries.forEach((e) => {
-                s += `<p class="sum ${e.field}">${FS(e.field)}</p>`
+                s += `<td class="sum ${e.field}">${FS(e.field)}</td>`
             })
-            s += `<p class="tps kpu darken">${F(ntps)}</p>`
-            s += '</li>'
+            s += `<td class="tps kpu darken">${F(ntps)}</td>`
+            s += '</tr>'
         }
 
 
-        s += '</ul>'
+        s += '</table>'
         return s
     }
 }

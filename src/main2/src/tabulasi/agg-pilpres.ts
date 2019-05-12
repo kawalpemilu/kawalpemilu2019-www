@@ -8,15 +8,15 @@ export class AggPilpresRenderer {
 
     render(param: PageParam, node: HierarchyNode): string {
         var s = ''
-        s += '<ul class="table">'
+        s += '<table class="table">'
 
-        s += '<li class="header">'
-        s += '<p class="idx">#</p>'
-        s += '<p class="name">Wilayah</p>'
-        s += '<p class="sum pas1">Jokowi-Amin</p>'
-        s += '<p class="sum pas2">Prabowo-Sandi</p>'
-        s += '<p class="tps estimasi">Estimasi TPS</p>'
-        s += '</li>'
+        s += '<tr class="header">'
+        s += '<td class="idx">#</td>'
+        s += '<td class="name">Wilayah</td>'
+        s += '<td class="sum pas1">Jokowi-Amin</td>'
+        s += '<td class="sum pas2">Prabowo-Sandi</td>'
+        s += '<td class="tps estimasi">Estimasi TPS</td>'
+        s += '</tr>'
 
         for (var i = 0; i < node.children.length; i++) {
             let ch = node.children[i]
@@ -37,15 +37,15 @@ export class AggPilpresRenderer {
             let pCakupan = sum.cakupan / ntps * 100
             let estimasiStyle = `background-image: linear-gradient(to right, #aed581 0, #aed581 ${pEstimasi}%, #fff176 ${pEstimasi}%, #fff176 ${pCakupan}%, #e0e0e0 ${pCakupan}%, #e0e0e0 100%)`
 
-            s += '<li class="row">'
-            s += `<p class="idx">${i + 1}</p>`
-            s += `<p class="name darken"><a href="${url}">${name}</a></p>`
-            s += `<p class="sum pas1">${FS('pas1')}</p>`
-            s += `<p class="sum pas2">${FS('pas2')}</p>`
-            s += `<p class="tps estimasi"><span style="${estimasiStyle}">${tpsEstimasi}%</span></p>`
-            s += '</li>'
+            s += '<tr class="row">'
+            s += `<td class="idx">${i + 1}</td>`
+            s += `<td class="name darken"><a href="${url}">${name}</a></td>`
+            s += `<td class="sum pas1">${FS('pas1')}</td>`
+            s += `<td class="sum pas2">${FS('pas2')}</td>`
+            s += `<td class="tps estimasi"><span style="${estimasiStyle}">${tpsEstimasi}%</span></td>`
+            s += '</tr>'
         }
-        s += '</ul>'
+        s += '</table>'
 
         return s
     }

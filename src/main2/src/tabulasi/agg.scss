@@ -3,8 +3,7 @@
 #agg {
   overflow-x: auto;
 
-  ul {
-    display: table;
+  table {
     border-collapse: collapse;
 
     margin: 0px;
@@ -17,7 +16,7 @@
       min-width: 100%;
     }
 
-    li {
+    tr {
       padding: 0px;
       display: table-row;
       line-height: 24px;
@@ -27,12 +26,12 @@
         font-size: 14px;
       }
 
-      &.header p {
+      &.header td {
         font-weight: bold;
         text-align: center !important;
       }
 
-      > p {
+      > td {
         display: table-cell;
         vertical-align: middle;
         height: 50px;
@@ -82,7 +81,7 @@
           }
         }
       }
-      > p:last-child {
+      > td:last-child {
         padding-right: 15px;
         @media #{$phone} {
           padding-right: 5px;
@@ -90,15 +89,15 @@
       }
     }
 
-    li:nth-child(odd) {
+    tr:nth-child(odd) {
       background: white;
-      > p.darken {
+      > td.darken {
         background: darken($color: white, $amount: 5%);
       }
     }
-    li:nth-child(even) {
+    tr:nth-child(even) {
       background: #eceff1;
-      > p.darken {
+      > td.darken {
         background: darken($color: #eceff1, $amount: 5%);
       }
     }
@@ -136,7 +135,7 @@
   }
 
   &.pilpres {
-    ul li p.tps {
+    table tr td.tps {
       padding-right: 0;
       @media #{$phone} {
         padding-right: 5px;
@@ -145,13 +144,13 @@
   }
   &.pileg {
     overflow-x: auto;
-    ul {
-      li p {
+    table {
+      tr td {
         border-right: 1px solid white;
         padding-left: 10px;
         padding-right: 10px;
       }
-      li.row p {
+      tr.row td {
         &.sum {
           font-size: 14px;
         }

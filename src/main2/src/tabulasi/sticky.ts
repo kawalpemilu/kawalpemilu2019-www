@@ -1,4 +1,4 @@
-function updateStickyTableRow(rowSelector: string, id: string, classList: string[], showFn: (el: HTMLElement) => boolean) {
+function updateStickyTableRow(rowSelector: string, id: string, classList: string[], showFn: () => boolean) {
     var agg = document.getElementById('agg')
     var els = document.querySelectorAll(rowSelector)
     if (els.length == 0) return;
@@ -6,26 +6,28 @@ function updateStickyTableRow(rowSelector: string, id: string, classList: string
 
     var dup = document.getElementById(id)
     if (!dup) {
-        dup = document.createElement('ul')
+        dup = document.createElement('table')
         dup.id = id
         classList.forEach((n) => dup.classList.add(n))
 
-        var ul = el.parentElement
-        ul.parentElement.insertBefore(dup, ul)
+        var table = el.parentElement
+        if (table.tagName != 'table')
+            table = table.parentElement
+        table.parentElement.insertBefore(dup, table)
 
-        dup.innerHTML = '<li class="header">' + el.innerHTML + '</li>'
+        dup.innerHTML = '<tr class="header">' + el.innerHTML + '</tr>'
     }
 
-    var li = dup.querySelector('li')
-    for (var i = 0; i < li.children.length; i++) {
+    var tr = dup.querySelector('tr')
+    for (var i = 0; i < tr.children.length; i++) {
         var orig = el.children[i] as HTMLElement
-        var ch = li.children[i] as HTMLElement
+        var ch = tr.children[i] as HTMLElement
         ch.style.minWidth = orig.offsetWidth + 'px'
         ch.style.maxWidth = orig.offsetWidth + 'px'
         ch.style.width = orig.offsetWidth + 'px'
     }
 
-    if (showFn(el))
+    if (showFn())
         dup.classList.add('sticky')
     else
         dup.classList.remove('sticky')
@@ -35,26 +37,29 @@ function updateStickyTableRow(rowSelector: string, id: string, classList: string
 
 export function updateStickyTableHeader() {
     updateStickyTableRow(
-        '#agg ul.table li.header',
+        '#agg table.table tr.header',
         'agg-dup-table-header',
         ['dup', 'header'],
-        (el) => window.pageYOffset > el.offsetTop)
+        () => {
+            var table = document.querySelectorAll('#agg table.table')[0] as HTMLElement
+            return window.pageYOffset > table.offsetTop
+        })
 }
 
 export function updateStickyTableColumn() {
     var agg = document.getElementById('agg')
 
-    var els = document.querySelectorAll('#agg ul.table li p.name')
+    var els = document.querySelectorAll('#agg table.table tr > .name')
     if (els.length == 0) return;
     var els0 = els[0] as HTMLElement
 
-    var tables = document.querySelectorAll('#agg ul.table')
+    var tables = document.querySelectorAll('#agg table.table')
     if (tables.length == 0) return;
     var table = tables[0] as HTMLElement
 
     var dup = document.getElementById('agg-dup-table-column')
     if (!dup) {
-        dup = document.createElement('ul')
+        dup = document.createElement('table')
         dup.id = 'agg-dup-table-column'
         dup.classList.add('dup')
         dup.classList.add('column')
@@ -64,9 +69,10 @@ export function updateStickyTableColumn() {
         let s = ''
         for (let i = 0; i < els.length; i++) {
             let el = els[i] as HTMLElement
-            let li = el.parentElement
-            let darken = li.classList.contains('row') ? 'darken' : ''
-            s += `<li class="${li.className}"><p class="name ${darken}">${els[i].innerHTML}</p></li>`
+            let tr = el.parentElement
+            let darken = tr.classList.contains('row') ? 'darken' : ''
+            let cell = tr.classList.contains('row') ? 'td' : 'th'
+            s += `<tr class="${tr.className}"><${cell} class="name ${darken}">${els[i].innerHTML}</${cell}></tr>`
         }
         dup.innerHTML = s
     }
@@ -76,10 +82,10 @@ export function updateStickyTableColumn() {
     dup.style.minWidth = widthPx
     dup.style.maxWidth = widthPx
 
-    var lis = dup.querySelectorAll('li')
-    for (var i = 0; i < lis.length; i++) {
+    var trs = dup.querySelectorAll('tr')
+    for (var i = 0; i < trs.length; i++) {
         var orig = els[i] as HTMLElement
-        var ch = lis[i].children[0] as HTMLElement
+        var ch = trs[i].children[0] as HTMLElement
         ch.style.minWidth = widthPx
         ch.style.maxWidth = widthPx
         ch.style.width = widthPx
@@ -88,7 +94,8 @@ export function updateStickyTableColumn() {
         ch.style.height = orig.offsetHeight + 'px'
     }
 
-    if (agg.scrollLeft > els0.offsetLeft)
+    var left = els0.offsetLeft + table.offsetLeft
+    if (agg.scrollLeft > left)
         dup.classList.add('sticky')
     else
         dup.classList.remove('sticky')
@@ -99,19 +106,17 @@ export function updateStickyTableColumn() {
 export function updateStickyTableCorner() {
     var agg = document.getElementById('agg')
 
-    var els = document.querySelectorAll('#agg ul.table li.header p.name')
+    var els = document.querySelectorAll('#agg table.table tr.header th.name')
     if (els.length == 0) return;
     var els0 = els[0] as HTMLElement
 
-    var li0 = document.querySelectorAll('#agg ul.table li.header')[0] as HTMLElement
-
-    var tables = document.querySelectorAll('#agg ul.table')
+    var tables = document.querySelectorAll('#agg table.table')
     if (tables.length == 0) return;
     var table = tables[0] as HTMLElement
 
     var dup = document.getElementById('agg-dup-table-corner')
     if (!dup) {
-        dup = document.createElement('ul')
+        dup = document.createElement('table')
         dup.id = 'agg-dup-table-corner'
         dup.classList.add('dup')
         dup.classList.add('corner')
@@ -122,7 +127,7 @@ export function updateStickyTableCorner() {
         for (let i = 0; i < els.length; i++) {
             let el = els[i] as HTMLElement
             let li = el.parentElement
-            s += `<li class="${li.className}"><p class="name">${els[i].innerHTML}</p></li>`
+            s += `<tr class="${li.className}"><td class="name">${els[i].innerHTML}</td></tr>`
         }
         dup.innerHTML = s
     }
@@ -132,10 +137,10 @@ export function updateStickyTableCorner() {
     dup.style.minWidth = widthPx
     dup.style.maxWidth = widthPx
 
-    var lis = dup.querySelectorAll('li')
-    for (var i = 0; i < lis.length; i++) {
+    var trs = dup.querySelectorAll('tr')
+    for (var i = 0; i < trs.length; i++) {
         var orig = els[i] as HTMLElement
-        var ch = lis[i].children[0] as HTMLElement
+        var ch = trs[i].children[0] as HTMLElement
         ch.style.minWidth = widthPx
         ch.style.maxWidth = widthPx
         ch.style.width = widthPx
@@ -144,7 +149,8 @@ export function updateStickyTableCorner() {
         ch.style.height = orig.offsetHeight + 'px'
     }
 
-    if (window.pageYOffset > li0.offsetTop && agg.scrollLeft > els0.offsetLeft)
+    var left = els0.offsetLeft + table.offsetLeft
+    if (window.pageYOffset > table.offsetTop && agg.scrollLeft > left)
         dup.classList.add('sticky')
     else
         dup.classList.remove('sticky')
