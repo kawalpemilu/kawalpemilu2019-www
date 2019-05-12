@@ -60,6 +60,30 @@
         &.sum {
           text-align: right;
           border-right: 1px solid white;
+          &.pas {
+            line-height: 22px;
+            @media #{$phone} {
+              line-height: 20px;
+            }
+            span {
+              display: block;
+              &.per {
+                font-size: 14px;
+                @media #{$phone} {
+                  font-size: 12px;
+                }
+              }
+            }
+            &.per {
+              padding-top: 10px;
+              padding-bottom: 10px;
+            }
+            &.win {
+              span.per {
+                font-weight: bold;
+              }
+            }
+          }
         }
         &.summary {
         }

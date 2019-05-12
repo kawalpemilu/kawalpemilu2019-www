@@ -2,6 +2,8 @@ import { PageParam, getSumValue } from "./common";
 import { HierarchyNode } from "./types";
 import { ScreenSize } from "./screen";
 
+const THRESHOLD_PERCENTAGE = 0.8
+
 export class AggPilpresRenderer {
     constructor(private screenSize: ScreenSize) {
     }
@@ -34,17 +36,50 @@ export class AggPilpresRenderer {
 
             let name = ch[1]
             let ntps = ch[2]
-            let tpsEstimasi = (Math.round((sum.cakupan - sum.pending) / ntps * 1000) / 10).toLocaleString('id')
+            let tpsEstimasiRaw = (sum.cakupan - sum.pending) / ntps
+            let tpsEstimasi = (Math.round(tpsEstimasiRaw * 1000) / 10).toLocaleString('id')
 
             let pEstimasi = (sum.cakupan - sum.pending) / ntps * 100
             let pCakupan = sum.cakupan / ntps * 100
             let estimasiStyle = `background-image: linear-gradient(to right, #aed581 0, #aed581 ${pEstimasi}%, #fff176 ${pEstimasi}%, #fff176 ${pCakupan}%, #e0e0e0 ${pCakupan}%, #e0e0e0 100%)`
 
+            let pas1 = S('pas1')
+            let pas2 = S('pas2')
+            let pas1p = pas1 / (pas1 + pas2)
+            let pas1p10000 = Math.round(10000 * pas1p)
+            let pas2p10000 = 10000 - pas1p10000
+            let pwin: any = {
+                pas1: pas1p > 0.5,
+                pas2: pas1p < 0.5,
+            }
+            let pasp: any = {
+                pas1: (pas1p10000 / 100).toLocaleString('id') + '%',
+                pas2: (pas2p10000 / 100).toLocaleString('id') + '%',
+            }
+
+            let showPercentage = tpsEstimasiRaw >= THRESHOLD_PERCENTAGE
+            // let estTotal = Math.round((pas1 + pas2) / tpsEstimasiRaw)
+            // let estSisa = estTotal - pas1 - pas2
+            // if (pas1 < pas2 && pas1 + estSisa < pas2) showPercentage = true
+            // if (pas2 < pas1 && pas2 + estSisa < pas1) showPercentage = true
+
+            let P = (p: string): string => {
+                let per = showPercentage ? 'per' : ''
+                let win = pwin[p] ? 'win' : ''
+                let s = ''
+                s += `<td class="sum pas ${p} ${per} ${win}">`
+                s += `<span class="abs">${FS(p)}</span>`
+                if (showPercentage)
+                    s += `<span class="per">${pasp[p]}</span>`
+                s += '</td>'
+                return s
+            }
+
             s += '<tr class="row">'
             s += `<td class="idx">${i + 1}</td>`
             s += `<td class="name darken"><a href="${url}">${name}</a></td>`
-            s += `<td class="sum pas1">${FS('pas1')}</td>`
-            s += `<td class="sum pas2">${FS('pas2')}</td>`
+            s += P('pas1')
+            s += P('pas2')
             s += `<td class="tps estimasi"><span style="${estimasiStyle}">${tpsEstimasi}%</span></td>`
             s += '</tr>'
         }
