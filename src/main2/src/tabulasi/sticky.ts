@@ -1,15 +1,14 @@
-export function updateStickyTableHeader() {
+function updateStickyTableRow(rowSelector: string, id: string, classList: string[], showFn: (el: HTMLElement) => boolean) {
     var agg = document.getElementById('agg')
-    var els = document.querySelectorAll('#agg ul.table li.header')
+    var els = document.querySelectorAll(rowSelector)
     if (els.length == 0) return;
     var el = els[0] as HTMLElement
 
-    var dup = document.getElementById('agg-dup-table-header')
+    var dup = document.getElementById(id)
     if (!dup) {
         dup = document.createElement('ul')
-        dup.id = 'agg-dup-table-header'
-        dup.classList.add('dup')
-        dup.classList.add('header')
+        dup.id = id
+        classList.forEach((n) => dup.classList.add(n))
 
         var ul = el.parentElement
         ul.parentElement.insertBefore(dup, ul)
@@ -26,12 +25,20 @@ export function updateStickyTableHeader() {
         ch.style.width = orig.offsetWidth + 'px'
     }
 
-    if (window.pageYOffset > el.offsetTop)
+    if (showFn(el))
         dup.classList.add('sticky')
     else
         dup.classList.remove('sticky')
 
     dup.style.marginLeft = (-1 * agg.scrollLeft - 25 /*check css*/) + 'px';
+}
+
+export function updateStickyTableHeader() {
+    updateStickyTableRow(
+        '#agg ul.table li.header',
+        'agg-dup-table-header',
+        ['dup', 'header'],
+        (el) => window.pageYOffset > el.offsetTop)
 }
 
 export function updateStickyTableColumn() {
