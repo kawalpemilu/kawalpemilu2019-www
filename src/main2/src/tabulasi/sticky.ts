@@ -112,7 +112,7 @@ export function updateStickyTableColumn() {
     else
         dup.classList.remove('sticky')
 
-    dup.style.top = table.offsetTop + 'px'
+    dup.style.top = table.offsetTop - 2 /*why?*/ + 'px'
 }
 
 export function updateStickyTableCorner() {
