@@ -31,6 +31,10 @@
         text-align: center !important;
       }
 
+      &.footer td {
+        background: #ddd;
+      }
+
       > td {
         display: table-cell;
         vertical-align: middle;
