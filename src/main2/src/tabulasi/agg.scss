@@ -123,6 +123,13 @@
           top: 0px;
           z-index: 50;
         }
+        &.corner {
+          display: block;
+          position: fixed;
+          top: 0;
+          left: 0px;
+          z-index: 150;
+        }
       }
     }
   }

@@ -3,7 +3,7 @@ import { HierarchyNode } from "./types";
 import { ScreenSize, ScreenTypes } from "./screen";
 import { AggPilpresRenderer } from "./agg-pilpres";
 import { AggPilegRenderer } from "./agg-pileg";
-import { updateStickyTableHeader, updateStickyTableColumn } from "./sticky";
+import { updateStickyTableHeader, updateStickyTableColumn, updateStickyTableCorner } from "./sticky";
 
 export class AggRenderer {
     private pilpres: AggPilpresRenderer
@@ -45,5 +45,7 @@ export class AggRenderer {
 
 window.addEventListener('scroll', updateStickyTableHeader)
 window.addEventListener('scroll', updateStickyTableColumn)
+window.addEventListener('scroll', updateStickyTableCorner)
 document.getElementById('agg').addEventListener('scroll', updateStickyTableHeader)
 document.getElementById('agg').addEventListener('scroll', updateStickyTableColumn)
+document.getElementById('agg').addEventListener('scroll', updateStickyTableCorner)

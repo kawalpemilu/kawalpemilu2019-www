@@ -72,7 +72,7 @@ export function updateStickyTableColumn() {
     var lis = dup.querySelectorAll('li')
     for (var i = 0; i < lis.length; i++) {
         var orig = els[i] as HTMLElement
-        var ch = lis[i] as HTMLElement
+        var ch = lis[i].children[0] as HTMLElement
         ch.style.minWidth = widthPx
         ch.style.maxWidth = widthPx
         ch.style.width = widthPx
@@ -87,4 +87,58 @@ export function updateStickyTableColumn() {
         dup.classList.remove('sticky')
 
     dup.style.top = table.offsetTop + 'px'
+}
+
+export function updateStickyTableCorner() {
+    var agg = document.getElementById('agg')
+
+    var els = document.querySelectorAll('#agg ul.table li.header p.name')
+    if (els.length == 0) return;
+    var els0 = els[0] as HTMLElement
+
+    var li0 = document.querySelectorAll('#agg ul.table li.header')[0] as HTMLElement
+
+    var tables = document.querySelectorAll('#agg ul.table')
+    if (tables.length == 0) return;
+    var table = tables[0] as HTMLElement
+
+    var dup = document.getElementById('agg-dup-table-corner')
+    if (!dup) {
+        dup = document.createElement('ul')
+        dup.id = 'agg-dup-table-corner'
+        dup.classList.add('dup')
+        dup.classList.add('corner')
+
+        table.parentElement.insertBefore(dup, table)
+
+        let s = ''
+        for (let i = 0; i < els.length; i++) {
+            let el = els[i] as HTMLElement
+            let li = el.parentElement
+            s += `<li class="${li.className}"><p class="name">${els[i].innerHTML}</p></li>`
+        }
+        dup.innerHTML = s
+    }
+
+    var widthPx = els0.offsetWidth + 'px'
+    dup.style.width = widthPx
+    dup.style.minWidth = widthPx
+    dup.style.maxWidth = widthPx
+
+    var lis = dup.querySelectorAll('li')
+    for (var i = 0; i < lis.length; i++) {
+        var orig = els[i] as HTMLElement
+        var ch = lis[i].children[0] as HTMLElement
+        ch.style.minWidth = widthPx
+        ch.style.maxWidth = widthPx
+        ch.style.width = widthPx
+        ch.style.minHeight = orig.offsetHeight + 'px'
+        ch.style.maxHeight = orig.offsetHeight + 'px'
+        ch.style.height = orig.offsetHeight + 'px'
+    }
+
+    if (window.pageYOffset > li0.offsetTop && agg.scrollLeft > els0.offsetLeft)
+        dup.classList.add('sticky')
+    else
+        dup.classList.remove('sticky')
 }
