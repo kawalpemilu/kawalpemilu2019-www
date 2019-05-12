@@ -59,6 +59,8 @@
         justify-content: flex-start;
         align-items: center;
         background: #ddd;
+        height: 30px;
+        box-sizing: border-box;
 
         p {
           margin-left: 5px;
@@ -94,6 +96,7 @@
 
       @media #{$phone} {
         padding-left: 5px;
+        padding-right: 5px;
       }
 
       &.nodata {
@@ -224,6 +227,17 @@
             }
           }
         }
+      }
+    }
+
+    &.pending {
+      div.info {
+        background: #ffcc80;
+      }
+    }
+    &.janggal {
+      div.sum {
+        background: #ffcdd2;
       }
     }
   }
