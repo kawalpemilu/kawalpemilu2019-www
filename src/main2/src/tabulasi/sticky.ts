@@ -49,7 +49,7 @@ export function updateStickyTableHeader() {
 export function updateStickyTableColumn() {
     var agg = document.getElementById('agg')
 
-    var els = document.querySelectorAll('#agg table.table tr > .name')
+    var els = document.querySelectorAll('#agg table.table tr td.name')
     if (els.length == 0) return;
     var els0 = els[0] as HTMLElement
 
@@ -106,7 +106,7 @@ export function updateStickyTableColumn() {
 export function updateStickyTableCorner() {
     var agg = document.getElementById('agg')
 
-    var els = document.querySelectorAll('#agg table.table tr.header th.name')
+    var els = document.querySelectorAll('#agg table.table tr.header td.name')
     if (els.length == 0) return;
     var els0 = els[0] as HTMLElement
 
