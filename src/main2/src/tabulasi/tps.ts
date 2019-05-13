@@ -80,23 +80,32 @@ export class TpsRenderer {
     private renderTpsEntry(param: PageParam, node: HierarchyNode, tpsNo: number, data: TpsAggregate | null) {
         var modUrl = 'https://upload.kawalpemilu.org/t/' + node.id + '/' + tpsNo + '?utm_source=wwwkp'
 
-        var s = `<div class="tps tps-${tpsNo}">`
+        var janggalClass = data && getSumValue(data.sum, 'janggal') ? 'janggal' : ''
+        var pendingClass = data && getSumValue(data.sum, 'pending') ? 'pending' : ''
+
+        var s = `<div class="tps tps-${tpsNo} ${janggalClass} ${pendingClass}">`
 
         // info
         s += '<div class="info">'
         s += `<p class="tpsNo">TPS ${tpsNo}</span>`
-        s += `<p class="mod"><a href="${modUrl}">Mod?<br>${node.id}/${tpsNo}</a></p>`
+        s += `<p class="mod"><a href="${modUrl}"><span>Mod?</span> <span>${node.id}/${tpsNo}</span></a></p>`
         s += '</div>'
 
         // sum
-        s += '<div class="sum">'
-        s += this.renderTpsSum(param, node, tpsNo, data)
-        s += '</div>'
+        var tpsSum = this.renderTpsSum(param, node, tpsNo, data)
+        if (tpsSum) {
+            s += '<div class="sum">' + tpsSum + '</div>'
+        }
+        else {
+            s += '<div class="sum nodata"><p class="nodata"> data belum tersedia </p></div>'
+        }
 
         // photos
-        s += '<div class="photos">'
-        s += this.renderTpsPhotos(param, node, tpsNo, data)
-        s += '</div>'
+        if (tpsSum) {
+            s += '<div class="photos">'
+            s += this.renderTpsPhotos(param, node, tpsNo, data)
+            s += '</div>'
+        }
 
         s += '</div>'
         return s
@@ -113,7 +122,7 @@ export class TpsRenderer {
     }
 
     private renderTpsSum(param: PageParam, node: HierarchyNode, tpsNo: number, data: TpsAggregate | null) {
-        if (!data) return '<p class="nodata">data belum tersedia</p>'
+        if (!data) return ''
 
         var keys = (this.KEYS as any)[param.type] as string[] // FIXME as any
         var summaryKeys = (this.KEYS as any)['summary-' + param.type] as string[] // FIXME as any
@@ -121,7 +130,7 @@ export class TpsRenderer {
         var available = false
         for (var i = 0; i < keys.length; i++)
             available = available || !!getSumValue(data.sum, keys[i])
-        if (!available) return '<p class="nodata">data belum tersedia</p>'
+        if (!available) return ''
 
         var s = '<div class="values">'
 
@@ -180,9 +189,9 @@ export class TpsRenderer {
         var s = ''
         for (var i = 0; i < urls.length; i++) {
             let url = urls[i]
-            var photo = data.photos[url]
-            var sum = photo.sum
-            var errorClass = sum.error && sum.error == 1 ? 'error' : ''
+            let photo = data.photos[url]
+            let sum = photo.sum
+            let errorClass = sum.error && sum.error == 1 ? 'error' : ''
 
             s += `<div class="photo ${errorClass}">`
             s += `<p><a href="${url}=s1280" target="_blank"><img src="${url}=s120" loading="lazy"/></a></p>`
@@ -191,8 +200,9 @@ export class TpsRenderer {
             for (var j = 0; j < keys.length; j++) {
                 let key = keys[j]
                 let label = (this.SUM_LABELS as any)[key] as string // FIXME as any
-                let sum = getSumValue(data.sum, key)
-                if (!sum) continue
+                if (!(key in photo.sum))
+                    continue
+                let sum = getSumValue(photo.sum, key)
                 s += `<li><span class="label">${label}</span> <span class="value">${sum}</span></li>`
             }
             s += '</ul>'

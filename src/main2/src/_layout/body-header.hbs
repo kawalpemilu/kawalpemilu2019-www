@@ -14,20 +14,12 @@
             <span class="navicon" aria-hidden="true"></span>
         </label>
 
-        <nav aria-label="Menu utama" class="main-menu">
+        <nav class="main-menu">
             <ul>
-                <li{{#if activeHome}} class="active"{{/if}}>
-                    <a href="/">Tabulasi</a>
-                </li>
-                <li{{#if activeTentang}} class="active"{{/if}}>
-                    <a href="/tentang/">Tentang Kami</a>
-                </li>
-                <li{{#if activeFaq}} class="active"{{/if}}>
-                    <a href="/faq/">Pertanyaan Umum</a>
-                </li>
-                <li{{#if activeVisualisasi}} class="active"{{/if}}>
-                    <a href="/visualisasi/">Visualisasi Data</a>
-                </li>
+                <li class="{{activePage "tabulasi"}}"><a href="/">Tabulasi</a></li>
+                <li class="{{activePage "tentang"}}"><a href="/tentang/">Tentang Kami</a></li>
+                <li class="{{activePage "faq"}}"><a href="/faq/">Pertanyaan Umum</a></li>
+                <li class="{{activePage "visualisasi"}}"><a href="/visualisasi/">Visualisasi Data</a></li>
             </ul>
         </nav>
     </div>

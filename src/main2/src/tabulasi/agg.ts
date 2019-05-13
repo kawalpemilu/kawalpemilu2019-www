@@ -3,7 +3,7 @@ import { HierarchyNode } from "./types";
 import { ScreenSize } from "./screen";
 import { AggPilpresRenderer } from "./agg-pilpres";
 import { AggPilegRenderer } from "./agg-pileg";
-import { updateStickyTableHeader, updateStickyTableColumn, updateStickyTableCorner } from "./sticky";
+import { updateStickyTableHeader, updateStickyTableColumn, updateStickyTableCorner, updateStickyTableFooter } from "./sticky";
 
 export class AggRenderer {
     private pilpres: AggPilpresRenderer
@@ -35,9 +35,35 @@ export class AggRenderer {
     }
 }
 
-window.addEventListener('scroll', updateStickyTableHeader)
-window.addEventListener('scroll', updateStickyTableColumn)
-window.addEventListener('scroll', updateStickyTableCorner)
-document.getElementById('agg').addEventListener('scroll', updateStickyTableHeader)
-document.getElementById('agg').addEventListener('scroll', updateStickyTableColumn)
-document.getElementById('agg').addEventListener('scroll', updateStickyTableCorner)
+function attachStickyListener(fn: () => any) {
+    var agg = document.getElementById('agg')
+
+    window.addEventListener('scroll', fn)
+    agg.addEventListener('scroll', fn)
+
+    var isUpdatingTable = (mutations: MutationRecord[]) => {
+        var mm = mutations
+            .filter((m) => m.type == 'childList')
+            .filter((m) => m.addedNodes.length > 0)
+            .filter((m) => {
+                let result = false
+                m.addedNodes.forEach((n: HTMLElement) => {
+                    if (n.tagName == 'TABLE' && n.classList.contains('table'))
+                        result = true
+                })
+                return result
+            })
+        return mm.length > 0
+    }
+
+    var observer = new MutationObserver((mutations) => {
+        if (isUpdatingTable(mutations))
+            fn()
+    })
+    observer.observe(agg, { childList: true })
+}
+
+attachStickyListener(updateStickyTableHeader)
+attachStickyListener(updateStickyTableColumn)
+attachStickyListener(updateStickyTableCorner)
+attachStickyListener(updateStickyTableFooter)

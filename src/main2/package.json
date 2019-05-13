@@ -28,7 +28,7 @@
     "webpack-merge": "^4.2.1"
   },
   "dependencies": {
-    "@types/lodash": "^4.14.123",
-    "lodash.debounce": "^4.0.8"
+    "@types/debounce": "^1.2.0",
+    "debounce": "^1.2.0"
   }
 }

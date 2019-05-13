@@ -15,7 +15,7 @@ function updateStickyTableRow(rowSelector: string, id: string, classList: string
             table = table.parentElement
         table.parentElement.insertBefore(dup, table)
 
-        dup.innerHTML = '<tr class="header">' + el.innerHTML + '</tr>'
+        dup.innerHTML = `<tr class="${el.className}">${el.innerHTML}</tr>`
     }
 
     var tr = dup.querySelector('tr')
@@ -43,6 +43,18 @@ export function updateStickyTableHeader() {
         () => {
             var table = document.querySelectorAll('#agg table.table')[0] as HTMLElement
             return window.pageYOffset > table.offsetTop
+        })
+}
+
+export function updateStickyTableFooter() {
+    updateStickyTableRow(
+        '#agg table.table tr.footer',
+        'agg-dup-table-footer',
+        ['dup', 'footer'],
+        () => {
+            var table = document.querySelectorAll('#agg table.table')[0] as HTMLElement
+            var footer = document.querySelectorAll('#agg table.table tr.footer')[0] as HTMLElement
+            return table.offsetTop + footer.offsetTop - window.pageYOffset + footer.offsetHeight > window.innerHeight
         })
 }
 
@@ -100,7 +112,7 @@ export function updateStickyTableColumn() {
     else
         dup.classList.remove('sticky')
 
-    dup.style.top = table.offsetTop + 'px'
+    dup.style.top = table.offsetTop - 2 /*why?*/ + 'px'
 }
 
 export function updateStickyTableCorner() {

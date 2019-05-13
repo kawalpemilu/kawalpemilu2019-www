@@ -31,6 +31,17 @@
         text-align: center !important;
       }
 
+      &.footer td {
+        background: #ddd;
+
+        &.name {
+          font-weight: bold;
+          text-align: right;
+          text-transform: uppercase;
+          padding-right: 15px;
+        }
+      }
+
       > td {
         display: table-cell;
         vertical-align: middle;
@@ -182,6 +193,7 @@
           left: 0px;
           top: 0px;
           z-index: 50;
+          box-shadow: 0px 10px 10px #aaa;
         }
         &.corner {
           display: block;
@@ -189,6 +201,16 @@
           top: 0;
           left: 0px;
           z-index: 150;
+        }
+        &.footer {
+          display: block;
+          position: fixed;
+          bottom: 0px;
+          z-index: 100;
+          padding: 0 25px;
+          margin-left: -25px;
+          box-shadow: 0px 0px 10px #aaa;
+          width: 100%;
         }
       }
     }

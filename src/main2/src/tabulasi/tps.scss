@@ -10,6 +10,10 @@
     border-top: 1px solid #ccc;
     padding: 10px 0;
 
+    @media #{$phone} {
+      padding-top: 30px;
+    }
+
     > * {
       padding-top: 5px;
       padding-bottom: 5px;
@@ -38,6 +42,35 @@
       p.mod {
         font-size: 12px;
         margin-top: 10px;
+
+        a span {
+          display: block;
+        }
+      }
+    }
+
+    @media #{$phone} {
+      div.info {
+        float: left;
+        position: absolute;
+        margin-top: -30px;
+        flex-direction: row;
+        width: 100%;
+        justify-content: flex-start;
+        align-items: center;
+        background: #ddd;
+        height: 30px;
+        box-sizing: border-box;
+
+        p {
+          margin-left: 5px;
+          &.mod {
+            margin: 0 0 0 10px;
+            a span {
+              display: inline;
+            }
+          }
+        }
       }
     }
 
@@ -59,6 +92,16 @@
         max-width: 300px;
         padding-left: 10px;
         padding-right: 10px;
+      }
+
+      @media #{$phone} {
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+
+      &.nodata {
+        width: 100%;
+        max-width: 600px;
       }
 
       p.nodata {
@@ -184,6 +227,17 @@
             }
           }
         }
+      }
+    }
+
+    &.pending {
+      div.info {
+        background: #ffcc80;
+      }
+    }
+    &.janggal {
+      div.sum {
+        background: #ffcdd2;
       }
     }
   }

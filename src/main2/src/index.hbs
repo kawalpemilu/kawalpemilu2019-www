@@ -1,60 +1,36 @@
-<!DOCTYPE html>
-<html>
+{{#> _layout/page pageType="tabulasi" name="tabulasi" }}
+{{#*inline "content"}}
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <title>KawalPemilu - Jaga Suara 2019</title>
-    {{> _layout/head-social.hbs }}
-    {{> _layout/head-ga.hbs }}
+<h1>Hasil Tabulasi Data <span class="nowrap">Kawal Pemilu 2019</span></h1>
 
-    <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
-</head>
-
-<body>
-
-    {{> _layout/body-header.hbs activeHome=true }}
-
-    <main class="tabulasi container">
-        <div class="skew"></div>
-        <article>
-        <h1>Hasil Tabulasi Data <span class="nowrap">Kawal Pemilu 2019</span></h1>
-
-        {{!-- <p>Halaman ini berisi hasil tabulasi dari data yang sudah masuk ke
+{{!-- <p>Halaman ini berisi hasil tabulasi dari data yang sudah masuk ke
             <a target="_blank" href="https://upload.kawalpemilu.org">upload.kawalpemilu.org</a>.</p> --}}
 
-        <p>Data TPS kamu belum ada? Segera upload ke
-            <a target="_blank" href="https://upload.kawalpemilu.org">upload.kawalpemilu.org</a>!
-        </p>
+<p>Data TPS kamu belum ada? Segera upload ke
+    <a target="_blank" href="https://upload.kawalpemilu.org">upload.kawalpemilu.org</a>!
+</p>
 
-        <div class="pengumuman warn">
-            <p>
-                Data pada halaman ini masih <strong>belum final</strong> dan akan terus diperbarui <strong>secara
-                    berkala</strong>!
-            </p>
-            <p>
-                <span class="desktop">Terakhir diakses</span>
-                <script>
-                    function getCurrentTime() {
-                        var date = new Date().toString()
-                        var p = date.indexOf('(')
-                        return p < 0 ? date : date.substring(0, p).trim()
-                    }
-                    document.write(getCurrentTime());
-                </script>
-            </p>
-        </div>
+<div class="pengumuman warn">
+    <p>
+        Data pada halaman ini masih <strong>belum final</strong> dan akan terus diperbarui <strong>secara
+            berkala</strong>!
+    </p>
+    <p>
+        <span class="desktop">Terakhir diakses</span>
+        <script>
+            function getCurrentTime() {
+                var date = new Date().toString()
+                var p = date.indexOf('(')
+                return p < 0 ? date : date.substring(0, p).trim()
+            }
+            document.write(getCurrentTime());
+        </script>
+    </p>
+</div>
 
-        <div id="navigasi"></div>
-        <div id="agg" class="table"></div>
-        <div id="tps" class="table"></div>
-        </article>
+<div id="navigasi"></div>
+<div id="agg" class="table"></div>
+<div id="tps" class="table"></div>
 
-    </main>
-
-    {{> _layout/body-footer.hbs }}
-
-</body>
-
-</html>
+{{/inline}}
+{{/_layout/page}}

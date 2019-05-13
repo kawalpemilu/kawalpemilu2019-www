@@ -6,8 +6,10 @@ import './tps.scss'
 import { PageParam, PageTypes } from './common'
 import { HierarchyNode, FORM_TYPE } from './types'
 import { PageRenderer } from './page'
-import { debounce } from 'lodash'
-import { ScreenSize } from './screen';
+import { debounce } from 'debounce'
+import { ScreenSize } from './screen'
+
+declare function ga(...args: any[]): any
 
 const screenSize = new ScreenSize()
 
@@ -50,8 +52,10 @@ function xhr(url: string, cb: (txt: string) => void) {
 
 function get(id: number, cb: (node: HierarchyNode) => void) {
     var ts = new Date().getTime()
-    var url = 'https://kawal-c1.appspot.com/api/c/' + id + '?' + ts;
+    var url = 'https://kawal-c1.appspot.com/api/c/' + id + '?' + ts
     xhr(url + id + '?' + new Date().getTime(), function (res) {
+        var duration = new Date().getTime() - ts
+        ga('send', 'timing', 'kp-data', 'load', duration)
         cb(JSON.parse(res) as HierarchyNode);
     });
 }
@@ -67,6 +71,11 @@ function load() {
         document.getElementById('tps')
     )
     get(param.id, (node) => {
+        ga('send', 'pageview', {
+          dimension1: node.id,
+          dimension2: node.depth,
+          dimension3: param.type,
+        })
         renderer.render(param, node)
     })
 }
@@ -78,9 +87,9 @@ function updateScreenSize() {
     // check sizes.scss
     screenSize.update({
         phoneSmall: C("only screen and (max-width: 370px)"),
-        phoneWide: C("only screen and (min-width: 371px) and (max-width: 760px)"),
-        phone: C("only screen and (max-width: 760px)"),
-        tablet: C("only screen and (min-width: 761px) and (max-width: 1000px)"),
+        phoneWide: C("only screen and (min-width: 371px) and (max-width: 620px)"),
+        phone: C("only screen and (max-width: 620px)"),
+        tablet: C("only screen and (min-width: 621px) and (max-width: 1000px)"),
         mobile: C("only screen and (max-width: 1000px)"),
         desktop: C("only screen and (min-width: 1001px)"),
     })

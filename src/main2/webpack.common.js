@@ -57,7 +57,17 @@ module.exports = {
         rules: [
             {
                 test: /\.hbs$/,
-                use: ["handlebars-loader"]
+                use: [
+                    {
+                        loader: 'handlebars-loader',
+                        options: {
+                            helperDirs: path.join(__dirname, 'src/helpers'),
+                            precompileOptions: {
+                                knownHelpersOnly: false
+                            }
+                        }
+                    }
+                ]
             },
             {
                 test: /\.scss$/,
