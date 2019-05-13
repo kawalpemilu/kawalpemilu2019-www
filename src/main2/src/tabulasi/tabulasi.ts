@@ -6,8 +6,8 @@ import './tps.scss'
 import { PageParam, PageTypes } from './common'
 import { HierarchyNode, FORM_TYPE } from './types'
 import { PageRenderer } from './page'
-import { debounce } from 'lodash'
-import { ScreenSize } from './screen';
+import { debounce } from 'debounce'
+import { ScreenSize } from './screen'
 
 declare function ga(...args: any[]): any
 
