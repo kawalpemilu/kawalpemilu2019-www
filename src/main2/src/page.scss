@@ -112,6 +112,11 @@ nav {
     text-decoration: none;
     padding: 7px 10px;
     display: inline-block;
+
+    &.active {
+      background: white;
+      color: #37474f;
+    }
   }
 }
 
@@ -137,6 +142,7 @@ nav {
 
 nav {
   a:hover {
+    color: white;
     background: #62727b;
     text-decoration: none;
   }
