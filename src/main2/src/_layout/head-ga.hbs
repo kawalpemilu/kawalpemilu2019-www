@@ -1,5 +1,6 @@
 <script>
     // window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) }; ga.l = +new Date;
-    // ga('create', 'UA-176039-31', '');
+    window.ga = function() { console.log('GA', arguments) }
+    ga('create', 'UA-176039-31', '');
 </script>
 <script async src="https://www.google-analytics.com/analytics.js"></script>
