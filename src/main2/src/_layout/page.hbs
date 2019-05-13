@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+    {{#if title}}
+    <title>{{ title }} | KawalPemilu - Jaga Suara 2019</title>
+    {{else}}
+    <title>KawalPemilu - Jaga Suara 2019</title>
+    {{/if}}
+
+    {{> head-social.hbs }}
+    {{> head-ga.hbs }}
+</head>
+
+<body>
+
+    {{> body-header.hbs }}
+
+    <main class="{{pageType}} {{class}}">
+
+        {{#> content}}
+        {{/content}}
+
+    </main>
+
+    {{> body-footer.hbs }}
+
+</body>
+
+</html>

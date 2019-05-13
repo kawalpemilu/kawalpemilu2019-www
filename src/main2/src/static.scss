@@ -2,18 +2,25 @@ main.static {
   line-height: 30px;
   max-width: 950px;
 
+  ul {
+    margin-left: 25px;
+  }
+
   &.faq {
     h2 {
       margin-bottom: 0px;
     }
-    ul li {
-      list-style: none;
+    ul {
+      margin-left: 0;
+      li {
+        list-style: none;
 
-      > p {
-        margin: 0;
-      }
-      > p:last-child {
-        margin-bottom: 20px;
+        > p {
+          margin: 0;
+        }
+        > p:last-child {
+          margin-bottom: 20px;
+        }
       }
     }
   }
@@ -35,8 +42,11 @@ main.static {
   }
 
   &.kontak {
-    li {
-      list-style: none;
+    ul {
+      margin-left: 0;
+      li {
+        list-style: none;
+      }
     }
   }
 }
