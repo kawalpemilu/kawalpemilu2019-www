@@ -80,8 +80,8 @@ export class TpsRenderer {
     private renderTpsEntry(param: PageParam, node: HierarchyNode, tpsNo: number, data: TpsAggregate | null) {
         var modUrl = 'https://upload.kawalpemilu.org/t/' + node.id + '/' + tpsNo + '?utm_source=wwwkp'
 
-        var janggalClass = getSumValue(data.sum, 'janggal') ? 'janggal' : ''
-        var pendingClass = getSumValue(data.sum, 'pending') ? 'pending' : ''
+        var janggalClass = data && getSumValue(data.sum, 'janggal') ? 'janggal' : ''
+        var pendingClass = data && getSumValue(data.sum, 'pending') ? 'pending' : ''
 
         var s = `<div class="tps tps-${tpsNo} ${janggalClass} ${pendingClass}">`
 
