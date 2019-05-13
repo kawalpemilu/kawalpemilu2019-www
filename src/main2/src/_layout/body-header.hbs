@@ -6,7 +6,10 @@
 
 <nav>
     <ul>
+        {{#ifEqual name "tabulasi"}}
+        {{else}}
         <li><a class="{{activePage "tabulasi"}}" href="/">Tabulasi</a></li>
+        {{/ifEqual}}
         <li><a class="{{activePage "tentang"}}" href="/tentang/">Tentang <span class="w3">Kami</span></a></li>
         <li><a class="{{activePage "faq"}}" href="/faq/">Pertanyaan <span class="w2">Umum</span></a></li>
         <li><a class="{{activePage "visualisasi"}}" href="/visualisasi/">Visualisasi <span class="w1">Data</span></a></li>
