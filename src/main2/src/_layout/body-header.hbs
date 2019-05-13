@@ -1,17 +1,34 @@
-<header>
-    <a href="https://kawalpemilu.org/">
-        <span><span class="nowrap">Kawal Pemilu</span> - <span class="nowrap">Jaga Suara 2019</span></span>
-    </a>
-</header>
+<header class="container">
+    <div class="global-header">
+        <a href="https://kawalpemilu.org/" class="logo" alt="Beranda">
+            <img width="80" height="80" src="/assets/logo/logo-nav@2x.png">
+            <div class="site-title">
+                <h1 class="animate__tracking-in-expand">Kawal Pemilu</h1>
+                <span class="tagline animate__tracking-in-expand">Jaga Suara 2019</span>
+            </div>
+        </a>
 
-<nav>
-    <ul>
-        <li><a href="/">Tabulasi</a></li>
-        <li><a href="/tentang/">Tentang <span class="w3">Kami</span></a></li>
-        <li><a href="/faq/">Pertanyaan <span class="w2">Umum</span></a></li>
-        <li><a href="/visualisasi/">Visualisasi <span class="w1">Data</span></a></li>
-        <li><a class="bottom" href="/privasi/">Kebijakan Privasi</a></li>
-        <li><a class="bottom" href="/disclaimer/">Disclaimer</a></li>
-        <li><a class="bottom" href="/kontak/">Kontak</a></li>
-    </ul>
-</nav>
+        <input class="menu-btn" type="checkbox" id="menu-btn" />
+        <label class="menu-icon" for="menu-btn">
+            <span class="sr">Menu utama</span>
+            <span class="navicon" aria-hidden="true"></span>
+        </label>
+
+        <nav aria-label="Menu utama" class="main-menu">
+            <ul>
+                <li{{#if activeHome}} class="active"{{/if}}>
+                    <a href="/">Tabulasi</a>
+                </li>
+                <li{{#if activeTentang}} class="active"{{/if}}>
+                    <a href="/tentang/">Tentang Kami</a>
+                </li>
+                <li{{#if activeFaq}} class="active"{{/if}}>
+                    <a href="/faq/">Pertanyaan Umum</a>
+                </li>
+                <li{{#if activeVisualisasi}} class="active"{{/if}}>
+                    <a href="/visualisasi/">Visualisasi Data</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>

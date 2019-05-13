@@ -8,13 +8,17 @@
     <title>KawalPemilu - Jaga Suara 2019</title>
     {{> _layout/head-social.hbs }}
     {{> _layout/head-ga.hbs }}
+
+    <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
 </head>
 
 <body>
 
-    {{> _layout/body-header.hbs }}
+    {{> _layout/body-header.hbs activeHome=true }}
 
-    <main class="tabulasi">
+    <main class="tabulasi container">
+        <div class="skew"></div>
+        <article>
         <h1>Hasil Tabulasi Data <span class="nowrap">Kawal Pemilu 2019</span></h1>
 
         {{!-- <p>Halaman ini berisi hasil tabulasi dari data yang sudah masuk ke
@@ -45,6 +49,7 @@
         <div id="navigasi"></div>
         <div id="agg" class="table"></div>
         <div id="tps" class="table"></div>
+        </article>
 
     </main>
 
