@@ -189,9 +189,9 @@ export class TpsRenderer {
         var s = ''
         for (var i = 0; i < urls.length; i++) {
             let url = urls[i]
-            var photo = data.photos[url]
-            var sum = photo.sum
-            var errorClass = sum.error && sum.error == 1 ? 'error' : ''
+            let photo = data.photos[url]
+            let sum = photo.sum
+            let errorClass = sum.error && sum.error == 1 ? 'error' : ''
 
             s += `<div class="photo ${errorClass}">`
             s += `<p><a href="${url}=s1280" target="_blank"><img src="${url}=s120" loading="lazy"/></a></p>`
@@ -200,8 +200,9 @@ export class TpsRenderer {
             for (var j = 0; j < keys.length; j++) {
                 let key = keys[j]
                 let label = (this.SUM_LABELS as any)[key] as string // FIXME as any
-                let sum = getSumValue(data.sum, key)
-                if (!sum) continue
+                if (!(key in photo.sum))
+                    continue
+                let sum = getSumValue(photo.sum, key)
                 s += `<li><span class="label">${label}</span> <span class="value">${sum}</span></li>`
             }
             s += '</ul>'
