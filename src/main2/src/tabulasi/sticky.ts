@@ -3,6 +3,7 @@ function updateStickyTableRow(rowSelector: string, id: string, classList: string
     var els = document.querySelectorAll(rowSelector)
     if (els.length == 0) return;
     var el = els[0] as HTMLElement
+    var table = el.parentElement
 
     var dup = document.getElementById(id)
     if (!dup) {
@@ -10,7 +11,6 @@ function updateStickyTableRow(rowSelector: string, id: string, classList: string
         dup.id = id
         classList.forEach((n) => dup.classList.add(n))
 
-        var table = el.parentElement
         if (table.tagName != 'table')
             table = table.parentElement
         table.parentElement.insertBefore(dup, table)
@@ -33,6 +33,9 @@ function updateStickyTableRow(rowSelector: string, id: string, classList: string
         dup.classList.remove('sticky')
 
     dup.style.marginLeft = (-1 * agg.scrollLeft - 25 /*check css*/) + 'px';
+    dup.style.width = table.clientWidth + 'px';
+    dup.style.minWidth = table.clientWidth + 'px';
+    dup.style.maxWidth = table.clientWidth + 'px';
 }
 
 export function updateStickyTableHeader() {
