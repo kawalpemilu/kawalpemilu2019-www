@@ -53,7 +53,7 @@
           font-size: 12px;
         }
         @media #{$phone-wide} {
-          font-size: 14px;
+          font-size: 12px;
         }
 
         &.idx {
@@ -133,7 +133,7 @@
               box-sizing: border-box;
               font-size: 12px;
 
-              @media #{$phone-small} {
+              @media #{$phone} {
                 font-size: 10px;
               }
 

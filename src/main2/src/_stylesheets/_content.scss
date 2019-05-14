@@ -33,10 +33,25 @@ main {
     background-color: #fff;
     border-bottom: 1px solid #c4cdd5;
     flex: 1;
-    padding: 25px 25px 40px;
+    padding: 25px 0 40px 0;
+
+    > * {
+      margin-left: 25px;
+      margin-right: 25px;
+    }
 
     @media #{$phone} {
-      padding: 10px;
+      padding: 10px 0;
+
+      > * {
+        margin-left: 10px;
+        margin-right: 10px;
+
+        &.table {
+          margin-left: 0;
+          margin-right: 0;
+        }
+      }
     }
     @media (min-width: 780px) {
       border-bottom: none;
