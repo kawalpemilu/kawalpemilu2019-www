@@ -1,6 +1,6 @@
 import { Entry } from "./agg-pilpres-common";
 
-const THRESHOLD_PERCENTAGE = 0.8
+const THRESHOLD_PERCENTAGE = 0.7
 
 export function _F(n: number): string {
     return n.toLocaleString('id')
