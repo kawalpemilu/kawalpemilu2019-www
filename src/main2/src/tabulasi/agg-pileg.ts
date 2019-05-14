@@ -45,7 +45,7 @@ export class AggPilegRenderer {
         PartaiEntries.forEach((e) => {
             s += '<td class="sum">' + e.label + '</td>'
         })
-        s += '<td class="tps kpu">#TPS data KPU</td>'
+        s += '<td class="tps kpu">#TPS KPU</td>'
         s += '</tr>'
 
         // rows
