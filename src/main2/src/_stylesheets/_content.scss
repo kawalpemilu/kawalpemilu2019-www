@@ -12,15 +12,16 @@ main {
     position: relative;
 
     &:before {
-      background-color: #dd3d31;
-      background-image: url(/assets/overlay.svg), linear-gradient(45deg,#dd3d31 0%,#d22f23 100%);
+      background-color: #3a1c71;
+      background-image: url(/assets/overlay.svg), linear-gradient(45deg,#3a1c71 0%, #d76d77 35%, #ffaf7b 100%);
       background-size: cover;
       content: '';
       display: block;
       height: 60px;
       position: absolute;
       transform-origin: 0;
-      transform: skewY(-4.5deg);
+      transform: skewY(-3deg);
+      -webkit-backface-visibility: hidden;
       top: 0;
       left: 0;
       width: 100%;

@@ -30,7 +30,7 @@
   }
 
   .tagline {
-    color: #DE3618;
+    color: #5C6AC4;
   }
 
   .menu-btn {
@@ -179,7 +179,7 @@
           color: #333;
 
           &:before {
-            border-left: 6px solid #DE3618;
+            border-left: 6px solid #5C6AC4;
             content: "";
             height: calc(100% - 48px);
             left: 0;
@@ -190,7 +190,7 @@
 
             @media #{$desktop} {
               animation: main-menu-slide-bottom 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-              border-top: 6px solid #DE3618;
+              border-top: 6px solid #5C6AC4;
               height: auto;
               left: auto;
               top: 0;
