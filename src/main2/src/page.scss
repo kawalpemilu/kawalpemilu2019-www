@@ -1,8 +1,13 @@
 @import "sizes";
+@import "_stylesheets/animations";
+@import "_stylesheets/header";
+@import "_stylesheets/content";
+@import "_stylesheets/footer";
 
 body,
 html {
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f6f8;
+  font-family: 'Open Sans', sans-serif;
   margin: 0px;
   padding: 0px;
   height: 100%;
@@ -36,194 +41,39 @@ h1 {
 }
 
 a {
-  text-decoration: none;
-  color: blue;
+  color: #DE3618;
 }
 
 a:hover {
-  text-decoration: underline;
+  color: #BF0711;
 }
 
 .nowrap {
   white-space: nowrap;
 }
 
-/** part:header **/
-
-header {
-  background: #607d8b;
-  margin: 0px;
-
-  a {
-    display: flex;
-    color: white;
-    background-image: url(https://upload.kawalpemilu.org/assets/logo/android-icon-72x72.png);
-    background-repeat: no-repeat;
-    background-position: top left;
-    text-decoration: none;
-    height: 60px;
-    padding: 0 10px 0 90px;
-    box-sizing: border-box;
-    align-items: center;
-  }
-
-  a:hover {
-    text-decoration: none;
-  }
+/** screen-reader **/
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
 
-@media (min-width: 551px) {
-  header {
-    a {
-      font-size: 26px;
-    }
-  }
-}
-
-@media (max-width: 550px) {
-  header {
-    a {
-      font-size: 18px;
-      vertical-align: middle;
-    }
-  }
-}
-
-/** part:footer **/
-
-footer {
-  background: #37474f;
-  height: 20px;
-  display: block;
+/** container **/
+.container {
+  margin-left: auto;
+  margin-right: auto;
   width: 100%;
-  color: white;
-  padding: 10px 0;
-  text-align: center;
-  font-size: 14px;
-}
 
-nav {
-  background: #37474f;
-  color: white;
-  font-size: 14px;
-
-  a {
-    color: white;
-    text-decoration: none;
-    padding: 7px 10px;
-    display: inline-block;
-
-    &.active {
-      background: white;
-      color: #37474f;
-    }
+  @media (min-width: 780px) {
+    width: 90%;
   }
-}
-
-@media (min-width: 721px) {
-  nav.bottom {
-    display: none;
-  }
-}
-
-@media (max-width: 720px) {
-  nav {
-    text-align: center;
-
-    a.bottom {
-      display: none;
-    }
-
-    a {
-      padding: 7px 5px;
-    }
-  }
-}
-
-nav {
-  a:hover {
-    color: white;
-    background: #62727b;
-    text-decoration: none;
-  }
-
-  ul {
-    padding: 0;
-    margin: 0px;
-
-    li {
-      display: inline;
-    }
-  }
-}
-
-nav.bottom {
-  text-align: center;
-}
-
-nav {
-  a {
-    span {
-      @media #{$phone-wide} {
-        &.w1 {
-          display: none;
-        }
-      }
-      @media (min-width: 411px) and (max-width: 720px) {
-        &.w1 {
-          display: none;
-        }
-      }
-      @media (min-width: 361px) and (max-width: 410px) {
-        &.w1,
-        &.w2 {
-          display: none;
-        }
-      }
-      @media (max-width: 360px) {
-        &.w1,
-        &.w2,
-        &.w3 {
-          display: none;
-        }
-      }
-    }
-  }
-}
-
-/** part:main **/
-
-main {
-  flex: 1;
-  padding-top: 25px;
-  padding-bottom: 25px;
-
-  @media #{$phone} {
-    padding: 10px 0;
-  }
-  @media #{$tablet} {
-    padding: 10px 0;
-  }
-}
-
-main > * {
-  padding-left: 25px;
-  padding-right: 25px;
-
-  @media #{$tablet} {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-
-  @media #{$phone} {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-}
-
-@media #{$phone} {
-  main > .table {
-    padding-left: 0px;
-    padding-right: 0px;
+  @media (min-width: 1340px) {
+    max-width: 1260px;
   }
 }

@@ -1,20 +1,26 @@
-<header>
-    <a href="https://kawalpemilu.org/">
-        <span><span class="nowrap">Kawal Pemilu</span> - <span class="nowrap">Jaga Suara 2019</span></span>
-    </a>
-</header>
+<header class="container">
+    <div class="global-header">
+        <a href="https://kawalpemilu.org/" class="logo" alt="Beranda">
+            <img width="80" height="80" src="/assets/logo/logo-nav@2x.png">
+            <div class="site-title">
+                <h1 class="animate__tracking-in-expand">Kawal Pemilu</h1>
+                <span class="tagline animate__tracking-in-expand">Jaga Suara 2019</span>
+            </div>
+        </a>
 
-<nav>
-    <ul>
-        {{#ifEqual name "tabulasi"}}
-        {{else}}
-        <li><a class="{{activePage "tabulasi"}}" href="/">Tabulasi</a></li>
-        {{/ifEqual}}
-        <li><a class="{{activePage "tentang"}}" href="/tentang/">Tentang <span class="w3">Kami</span></a></li>
-        <li><a class="{{activePage "faq"}}" href="/faq/">Pertanyaan <span class="w2">Umum</span></a></li>
-        <li><a class="{{activePage "visualisasi"}}" href="/visualisasi/">Visualisasi <span class="w1">Data</span></a></li>
-        <li><a class="{{activePage "privasi"}} bottom" href="/privasi/">Kebijakan Privasi</a></li>
-        <li><a class="{{activePage "disclaimer"}} bottom" href="/disclaimer/">Disclaimer</a></li>
-        <li><a class="{{activePage "kontak"}} bottom" href="/kontak/">Kontak</a></li>
-    </ul>
-</nav>
+        <input class="menu-btn" type="checkbox" id="menu-btn" />
+        <label class="menu-icon" for="menu-btn">
+            <span class="sr">Menu utama</span>
+            <span class="navicon" aria-hidden="true"></span>
+        </label>
+
+        <nav class="main-menu">
+            <ul>
+                <li class="{{activePage "tabulasi"}}"><a href="/">Tabulasi</a></li>
+                <li class="{{activePage "tentang"}}"><a href="/tentang/">Tentang Kami</a></li>
+                <li class="{{activePage "faq"}}"><a href="/faq/">Pertanyaan Umum</a></li>
+                <li class="{{activePage "visualisasi"}}"><a href="/visualisasi/">Visualisasi Data</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
