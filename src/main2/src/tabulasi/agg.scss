@@ -177,48 +177,120 @@
         //background: darken($color: #eceff1, $amount: 5%);
       }
     }
+  }
 
-    &.dup {
-      display: none;
+  div.dup-container {
+    display: none;
+    &.sticky {
+      &.header {
+        display: block;
+        position: fixed;
+        top: 0px;
+        box-shadow: 0px 2px 15px 0 rgba(0, 0, 0, 0.15);
+        overflow-x: hidden;
+        background: white;
+        z-index: 100;
+      }
+      &.footer {
+        background-color: #ddd;
+        display: block;
+        position: fixed;
+        bottom: 0px;
+        z-index: 100;
+        box-shadow: 0px 2px 15px 0 rgba(0, 0, 0, 0.15);
+      }
+      &.column {
+        display: block;
+        position: absolute;
 
-      &.sticky {
-        &.header {
+        left: 0px;
+        top: 0px;
+
+        z-index: 50;
+        box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15);
+      }
+      &.corner {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0px;
+        z-index: 150;
+        box-shadow: 0px 2px 15px 0 rgba(0, 0, 0, 0.15);
+
+        @media #{$phone} {
+          font-size: 14px;
+        }
+      }
+
+      table {
+        &.header,
+        &.footer {
+          overflow-x: hidden;
           display: block;
-          position: fixed;
-          top: 0px;
-          box-shadow: 0px 2px 15px 0 rgba(0, 0, 0, 0.15);
-          padding: 0 25px;
-          margin-left: -25px;
-          width: 100%;
-          z-index: 100;
+
+          tbody {
+            display: block;
+          }
+
+          // check _stylesheets/_content.scss
+          margin-left: 25px;
+          margin-right: 25px;
+          @media #{$phone} {
+            margin-left: 0;
+            margin-right: 0;
+          }
         }
         &.column {
           display: block;
-          position: absolute;
-          left: 0px;
-          top: 0px;
-          z-index: 50;
-          box-shadow: 0px 10px 10px #aaa;
-        }
-        &.corner {
-          display: block;
-          position: fixed;
-          top: 0;
-          left: 0px;
-          z-index: 150;
-        }
-        &.footer {
-          background-color: #ddd;
-          display: block;
-          position: fixed;
-          bottom: 0px;
-          z-index: 100;
-          padding: 0 25px;
-          margin-left: -25px;
-          width: 100%;
         }
       }
     }
+
+    /*
+    table {
+      &.dup {
+        display: none;
+
+        &.sticky {
+          &.header {
+            display: block;
+            position: fixed;
+            top: 0px;
+            box-shadow: 0px 2px 15px 0 rgba(0, 0, 0, 0.15);
+            padding: 0 25px;
+            margin-left: -25px;
+            width: 100%;
+            z-index: 100;
+          }
+          &.column {
+            display: block;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            z-index: 50;
+            box-shadow: 0px 10px 10px #aaa;
+          }
+          &.corner {
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0px;
+            z-index: 150;
+          }
+          &.footer {
+            background-color: #ddd;
+            display: block;
+            position: fixed;
+            bottom: 0px;
+            z-index: 100;
+            padding: 0 25px;
+            margin-left: -25px;
+            width: 100%;
+          }
+        }
+      }
+    }
+      */
   }
 
   &.pilpres {
