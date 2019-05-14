@@ -193,8 +193,10 @@ export class TpsRenderer {
             let sum = photo.sum
             let errorClass = sum.error && sum.error == 1 ? 'error' : ''
 
+            let imageUrl = url.replace('http://', 'https://')
+
             s += `<div class="photo ${errorClass}">`
-            s += `<p><a href="${url}=s1280" target="_blank"><img src="${url}=s120" loading="lazy"/></a></p>`
+            s += `<p><a href="${imageUrl}=s1280" target="_blank"><img src="${imageUrl}=s120" loading="lazy"/></a></p>`
 
             s += '<ul class="detail">'
             for (var j = 0; j < keys.length; j++) {
