@@ -13,9 +13,9 @@ main {
 
     &:before {
       background-color: #3a1c71;
-      background-image: url(/assets/overlay.svg), linear-gradient(45deg,#3a1c71 0%, #d76d77 35%, #ffaf7b 100%);
+      background-image: url(/assets/overlay.svg), linear-gradient(45deg, #3a1c71 0%, #d76d77 35%, #ffaf7b 100%);
       background-size: cover;
-      content: '';
+      content: "";
       display: block;
       height: 60px;
       position: absolute;
@@ -75,14 +75,17 @@ main {
       h2 {
         margin-bottom: 0px;
       }
-      ul li {
-        list-style: none;
+      ul {
+        padding-left: 0;
+        li {
+          list-style: none;
 
-        > p {
-          margin: 0;
-        }
-        > p:last-child {
-          margin-bottom: 20px;
+          > p {
+            margin: 0;
+          }
+          > p:last-child {
+            margin-bottom: 20px;
+          }
         }
       }
     }
