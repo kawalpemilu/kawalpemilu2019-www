@@ -110,6 +110,11 @@
               padding-bottom: 10px;
             }
             &.win {
+              &.per {
+                background: rgb(241, 248, 233);
+                background: linear-gradient(135deg, rgba(241, 248, 233, 1) 0%, rgba(197, 225, 165, 1) 100%);
+              }
+
               span.per {
                 font-weight: bold;
               }
