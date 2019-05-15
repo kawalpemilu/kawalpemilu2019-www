@@ -1,0 +1,26 @@
+<header class="container">
+    <div class="global-header">
+        <a href="https://kawalpemilu.org/" class="logo" alt="Beranda">
+            <img width="80" height="80" src="/assets/logo/logo-nav@2x.png">
+            <div class="site-title">
+                <h1 class="animate__tracking-in-expand">Kawal Pemilu</h1>
+                <span class="tagline animate__tracking-in-expand">Jaga Suara 2019</span>
+            </div>
+        </a>
+
+        <input class="menu-btn" type="checkbox" id="menu-btn" />
+        <label class="menu-icon" for="menu-btn">
+            <span class="sr">Menu utama</span>
+            <span class="navicon" aria-hidden="true"></span>
+        </label>
+
+        <nav class="main-menu">
+            <ul>
+                <li class="{{activePage "tabulasi"}}"><a href="/">Tabulasi</a></li>
+                <li class="{{activePage "tentang"}}"><a href="/tentang/">Tentang Kami</a></li>
+                <li class="{{activePage "faq"}}"><a href="/faq/">Pertanyaan Umum</a></li>
+                <li class="{{activePage "visualisasi"}}"><a href="/visualisasi/">Visualisasi Data</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>

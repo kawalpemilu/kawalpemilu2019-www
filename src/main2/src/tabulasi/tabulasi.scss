@@ -1,0 +1,33 @@
+@import "../sizes";
+
+div.pengumuman {
+  display: inline-block;
+
+  margin: 0 0 20px 10px;
+  padding: 10px 15px;
+
+  p {
+    margin: 0 0 10px 0;
+  }
+
+  p:last-child {
+    margin: 0px;
+  }
+
+  &.warn {
+    border: 1px solid #e57373;
+    border-width: 1px 0;
+    background: #ffebee;
+  }
+
+  @media #{$mobile} {
+    display: block;
+    padding: 10px 10px;
+    margin-left: 0px;
+  }
+  @media #{$phone} {
+    span.desktop {
+      display: none;
+    }
+  }
+}

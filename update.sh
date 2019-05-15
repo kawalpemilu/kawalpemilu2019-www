@@ -1,16 +1,18 @@
 #!/bin/bash
 
-pushd src/main
-~/.gem/ruby/2.5.0/bin/bundle exec jekyll build
+pushd src/main2
+
+sudo mkdir -p node_modules
+sudo chown -R 1000:1000 node_modules
+
+npm install
+npm run build
+
 popd
 
-mkdir -p _public _build
+sudo mkdir -p _public
+sudo rm -rf _public/*
+sudo chown -R 1000:1000 _public
 
-rm -rf _public/*
-rm -rf _build/*
-
-rsync -avH --progress src/main/_site/ _build/
-rsync -avH --progress src/tabulasi/ _build/
-rsync -avH --progress src/tabulasi/tabulasi/index.html _build/index.html
-rsync -avH --progress --exclude '*tabulasi*' --delete-excluded _build/ _public/
+rsync -avH --progress --delete-excluded src/main2/dist/ _public/
 

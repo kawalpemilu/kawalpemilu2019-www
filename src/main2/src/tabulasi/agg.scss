@@ -1,0 +1,321 @@
+@import "../sizes";
+
+#agg {
+  overflow-x: auto;
+
+  table {
+    border-collapse: collapse;
+
+    margin: 0px;
+    padding: 0px;
+
+    @media #{$phone} {
+      min-width: 100%;
+    }
+    @media #{$tablet} {
+      min-width: 100%;
+    }
+
+    tr {
+      padding: 0px;
+      display: table-row;
+      line-height: 24px;
+
+      @media #{$phone} {
+        line-height: 24px;
+        font-size: 14px;
+      }
+
+      &.header td {
+        font-weight: bold;
+        text-align: center !important;
+      }
+
+      &.footer td {
+        background: #ddd;
+
+        &.name {
+          font-weight: bold;
+          text-align: right;
+          text-transform: uppercase;
+          padding-right: 15px;
+        }
+      }
+
+      > td {
+        display: table-cell;
+        vertical-align: middle;
+        height: 50px;
+        box-sizing: border-box;
+        padding: 5px;
+
+        @media #{$phone-small} {
+          font-size: 12px;
+        }
+        @media #{$phone-wide} {
+          font-size: 12px;
+        }
+
+        &.idx {
+          text-align: center;
+          @media #{$phone} {
+            display: none;
+          }
+        }
+        &.name {
+          border-right: 1px solid white;
+          width: 250px;
+          min-width: 250px;
+          max-width: 250px;
+          @media #{$phone-small} {
+            width: 100px;
+            min-width: 100px;
+            max-width: 100px;
+          }
+          @media #{$phone-wide} {
+            width: 160px;
+            min-width: 160px;
+            max-width: 160px;
+          }
+          @media #{$tablet} {
+            width: 250px;
+            min-width: 250px;
+            max-width: 250px;
+          }
+
+          a {
+            text-decoration: none;
+          }
+        }
+
+        &.sum {
+          text-align: right;
+          border-right: 1px solid white;
+          &.pas {
+            line-height: 22px;
+            @media #{$phone} {
+              line-height: 20px;
+            }
+            span {
+              display: block;
+              &.per {
+                font-size: 14px;
+                @media #{$phone} {
+                  font-size: 12px;
+                }
+              }
+            }
+            &.per {
+              padding-top: 10px;
+              padding-bottom: 10px;
+            }
+            &.win {
+              &.per {
+                background: rgb(241, 248, 233);
+                background: linear-gradient(135deg, rgba(241, 248, 233, 1) 0%, rgba(197, 225, 165, 1) 100%);
+              }
+
+              span.per {
+                font-weight: bold;
+              }
+            }
+          }
+        }
+        &.summary {
+        }
+        &.tps {
+          &.kpu {
+            text-align: right;
+          }
+
+          &.estimasi {
+            text-align: center;
+            span {
+              border: 1px solid rgba(0, 0, 0, 0.15);
+              display: inline-block;
+              width: 100%;
+              padding: 2px 0;
+              box-sizing: border-box;
+              font-size: 12px;
+
+              @media #{$phone} {
+                font-size: 10px;
+              }
+
+              @media #{$phone} {
+                padding: 2px 5px;
+              }
+              @media #{$tablet} {
+                padding: 2px 5px;
+              }
+            }
+
+            max-width: 90px;
+            min-width: 90px;
+            width: 90px;
+
+            @media #{$phone} {
+              max-width: 50px;
+              min-width: 50px;
+              width: 50px;
+            }
+          }
+        }
+      }
+      > td:last-child {
+        padding-right: 15px;
+        @media #{$phone} {
+          padding-right: 5px;
+        }
+      }
+    }
+
+    tr:nth-child(odd) {
+      background: white;
+      > td.darken {
+        //background: darken($color: white, $amount: 5%);
+      }
+    }
+    tr:nth-child(even) {
+      background: #eceff1;
+      > td.darken {
+        //background: darken($color: #eceff1, $amount: 5%);
+      }
+    }
+  }
+
+  div.dup-container {
+    display: none;
+    &.sticky {
+      &.header {
+        display: block;
+        position: fixed;
+        top: 0px;
+        box-shadow: 0px 2px 15px 0 rgba(0, 0, 0, 0.15);
+        overflow-x: hidden;
+        background: white;
+        z-index: 100;
+      }
+      &.footer {
+        background-color: #ddd;
+        display: block;
+        position: fixed;
+        bottom: 0px;
+        z-index: 100;
+        box-shadow: 0px 2px 15px 0 rgba(0, 0, 0, 0.15);
+      }
+      &.column {
+        display: block;
+        position: absolute;
+
+        left: 0px;
+        top: 0px;
+
+        z-index: 50;
+        box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.15);
+      }
+      &.corner {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0px;
+        z-index: 150;
+        box-shadow: 0px 2px 15px 0 rgba(0, 0, 0, 0.15);
+
+        @media #{$phone} {
+          font-size: 14px;
+        }
+      }
+
+      table {
+        &.header,
+        &.footer {
+          overflow-x: hidden;
+          display: block;
+
+          tbody {
+            display: block;
+          }
+
+          // check _stylesheets/_content.scss
+          margin-left: 25px;
+          margin-right: 25px;
+          @media #{$phone} {
+            margin-left: 0;
+            margin-right: 0;
+          }
+        }
+        &.column {
+          display: block;
+        }
+      }
+    }
+
+    /*
+    table {
+      &.dup {
+        display: none;
+
+        &.sticky {
+          &.header {
+            display: block;
+            position: fixed;
+            top: 0px;
+            box-shadow: 0px 2px 15px 0 rgba(0, 0, 0, 0.15);
+            padding: 0 25px;
+            margin-left: -25px;
+            width: 100%;
+            z-index: 100;
+          }
+          &.column {
+            display: block;
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            z-index: 50;
+            box-shadow: 0px 10px 10px #aaa;
+          }
+          &.corner {
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0px;
+            z-index: 150;
+          }
+          &.footer {
+            background-color: #ddd;
+            display: block;
+            position: fixed;
+            bottom: 0px;
+            z-index: 100;
+            padding: 0 25px;
+            margin-left: -25px;
+            width: 100%;
+          }
+        }
+      }
+    }
+      */
+  }
+
+  &.pilpres {
+    table tr td.tps {
+      padding-right: 5px;
+    }
+  }
+  &.pileg {
+    overflow-x: auto;
+    table {
+      tr td {
+        border-right: 1px solid white;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      tr.row td {
+        &.sum {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
