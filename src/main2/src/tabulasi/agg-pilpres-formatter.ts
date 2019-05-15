@@ -66,3 +66,55 @@ export class EstimasiFormatter {
         return `background-image: linear-gradient(to right, #aed581 0, #aed581 ${pEstimasi}%, #fff176 ${pEstimasi}%, #fff176 ${pCakupan}%, #e0e0e0 ${pCakupan}%, #e0e0e0 100%)`
     }
 }
+
+export class EstimasiFullFormatter {
+    format(entry: Entry): string {
+        var ratio = Math.round(entry.tpsEstimasiRatio * 1000) / 10
+        var s = `<span>${_F(entry.tpsEstimasi)}</span>`
+        s += `<span class="diff">${_F(ratio)}%</span>`
+
+        let pEstimasi = entry.tpsEstimasiRatio * 100
+        var style = `background-image: linear-gradient(to right, rgba(241, 248, 233, 1) 0, rgba(197, 225, 165, 1) ${pEstimasi}%, #e0e0e0 ${pEstimasi}%, #e0e0e0 100%)`
+
+        return `<td class="tps estimasi-full" style="${style}">${s}</td>`
+    }
+}
+
+export class SahFormatter {
+    format(entry: Entry): string {
+        var error = entry.pas1 + entry.pas2 === entry.sah ? '' : 'error'
+        var content = `<span class="sah">${_F(entry.sah)}</span>`
+        if (error) content += `<span class="diff">(${_F(entry.sah - entry.pas1 - entry.pas2)})</span>`
+        return `<td class="sum sah ${error}">${content}</td>`
+    }
+}
+
+export class TidakSahFormatter {
+    format(entry: Entry): string {
+        return `<td class="sum tsah">${_F(entry.tSah)}</td>`
+    }
+}
+
+export class TpsKpuFormatter {
+    format(entry: Entry): string {
+        return `<td class="tps kpu">${_F(entry.ntps)}</td>`
+    }
+}
+
+export class TpsCakupanFormatter {
+    format(entry: Entry): string {
+        return `<td class="tps cakupan">${_F(entry.cakupan)}</td>`
+    }
+}
+
+export class TpsPendingFormatter {
+    format(entry: Entry): string {
+        return `<td class="tps pending">${_F(entry.pending)}</td>`
+    }
+}
+
+export class TpsErrorFormatter {
+    format(entry: Entry): string {
+        return `<td class="tps error">${_F(entry.error)}</td>`
+    }
+}

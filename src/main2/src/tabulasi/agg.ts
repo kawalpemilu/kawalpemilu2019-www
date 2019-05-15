@@ -4,9 +4,11 @@ import { ScreenSize } from "./screen";
 import { AggPilpresRenderer } from "./agg-pilpres";
 import { AggPilegRenderer } from "./agg-pileg";
 import { updateStickyTableHeader, updateStickyTableColumn, updateStickyTableCorner, updateStickyTableFooter } from "./sticky";
+import { AggPilpresFullRenderer } from "./agg-pilpres-full";
 
 export class AggRenderer {
     private pilpres: AggPilpresRenderer
+    private pilpresFull: AggPilpresFullRenderer
     private pileg: AggPilegRenderer
 
     constructor(
@@ -14,6 +16,7 @@ export class AggRenderer {
         private agg: HTMLElement) {
 
         this.pilpres = new AggPilpresRenderer(screenSize)
+        this.pilpresFull = new AggPilpresFullRenderer(screenSize)
         this.pileg = new AggPilegRenderer(screenSize)
     }
 

@@ -16,6 +16,7 @@ export class Entry {
     ntps: number = 0
     pending: number = 0
     cakupan: number = 0
+    error: number = 0
 
     static newFromNode(node: HierarchyNode, idx: number): Entry {
         var ch = node.children[idx]
@@ -30,6 +31,7 @@ export class Entry {
         entry.pending = N(sum.pending)
         entry.cakupan = N(sum.cakupan)
         entry.ntps = ch[2] as number
+        entry.error = N(sum.error)
         return entry
     }
 
@@ -42,6 +44,7 @@ export class Entry {
         result.ntps = this.ntps + entry.ntps
         result.pending = this.pending + entry.pending
         result.cakupan = this.cakupan + entry.cakupan
+        result.error = this.error + entry.error
         return result
     }
 
