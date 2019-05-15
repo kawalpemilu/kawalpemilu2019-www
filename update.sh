@@ -5,6 +5,7 @@ pushd src/main2
 sudo mkdir -p node_modules
 sudo chown -R 1000:1000 node_modules
 
+sudo rm -rf dist
 npm install
 npm run build
 
