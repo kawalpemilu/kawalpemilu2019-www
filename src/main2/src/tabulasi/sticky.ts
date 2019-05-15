@@ -70,7 +70,7 @@ export function updateStickyTableFooter() {
         () => {
             var table = document.querySelectorAll('#agg table.table')[0] as HTMLElement
             var footer = document.querySelectorAll('#agg table.table tr.footer')[0] as HTMLElement
-            return table.offsetTop + footer.offsetTop - window.pageYOffset + footer.offsetHeight > window.innerHeight
+            return table.offsetTop - window.pageYOffset + 180 < window.innerHeight && table.offsetTop + footer.offsetTop - window.pageYOffset + footer.offsetHeight > window.innerHeight
         })
 }
 
