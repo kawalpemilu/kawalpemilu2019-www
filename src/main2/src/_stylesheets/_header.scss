@@ -14,7 +14,7 @@
     font-style: italic;
     text-decoration: none;
 
-    &:hover img {
+    &:hover img.logo {
       animation: rotate-in-center 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     }
   }
