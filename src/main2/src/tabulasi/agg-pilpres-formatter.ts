@@ -51,7 +51,13 @@ export class EstimasiFormatter {
     format(entry: Entry): string {
         let tpsEstimasi = (Math.round(entry.tpsEstimasiRatio * 1000) / 10).toLocaleString('id')
         let estimasiStyle = this.createEstimasiStyle(entry)
-        return `<td class="tps estimasi"><span style="${estimasiStyle}">${tpsEstimasi}%</span></td>`
+        let title = [
+            `Estimasi TPS terproses: ${_F(entry.tpsEstimasi)} (${tpsEstimasi}%)`,
+            `TPS dengan Foto: ${_F(entry.cakupan)}`,
+            `Belum diproses: ${_F(entry.pending)}`,
+            `Total TPS dari KPU: ${_F(entry.ntps)}`,
+        ].join("\n")
+        return `<td class="tps estimasi" title="${title}"><span style="${estimasiStyle}">${tpsEstimasi}%</span></td>`
     }
 
     private createEstimasiStyle(entry: Entry): string {
