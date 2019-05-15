@@ -3,19 +3,21 @@
   box-sizing: border-box;
   flex-direction: row;
   justify-content: space-between;
-  height: 120px;
   position: relative;
 
   .logo {
     align-items: center;
     color: #1a222b;
     display: flex;
-    font-family: 'Anton', sans-serif;
+    font-family: "Anton", sans-serif;
     font-style: italic;
     text-decoration: none;
+    @media #{$phone} {
+      padding: 0 2px;
+    }
 
     &:hover img.logo {
-      animation: rotate-in-center 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+      animation: rotate-in-center 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
     }
   }
 
@@ -30,7 +32,7 @@
   }
 
   .tagline {
-    color: #5C6AC4;
+    color: #5c6ac4;
   }
 
   .menu-btn {
@@ -83,6 +85,9 @@
     @media #{$desktop} {
       display: none;
     }
+    @media #{$phone} {
+      margin: 24px 0;
+    }
 
     .navicon {
       background: #333;
@@ -95,7 +100,7 @@
       &:before,
       &:after {
         background: #333;
-        content: '';
+        content: "";
         display: block;
         height: 100%;
         position: absolute;
@@ -185,7 +190,7 @@
           color: #333;
 
           &:before {
-            border-left: 6px solid #5C6AC4;
+            border-left: 6px solid #5c6ac4;
             content: "";
             height: calc(100% - 48px);
             left: 0;
@@ -195,8 +200,8 @@
             width: calc(100% - 32px);
 
             @media #{$desktop} {
-              animation: main-menu-slide-bottom 0.3s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-              border-top: 6px solid #5C6AC4;
+              animation: main-menu-slide-bottom 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+              border-top: 6px solid #5c6ac4;
               height: auto;
               left: auto;
               top: 0;

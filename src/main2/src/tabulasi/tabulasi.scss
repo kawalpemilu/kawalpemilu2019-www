@@ -8,6 +8,9 @@ div.pengumuman {
 
   p {
     margin: 0 0 10px 0;
+    @media #{$phone} {
+      margin-bottom: 5px;
+    }
   }
 
   p:last-child {
@@ -26,8 +29,20 @@ div.pengumuman {
     margin-left: 0px;
   }
   @media #{$phone} {
+    margin-bottom: 10px;
+    font-size: 14px;
     span.desktop {
       display: none;
+    }
+  }
+}
+
+main {
+  article {
+    p {
+      @media #{$phone} {
+        line-height: 20px;
+      }
     }
   }
 }

@@ -11,6 +11,10 @@ main {
     overflow: hidden;
     position: relative;
 
+    @media #{$phone} {
+      height: 25px;
+    }
+
     &:before {
       background-color: #3a1c71;
       background-image: url(/assets/overlay.svg), linear-gradient(45deg, #3a1c71 0%, #d76d77 35%, #ffaf7b 100%);
@@ -22,7 +26,7 @@ main {
       transform-origin: 0;
       transform: skewY(-3deg);
       -webkit-backface-visibility: hidden;
-      top: 0;
+      bottom: 0;
       left: 0;
       width: 100%;
       z-index: 1;
@@ -41,7 +45,7 @@ main {
     }
 
     @media #{$phone} {
-      padding: 10px 0;
+      padding: 5px 0 10px 0;
 
       > * {
         margin-left: 10px;
@@ -63,10 +67,28 @@ main {
     border-bottom: 1px solid #333;
     line-height: 38px;
     margin-bottom: 32px;
+
+    @media #{$phone} {
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+    @media #{$phone-wide} {
+      font-size: 18px;
+    }
+    @media #{$phone-small} {
+      font-size: 15px;
+    }
   }
 
   p {
     margin-bottom: 28px;
+
+    @media #{$phone} {
+      margin-top: 0px;
+      margin-bottom: 10px;
+      font-size: 14px;
+      line-height: 26px;
+    }
   }
 
   &.static {
