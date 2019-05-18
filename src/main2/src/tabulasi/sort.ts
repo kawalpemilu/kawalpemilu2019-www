@@ -1,4 +1,5 @@
 import {PartaiEntries} from "./agg-pileg"
+import {updateStickyTableColumn} from "./sticky";
 export function setupSort(agg){
 
     setupColumn(agg, "tr.header td.idx", "td.idx", true );
@@ -31,6 +32,7 @@ function setupColumn(agg, header, rowSelect, numeric){
             for(var i =0;i<rows.length;i++){
                 tBody.insertBefore(rSorted[i], footer); 
             }
+            updateStickyTableColumn();
        });
     }
 }
