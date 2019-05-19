@@ -103,16 +103,15 @@ export function updateStickyTableColumn() {
 
         container.appendChild(dup)
         table.parentElement.insertBefore(container, table)
-
-        let s = ''
-        for (let i = 0; i < els.length; i++) {
+    }
+    let s = ''
+    for (let i = 0; i < els.length; i++) {
             let el = els[i] as HTMLElement
             let tr = el.parentElement
             let darken = tr.classList.contains('row') ? 'darken' : ''
             s += `<tr class="${tr.className}"><td class="name ${darken}">${els[i].innerHTML}</td></tr>`
-        }
-        dup.innerHTML = s
     }
+    dup.innerHTML = s
 
     var widthPx = els0.offsetWidth + 'px'
     dup.style.width = widthPx

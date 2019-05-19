@@ -6,6 +6,8 @@ import { AggPilegRenderer } from "./agg-pileg";
 import { updateStickyTableHeader, updateStickyTableColumn, updateStickyTableCorner, updateStickyTableFooter, updateStickyTableTotal } from "./sticky";
 import { AggPilpresFullRenderer } from "./agg-pilpres-full";
 
+import {setupSort, sort} from "./sort";
+
 export class AggRenderer {
     private pilpres: AggPilpresRenderer
     private pilpresFull: AggPilpresFullRenderer
@@ -23,6 +25,7 @@ export class AggRenderer {
     render(param: PageParam, node: HierarchyNode) {
         this.agg.innerHTML = this._render(param, node)
         this.agg.classList.add(param.type)
+        setupSort(this.agg)
     }
 
     private _render(param: PageParam, node: HierarchyNode) {
@@ -64,8 +67,8 @@ function attachStickyListener(fn: () => any) {
             fn()
     })
     observer.observe(agg, { childList: true })
-}
 
+}
 attachStickyListener(updateStickyTableHeader)
 attachStickyListener(updateStickyTableColumn)
 attachStickyListener(updateStickyTableCorner)
