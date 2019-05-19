@@ -3,7 +3,7 @@ import { HierarchyNode } from "./types";
 import { ScreenSize } from "./screen";
 import { AggPilpresRenderer } from "./agg-pilpres";
 import { AggPilegRenderer } from "./agg-pileg";
-import { updateStickyTableHeader, updateStickyTableColumn, updateStickyTableCorner, updateStickyTableFooter } from "./sticky";
+import { updateStickyTableHeader, updateStickyTableColumn, updateStickyTableCorner, updateStickyTableFooter, updateStickyTableTotal } from "./sticky";
 import { AggPilpresFullRenderer } from "./agg-pilpres-full";
 
 export class AggRenderer {
@@ -70,3 +70,4 @@ attachStickyListener(updateStickyTableHeader)
 attachStickyListener(updateStickyTableColumn)
 attachStickyListener(updateStickyTableCorner)
 attachStickyListener(updateStickyTableFooter)
+attachStickyListener(updateStickyTableTotal)

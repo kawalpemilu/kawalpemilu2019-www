@@ -140,8 +140,77 @@ export function updateStickyTableColumn() {
         dup.classList.remove('sticky')
     }
 
-    container.style.top = table.offsetTop - 2 /*why?*/ + 'px'
+    container.style.top = table.offsetTop + 'px'
     container.style.left = agg.offsetLeft + 'px'
+}
+
+export function updateStickyTableTotal() {
+    var agg = document.getElementById('agg')
+
+    var els = document.querySelectorAll('#agg table.table tr.footer td.name')
+    if (els.length == 0) return;
+    var els0 = els[0] as HTMLElement
+
+    var tables = document.querySelectorAll('#agg table.table')
+    if (tables.length == 0) return;
+    var table = tables[0] as HTMLElement
+
+    var id = 'agg-dup-table-total'
+    var idContainer = id + '-container'
+
+    var container = document.getElementById(idContainer)
+    var dup = document.getElementById(id)
+    if (!container) {
+        container = document.createElement('div')
+        container.id = idContainer
+        container.classList.add('dup-container')
+        container.classList.add('total')
+
+        dup = document.createElement('table')
+        dup.id = id
+        dup.classList.add('dup')
+        dup.classList.add('total')
+
+        container.appendChild(dup)
+        table.parentElement.insertBefore(container, table)
+
+        let s = ''
+        for (let i = 0; i < els.length; i++) {
+            let el = els[i] as HTMLElement
+            let li = el.parentElement
+            s += `<tr class="${li.className}"><td class="name">${els[i].innerHTML}</td></tr>`
+        }
+        dup.innerHTML = s
+    }
+
+    var widthPx = els0.offsetWidth + 'px'
+    dup.style.width = widthPx
+    dup.style.minWidth = widthPx
+    dup.style.maxWidth = widthPx
+    container.style.left = agg.offsetLeft + 'px'
+
+    var trs = dup.querySelectorAll('tr')
+    for (var i = 0; i < trs.length; i++) {
+        var orig = els[i] as HTMLElement
+        var ch = trs[i].children[0] as HTMLElement
+        ch.style.minWidth = widthPx
+        ch.style.maxWidth = widthPx
+        ch.style.width = widthPx
+        ch.style.minHeight = orig.offsetHeight + 'px'
+        ch.style.maxHeight = orig.offsetHeight + 'px'
+        ch.style.height = orig.offsetHeight + 'px'
+    }
+
+    var table = document.querySelectorAll('#agg table.table')[0] as HTMLElement
+    var footer = document.querySelectorAll('#agg table.table tr.footer')[0] as HTMLElement
+    if (table.offsetTop - window.pageYOffset + 180 < window.innerHeight && table.offsetTop + footer.offsetTop - window.pageYOffset + footer.offsetHeight > window.innerHeight && agg.scrollLeft > els0.offsetLeft) {
+        container.classList.add('sticky')
+        dup.classList.add('sticky')
+    }
+    else {
+        container.classList.remove('sticky')
+        dup.classList.remove('sticky')
+    }
 }
 
 export function updateStickyTableCorner() {

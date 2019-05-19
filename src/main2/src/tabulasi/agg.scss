@@ -249,6 +249,14 @@
           font-size: 14px;
         }
       }
+      &.total {
+        display: block;
+        position: fixed;
+        bottom: 0px;
+        left: 0px;;
+        z-index: 150;
+        box-shadow: 0px 2px 15px 0 rgba(0, 0, 0, 0.15);
+      }
 
       table {
         &.header,
