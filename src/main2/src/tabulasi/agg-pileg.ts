@@ -7,7 +7,7 @@ interface PartaiEntry {
     field: string
 }
 
-const PartaiEntries: PartaiEntry[] = [
+export const PartaiEntries: PartaiEntry[] = [
     { label: 'PKB', field: 'pkb' },
     { label: 'Gerindra', field: 'ger' },
     { label: 'PDI', field: 'pdi' },
@@ -43,7 +43,7 @@ export class AggPilegRenderer {
         s += '<td class="idx">#</td>'
         s += '<td class="name">Wilayah</td>'
         PartaiEntries.forEach((e) => {
-            s += '<td class="sum">' + e.label + '</td>'
+            s += '<td class="sum '+e.field+'">' + e.label + '</td>'
         })
         s += '<td class="tps kpu">#TPS KPU</td>'
         s += '</tr>'
