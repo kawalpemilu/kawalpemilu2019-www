@@ -1,6 +1,6 @@
 import { HierarchyNode } from "./types";
 
-function round100(n: number): number {
+export function round100(n: number): number {
     return Math.round(n * 10000) / 100
 }
 

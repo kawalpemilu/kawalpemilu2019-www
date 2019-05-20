@@ -172,10 +172,19 @@
               width: 50px;
             }
           }
+          &.estimasi-full2 {
+            span {
+              border: 0px;
+              &.abs {
+                font-size: 14px;
+              }
+            }
+          }
           span {
             display: block;
 
             &.diff {
+              color: #444;
               font-size: 14px;
               @media #{$phone} {
                 font-size: 12px;
@@ -253,7 +262,7 @@
         display: block;
         position: fixed;
         bottom: 0px;
-        left: 0px;;
+        left: 0px;
         z-index: 150;
         box-shadow: 0px 2px 15px 0 rgba(0, 0, 0, 0.15);
       }

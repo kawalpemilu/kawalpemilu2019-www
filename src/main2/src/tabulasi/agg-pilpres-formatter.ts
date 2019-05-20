@@ -1,4 +1,4 @@
-import { Entry } from "./agg-pilpres-common";
+import { Entry, round100 } from "./agg-pilpres-common";
 
 const THRESHOLD_PERCENTAGE = 0.7
 
@@ -80,6 +80,26 @@ export class EstimasiFullFormatter {
     }
 }
 
+export class EstimasiFull2Formatter {
+    format(entry: Entry): string {
+        let tpsEstimasi = (Math.round(entry.tpsEstimasiRatio * 1000) / 10).toLocaleString('id')
+        let estimasiStyle = this.createEstimasiStyle(entry)
+        let title = [
+            `Estimasi TPS terproses: ${_F(entry.tpsEstimasi)} (${tpsEstimasi}%)`,
+            `TPS dengan Foto: ${_F(entry.cakupan)}`,
+            `Belum diproses: ${_F(entry.pending)}`,
+            `Total TPS dari KPU: ${_F(entry.ntps)}`,
+        ].join("\n")
+        return `<td class="tps estimasi-full2" title="${title}"><span class="diff">${_F(entry.tpsEstimasi)}</span><span class="per" style="${estimasiStyle}">${tpsEstimasi}%</span></td>`
+    }
+
+    private createEstimasiStyle(entry: Entry): string {
+        let pEstimasi = entry.tpsEstimasiRatio * 100
+        let pCakupan = entry.cakupan / entry.ntps * 100
+        return `background-image: linear-gradient(to right, #aed581 0, #aed581 ${pEstimasi}%, #fff176 ${pEstimasi}%, #fff176 ${pCakupan}%, #e0e0e0 ${pCakupan}%, #e0e0e0 100%)`
+    }
+}
+
 export class SahFormatter {
     format(entry: Entry): string {
         var error = entry.pas1 + entry.pas2 === entry.sah ? '' : 'error'
@@ -103,7 +123,8 @@ export class TpsKpuFormatter {
 
 export class TpsCakupanFormatter {
     format(entry: Entry): string {
-        return `<td class="tps cakupan">${_F(entry.cakupan)}</td>`
+        var per = round100(entry.cakupan / entry.ntps)
+        return `<td class="tps cakupan"><span class="diff">${_F(entry.cakupan)}</span><span>${_F(per)}%</span></td>`
     }
 }
 

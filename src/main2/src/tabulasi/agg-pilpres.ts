@@ -1,8 +1,19 @@
 import { PageParam, getSumValue } from "./common";
-import { HierarchyNode } from "./types";
+import { HierarchyNode, TpsAggregate } from "./types";
 import { ScreenSize } from "./screen";
 import { Entry } from "./agg-pilpres-common";
-import { PasFormatter, SahFormatter, EstimasiFormatter, TidakSahFormatter, TpsKpuFormatter, TpsCakupanFormatter, TpsPendingFormatter, TpsErrorFormatter, EstimasiFullFormatter } from "./agg-pilpres-formatter";
+import {
+    PasFormatter,
+    SahFormatter,
+    EstimasiFormatter,
+    TidakSahFormatter,
+    TpsKpuFormatter,
+    TpsCakupanFormatter,
+    TpsPendingFormatter,
+    TpsErrorFormatter,
+    EstimasiFullFormatter,
+    EstimasiFull2Formatter
+} from "./agg-pilpres-formatter";
 
 export declare type Mode = 'compact' | 'full'
 
@@ -32,8 +43,8 @@ export class AggPilpresRenderer {
             s += '<td class="tps kpu">TPS<br>KPU</td>'
             s += '<td class="tps cakupan">TPS<br>Kawal Pemilu</td>'
             s += '<td class="tps estimasi">Estimasi<br>TPS</td>'
-            s += '<td class="tps pending">Belum<br>Diproses</td>'
-            s += '<td class="tps error">Dengan<br>Laporan</td>'
+            // s += '<td class="tps pending">Belum<br>Diproses</td>'
+            // s += '<td class="tps error">Dengan<br>Laporan</td>'
         }
 
         s += '</tr>'
@@ -46,7 +57,7 @@ export class AggPilpresRenderer {
         let sahFmt = new SahFormatter()
         let tSahFmt = new TidakSahFormatter()
         let tpsKpuFmt = new TpsKpuFormatter()
-        let estFullFmt = new EstimasiFullFormatter()
+        let estFullFmt = new EstimasiFull2Formatter()
         let tpsCakupanFmt = new TpsCakupanFormatter()
         let tpsPendingFmt = new TpsPendingFormatter()
         let tpsErrorFmt = new TpsErrorFormatter()
@@ -75,8 +86,8 @@ export class AggPilpresRenderer {
                 s += tpsKpuFmt.format(entry)
                 s += tpsCakupanFmt.format(entry)
                 s += estFullFmt.format(entry)
-                s += tpsPendingFmt.format(entry)
-                s += tpsErrorFmt.format(entry)
+                // s += tpsPendingFmt.format(entry)
+                // s += tpsErrorFmt.format(entry)
             }
             s += '</tr>'
         }
@@ -95,8 +106,8 @@ export class AggPilpresRenderer {
             s += tpsKpuFmt.format(total)
             s += tpsCakupanFmt.format(total)
             s += estFullFmt.format(total)
-            s += tpsPendingFmt.format(total)
-            s += tpsErrorFmt.format(total)
+            // s += tpsPendingFmt.format(total)
+            // s += tpsErrorFmt.format(total)
         }
         s += '</tr>'
 
