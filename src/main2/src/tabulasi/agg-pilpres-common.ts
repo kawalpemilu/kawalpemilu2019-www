@@ -37,8 +37,8 @@ export class Entry {
         entry.error = N(sum.error)
 
         var kpu = node.kpu[id]
-        entry.pas1kpu = N(kpu.pas1)
-        entry.pas2kpu = N(kpu.pas2)
+        entry.pas1kpu = kpu && N(kpu.pas1) || 0
+        entry.pas2kpu = kpu && N(kpu.pas2) || 0
         return entry
     }
 

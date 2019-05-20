@@ -8,7 +8,7 @@ export function _F(n: number): string {
 
 export function _FSign(n: number): string {
     var text = _F(n)
-    if (n > 0) text = '+' + text
+    if (n >= 0) text = '+' + text
     return text
 }
 
