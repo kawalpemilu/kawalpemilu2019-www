@@ -3,7 +3,9 @@ import { HierarchyNode, TpsAggregate } from './types'
 import { ScreenSize } from './screen';
 
 export class TpsRenderer {
-    constructor(private screenSize: ScreenSize) { }
+    constructor(
+        private screenSize: ScreenSize,
+        private target: HTMLElement) { }
 
     private KEYS = {
         'pilpres': [
@@ -60,6 +62,10 @@ export class TpsRenderer {
 
 
     render(param: PageParam, node: HierarchyNode) {
+        this.target.innerHTML = this._render(param, node)
+    }
+
+    private _render(param: PageParam, node: HierarchyNode) {
         if (node.depth < 4) {
             return ''
         }

@@ -3,9 +3,15 @@ import { HierarchyNode } from './types'
 import { ScreenSize } from './screen';
 
 export class NavRenderer {
-    constructor(private screenSize: ScreenSize) { }
+    constructor(
+        private screenSize: ScreenSize,
+        private target: HTMLElement) { }
 
     render(param: PageParam, node: HierarchyNode) {
+        this.target.innerHTML = this._render(param, node)
+    }
+
+    private _render(param: PageParam, node: HierarchyNode) {
         return [
             '<div class="table-type-nav">',
             this._getTableTypeNav(param),
@@ -14,27 +20,27 @@ export class NavRenderer {
             '<div class="breadcrumbs">',
             this._getBreadcrumbs(param, node),
             '</div>',
-        ].join( '' )
+        ].join('')
     }
 
     private _getTableTypeNav(param: PageParam) {
         const { type, id } = param
 
         let s = ''
-        PageTypes.forEach( t => {
+        PageTypes.forEach(t => {
             const className = t === type
                 ? ' class="active"'
                 : ''
 
-            const hash = `#${ t }:${ id }`
+            const hash = `#${t}:${id}`
             const name = t === 'pileg'
                 ? 'DPR'
                 : 'Presiden'
 
-            s += `<li${ className }><a href="${ hash }">${ name }</li>`
-        } )
+            s += `<li${className}><a href="${hash}">${name}</li>`
+        })
 
-        return `<ul>${ s }</ul>`
+        return `<ul>${s}</ul>`
     }
 
     private _getBreadcrumbs(param: PageParam, node: HierarychNode) {

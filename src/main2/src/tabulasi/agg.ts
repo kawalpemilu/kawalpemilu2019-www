@@ -15,7 +15,7 @@ export class AggRenderer {
 
     constructor(
         private screenSize: ScreenSize,
-        private agg: HTMLElement) {
+        private target: HTMLElement) {
 
         this.pilpres = new AggPilpresRenderer(screenSize)
         this.pilpresFull = new AggPilpresFullRenderer(screenSize)
@@ -23,9 +23,9 @@ export class AggRenderer {
     }
 
     render(param: PageParam, node: HierarchyNode) {
-        this.agg.innerHTML = this._render(param, node)
-        this.agg.classList.add(param.type)
-        setupSort(this.agg)
+        this.target.innerHTML = this._render(param, node)
+        this.target.classList.add(param.type)
+        setupSort(this.target)
     }
 
     private _render(param: PageParam, node: HierarchyNode) {
