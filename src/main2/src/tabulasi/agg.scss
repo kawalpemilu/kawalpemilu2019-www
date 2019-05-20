@@ -231,15 +231,15 @@
 
     tr:nth-child(odd) {
       background: white;
-      > td.kpu {
-        background: darken($color: white, $amount: 10%);
-      }
+      // > td.darken {
+      //   background: darken($color: white, $amount: 10%);
+      // }
     }
     tr:nth-child(even) {
       background: #eceff1;
-      > td.kpu {
-        background: darken($color: #eceff1, $amount: 10%);
-      }
+      // > td.darken {
+      //   background: darken($color: #eceff1, $amount: 10%);
+      // }
     }
   }
 
