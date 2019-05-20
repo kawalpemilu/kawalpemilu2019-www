@@ -29,6 +29,16 @@
       &.header td {
         font-weight: bold;
         text-align: center !important;
+
+        span {
+          &.kp {
+            white-space: nowrap;
+            font-size: 12px;
+            @media #{$phone} {
+              font-size: 11px;
+            }
+          }
+        }
       }
 
       &.footer td {
@@ -117,6 +127,16 @@
                 font-weight: bold;
               }
             }
+            &.kpu {
+              span.diff {
+                color: #888;
+              }
+              &.diff {
+                span.diff {
+                  color: #444;
+                }
+              }
+            }
           }
 
           &.error {
@@ -128,10 +148,8 @@
             display: block;
 
             &.diff {
-              font-size: 14px;
-              @media #{$phone} {
-                font-size: 12px;
-              }
+              font-size: 12px;
+              color: #444;
             }
           }
         }

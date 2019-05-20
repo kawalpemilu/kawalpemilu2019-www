@@ -6,6 +6,12 @@ export function _F(n: number): string {
     return n.toLocaleString('id')
 }
 
+export function _FSign(n: number): string {
+    var text = _F(n)
+    if (n > 0) text = '+' + text
+    return text
+}
+
 export class PasFormatter {
     static newForPas1(): PasFormatter {
         return new PasFormatter(
@@ -42,6 +48,47 @@ export class PasFormatter {
         s += `<span class="abs">${_F(pas)}</span>`
         if (showPercentage)
             s += `<span class="per">${_F(pasRatio100)}%</span>`
+        s += '</td>'
+        return s
+    }
+}
+
+export class PasKpuFormatter {
+    static newForPas1(): PasKpuFormatter {
+        return new PasKpuFormatter(
+            'pas1',
+            (entry) => entry.pas1,
+            (entry) => entry.pas1kpu,
+            (entry) => entry.pas1KpuRatio100
+        )
+    }
+    static newForPas2(): PasKpuFormatter {
+        return new PasKpuFormatter(
+            'pas2',
+            (entry) => entry.pas2,
+            (entry) => entry.pas2kpu,
+            (entry) => entry.pas2KpuRatio100
+        )
+    }
+
+    constructor(
+        private key: string,
+        private pasFn: (entry: Entry) => number,
+        private pasKpuFn: (entry: Entry) => number,
+        private pasKpuRatio100Fn: (entry: Entry) => number) { }
+
+    format(entry: Entry): string {
+        let showPercentage = entry.tpsEstimasiRatio >= THRESHOLD_PERCENTAGE
+        let pasKpuRatio100 = this.pasKpuRatio100Fn(entry)
+        let win = pasKpuRatio100 > 50 ? 'win' : ''
+        let pas = this.pasKpuFn(entry)
+        let diff = pas - this.pasFn(entry)
+        let cdiff = diff != 0 ? 'diff' : ''
+
+        let s = ''
+        s += `<td class="sum kpu pas ${this.key} per ${cdiff} ${win}">`
+        s += `<span class="abs">${_F(pas)}</span>`
+        s += `<span class="diff">(${_FSign(diff)})</span>`
         s += '</td>'
         return s
     }
@@ -104,7 +151,7 @@ export class SahFormatter {
     format(entry: Entry): string {
         var error = entry.pas1 + entry.pas2 === entry.sah ? '' : 'error'
         var content = `<span class="sah">${_F(entry.sah)}</span>`
-        if (error) content += `<span class="diff">(${_F(entry.sah - entry.pas1 - entry.pas2)})</span>`
+        if (error) content += `<span class="diff">(${_FSign(entry.sah - entry.pas1 - entry.pas2)})</span>`
         return `<td class="sum sah ${error}">${content}</td>`
     }
 }

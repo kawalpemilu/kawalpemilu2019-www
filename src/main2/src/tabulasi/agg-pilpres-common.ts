@@ -18,6 +18,9 @@ export class Entry {
     cakupan: number = 0
     error: number = 0
 
+    pas1kpu: number = 0
+    pas2kpu: number = 0
+
     static newFromNode(node: HierarchyNode, idx: number): Entry {
         var ch = node.children[idx]
         var id = ch[0]
@@ -32,6 +35,10 @@ export class Entry {
         entry.cakupan = N(sum.cakupan)
         entry.ntps = ch[2] as number
         entry.error = N(sum.error)
+
+        var kpu = node.kpu[id]
+        entry.pas1kpu = N(kpu.pas1)
+        entry.pas2kpu = N(kpu.pas2)
         return entry
     }
 
@@ -45,6 +52,10 @@ export class Entry {
         result.pending = this.pending + entry.pending
         result.cakupan = this.cakupan + entry.cakupan
         result.error = this.error + entry.error
+
+        result.pas1kpu = this.pas1kpu + entry.pas1kpu
+        result.pas2kpu = this.pas2kpu + entry.pas2kpu
+
         return result
     }
 
@@ -62,5 +73,13 @@ export class Entry {
 
     get pas2Ratio100(): number {
         return 100 - this.pas1Ratio100
+    }
+
+    get pas1KpuRatio100(): number {
+        return round100(this.pas1kpu / (this.pas1kpu + this.pas2kpu))
+    }
+
+    get pas2KpuRatio100(): number {
+        return 100 - this.pas1KpuRatio100
     }
 }

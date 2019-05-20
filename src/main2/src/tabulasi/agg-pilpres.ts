@@ -4,6 +4,7 @@ import { ScreenSize } from "./screen";
 import { Entry } from "./agg-pilpres-common";
 import {
     PasFormatter,
+    PasKpuFormatter,
     SahFormatter,
     EstimasiFormatter,
     TidakSahFormatter,
@@ -28,8 +29,14 @@ export class AggPilpresRenderer {
         s += '<tr class="header">'
         s += '<td class="idx">#</td>'
         s += '<td class="name">Wilayah</td>'
-        s += '<td class="sum pas1">Jokowi-Amin</td>'
-        s += '<td class="sum pas2">Prabowo-Sandi</td>'
+
+        s += '<td class="sum pas1">Jokowi-Amin<br><span class="kp">(Kawal Pemilu)</span></td>'
+        if (mode == 'full')
+            s += '<td class="sum pas1">Jokowi-Amin<br><span class="kp">(Situng KPU)</span></td>'
+
+        s += '<td class="sum pas2">Prabowo-Sandi<br><span class="kp">(Kawal Pemilu)</span></td>'
+        if (mode == 'full')
+            s += '<td class="sum pas2">Prabowo-Sandi<br><span class="kp">(Situng KPU)</span></td>'
 
         if (mode == 'compact') {
             if (this.screenSize.is('phone'))
@@ -37,7 +44,8 @@ export class AggPilpresRenderer {
             else
                 s += '<td class="tps estimasi">Estimasi TPS</td>'
         }
-        else {
+
+        if (mode == 'full') {
             s += '<td class="sum sah">Suara Sah</td>'
             s += '<td class="sum tsah">Tidak Sah</td>'
             s += '<td class="tps kpu">TPS<br>KPU</td>'
@@ -53,6 +61,8 @@ export class AggPilpresRenderer {
 
         let pas1Fmt = PasFormatter.newForPas1()
         let pas2Fmt = PasFormatter.newForPas2()
+        let pas1KpuFmt = PasKpuFormatter.newForPas1()
+        let pas2KpuFmt = PasKpuFormatter.newForPas2()
         let estFmt = new EstimasiFormatter()
         let sahFmt = new SahFormatter()
         let tSahFmt = new TidakSahFormatter()
@@ -76,11 +86,19 @@ export class AggPilpresRenderer {
             s += '<tr class="row">'
             s += `<td class="idx">${i + 1}</td>`
             s += `<td class="name darken"><a href="${url}">${name}</a></td>`
+
             s += pas1Fmt.format(entry)
+            if (mode == 'full')
+                s += pas1KpuFmt.format(entry)
+
             s += pas2Fmt.format(entry)
-            if (mode == 'compact') {
+            if (mode == 'full')
+                s += pas2KpuFmt.format(entry)
+
+            if (mode == 'compact')
                 s += estFmt.format(entry)
-            } else {
+
+            if (mode == 'full') {
                 s += sahFmt.format(entry)
                 s += tSahFmt.format(entry)
                 s += tpsKpuFmt.format(entry)
@@ -96,11 +114,19 @@ export class AggPilpresRenderer {
         s += '<tr class="footer">'
         s += '<td class="idx"></td>'
         s += '<td class="name">Total</td>'
+
         s += pas1Fmt.format(total)
+        if (mode == 'full')
+            s += pas1KpuFmt.format(total)
+
         s += pas2Fmt.format(total)
-        if (mode == 'compact') {
+        if (mode == 'full')
+            s += pas2KpuFmt.format(total)
+
+        if (mode == 'compact')
             s += estFmt.format(total)
-        } else {
+
+        if (mode == 'full') {
             s += sahFmt.format(total)
             s += tSahFmt.format(total)
             s += tpsKpuFmt.format(total)

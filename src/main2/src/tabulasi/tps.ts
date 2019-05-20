@@ -152,20 +152,40 @@ export class TpsRenderer {
         var s = '<div class="values">'
 
         s += `<ul class="${param.type} sum">`
+        if (param.type == 'pilpres') {
+            s += '<li class="header"><span class="label"></span> <span class="value">KP</span> <span class="kpu">KPU</span></li>'
+        }
         for (var i = 0; i < keys.length; i++) {
             let key = keys[i]
             let label = (this.SUM_LABELS as any)[key] as string // FIXME as any
             let sum = getSumValue(data.sum, key)
-            s += `<li><span class="label">${label}</span> <span class="value">${sum}</span></li>`
+            let kpu = node.kpu && getSumValue(node.kpu[tpsNo], key) || '?'
+            let diff = kpu !== '?' && sum != kpu ? 'diff' : ''
+            s += `<li class="${diff}">`
+            s += `<span class="label">${label}</span> <span class="value">${sum}</span>`
+            if (param.type == 'pilpres') {
+                s += `<span class="kpu">${kpu}</span>`
+            }
+            s += '</li>'
         }
         s += '</ul>'
 
         s += `<ul class="${param.type} summary">`
+        if (param.type == 'pilpres') {
+            s += '<li class="header"><span class="label"></span> <span class="value">KP</span> <span class="kpu">KPU</span></li>'
+        }
         for (var i = 0; i < summaryKeys.length; i++) {
             let key = summaryKeys[i]
             let label = (this.SUM_LABELS as any)[key] as string // FIXME as any
             let sum = getSumValue(data.sum, key)
-            s += `<li><span class="label">${label}</span> <span class="value">${sum}</span></li>`
+            let kpu = node.kpu && getSumValue(node.kpu[tpsNo], key) || '?'
+            let diff = kpu !== '?' && sum != kpu ? 'diff' : ''
+            s += `<li class="${diff}">`
+            s += `<span class="label">${label}</span> <span class="value">${sum}</span>`
+            if (param.type == 'pilpres') {
+                s += `<span class="kpu">${kpu}</span>`
+            }
+            s += '</li>'
         }
         s += '</ul>'
 

@@ -154,12 +154,33 @@
             span {
               display: table-cell;
             }
-            span.label {
-              padding-right: 10px;
-              font-weight: bold;
+            span {
+              &.label {
+                font-weight: bold;
+              }
+              &.label,
+              &.value {
+                padding-right: 10px;
+              }
+              &.value,
+              &.kpu {
+                text-align: right;
+              }
             }
-            span.value {
-              text-align: right;
+
+            &.diff {
+              span {
+                &.value,
+                &.kpu {
+                  color: red;
+                }
+              }
+            }
+
+            &.header {
+              span {
+                font-weight: bold;
+              }
             }
           }
         }
