@@ -6,7 +6,7 @@ import { AggPilegRenderer } from "./agg-pileg";
 import { updateStickyTableHeader, updateStickyTableColumn, updateStickyTableCorner, updateStickyTableFooter, updateStickyTableTotal } from "./sticky";
 import { AggPilpresFullRenderer } from "./agg-pilpres-full";
 
-import {setupSort, sort} from "./sort";
+import { setupSort, sort } from "./sort";
 
 export class AggRenderer {
     private pilpres: AggPilpresRenderer
@@ -32,10 +32,15 @@ export class AggRenderer {
         if (node.depth >= 4)
             return ''
 
-        if (param.type == 'pilpres')
-            return this.pilpres.render(param, node)
-        if (param.type == 'pileg')
+        if (param.type == 'pilpres') {
+            if (this.screenSize.is('desktop') || this.screenSize.is('tablet'))
+                return this.pilpresFull.render(param, node)
+            else
+                return this.pilpres.render(param, node)
+        }
+        else if (param.type == 'pileg') {
             return this.pileg.render(param, node)
+        }
 
         return ''
     }
