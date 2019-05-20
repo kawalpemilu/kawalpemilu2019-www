@@ -4,13 +4,11 @@ import { ScreenSize } from "./screen";
 import { AggPilpresRenderer } from "./agg-pilpres";
 import { AggPilegRenderer } from "./agg-pileg";
 import { updateStickyTableHeader, updateStickyTableColumn, updateStickyTableCorner, updateStickyTableFooter, updateStickyTableTotal } from "./sticky";
-import { AggPilpresFullRenderer } from "./agg-pilpres-full";
 
 import { setupSort } from "./sort";
 
 export class AggRenderer {
     private pilpres: AggPilpresRenderer
-    private pilpresFull: AggPilpresFullRenderer
     private pileg: AggPilegRenderer
 
     constructor(
@@ -18,7 +16,6 @@ export class AggRenderer {
         private target: HTMLElement) {
 
         this.pilpres = new AggPilpresRenderer(screenSize)
-        this.pilpresFull = new AggPilpresFullRenderer(screenSize)
         this.pileg = new AggPilegRenderer(screenSize)
     }
 
@@ -34,9 +31,9 @@ export class AggRenderer {
 
         if (param.type == 'pilpres') {
             if (this.screenSize.is('desktop') || this.screenSize.is('tablet'))
-                return this.pilpresFull.render(param, node)
+                return this.pilpres.render(param, node, 'full')
             else
-                return this.pilpres.render(param, node)
+                return this.pilpres.render(param, node, 'compact')
         }
         else if (param.type == 'pileg') {
             return this.pileg.render(param, node)
