@@ -121,6 +121,15 @@
               &.per {
                 background: rgb(241, 248, 233);
                 background: linear-gradient(135deg, rgba(241, 248, 233, 1) 0%, rgba(197, 225, 165, 1) 100%);
+
+                &.kpu {
+                  background: darken($color: rgb(241, 248, 233), $amount: 10%);
+                  background: linear-gradient(
+                    135deg,
+                    darken($color: rgba(241, 248, 233, 1), $amount: 20%) 0%,
+                    darken($color: rgba(197, 225, 165, 1), $amount: 20%) 100%
+                  );
+                }
               }
 
               span.per {
@@ -222,14 +231,14 @@
 
     tr:nth-child(odd) {
       background: white;
-      > td.darken {
-        //background: darken($color: white, $amount: 5%);
+      > td.kpu {
+        background: darken($color: white, $amount: 10%);
       }
     }
     tr:nth-child(even) {
       background: #eceff1;
-      > td.darken {
-        //background: darken($color: #eceff1, $amount: 5%);
+      > td.kpu {
+        background: darken($color: #eceff1, $amount: 10%);
       }
     }
   }
