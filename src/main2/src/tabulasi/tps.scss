@@ -47,6 +47,10 @@
           display: block;
         }
       }
+      p.link {
+        font-size: 12px;
+        margin-top: 10px;
+      }
     }
 
     @media #{$phone} {
@@ -66,9 +70,14 @@
           margin-left: 5px;
           &.mod {
             margin: 0 0 0 10px;
+            flex: 1;
+            text-align: left;
             a span {
               display: inline;
             }
+          }
+          &.link {
+            margin: 0 10px;
           }
         }
       }

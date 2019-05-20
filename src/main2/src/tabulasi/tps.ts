@@ -63,6 +63,14 @@ export class TpsRenderer {
 
     render(param: PageParam, node: HierarchyNode) {
         this.target.innerHTML = this._render(param, node)
+        if (param.tps) this.scrollToTps(param)
+    }
+
+    private scrollToTps(param: PageParam) {
+        var id = `tps-${param.id}-${param.tps}`
+        var el = document.getElementById(id)
+        if (!el) return
+        el.scrollIntoView({ block: 'center', behavior: 'smooth' })
     }
 
     private _render(param: PageParam, node: HierarchyNode) {
@@ -89,12 +97,15 @@ export class TpsRenderer {
         var janggalClass = data && getSumValue(data.sum, 'janggal') ? 'janggal' : ''
         var pendingClass = data && getSumValue(data.sum, 'pending') ? 'pending' : ''
 
-        var s = `<div class="tps tps-${tpsNo} ${janggalClass} ${pendingClass}">`
+        var s = `<div id="tps-${param.id}-${tpsNo}" class="tps tps-${tpsNo} ${janggalClass} ${pendingClass}">`
+        var tpsUrl = `https://kawalpemilu.org/#${param.type}:${param.id}/${tpsNo}`
+        console.log(tpsUrl)
 
         // info
         s += '<div class="info">'
         s += `<p class="tpsNo">TPS ${tpsNo}</span>`
         s += `<p class="mod"><a href="${modUrl}"><span>Mod?</span> <span>${node.id}/${tpsNo}</span></a></p>`
+        s += `<p class="link"><a href="${tpsUrl}">link</a></p>`
         s += '</div>'
 
         // sum

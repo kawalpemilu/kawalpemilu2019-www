@@ -4,6 +4,7 @@ export class PageParam {
     type: string
     form: FORM_TYPE
     id: number
+    tps: number | null
 }
 
 export const PageTypes = ['pilpres', 'pileg']

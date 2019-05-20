@@ -19,20 +19,25 @@ function getPageParam(): PageParam {
     var type = 'pilpres';
     var id = 0;
     var pc = h.indexOf(':')
+    var ps = h.indexOf('/')
+    var tps: number | null = null
     if (h && h.length) {
         if (pc >= 0) {
             type = h.substring(1, pc)
-            id = Number(h.substring(pc + 1))
+            id = Number(h.substring(pc + 1, ps < 0 ? h.length : ps))
         } else {
-            id = Number(h.substring(1))
+            id = Number(h.substring(1, ps < 0 ? h.length : ps))
         }
+    }
+    if (ps >= 0) {
+        tps = Number(h.substring(ps + 1))
     }
 
     if (PageTypes.indexOf(type) < 0)
         type = 'pilpres'
     var form = type == 'pileg' ? FORM_TYPE.DPR : FORM_TYPE.PPWP
 
-    return { type, form, id }
+    return { type, form, id, tps }
 }
 
 function updatePageHash(param: PageParam) {
@@ -72,9 +77,9 @@ function load() {
     )
     get(param.id, (node) => {
         ga('send', 'pageview', {
-          dimension1: node.id,
-          dimension2: node.depth,
-          dimension3: param.type,
+            dimension1: node.id,
+            dimension2: node.depth,
+            dimension3: param.type,
         })
         renderer.render(param, node)
     })
