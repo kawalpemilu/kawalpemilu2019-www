@@ -4,6 +4,7 @@ import { ScreenSize } from "./screen";
 import { Entry } from "./agg-pilpres-common";
 import {
     PasFormatter,
+    PasKpKpuFormatter,
     PasKpuFormatter,
     SahFormatter,
     EstimasiFormatter,
@@ -30,13 +31,8 @@ export class AggPilpresRenderer {
         s += '<td class="idx">#</td>'
         s += '<td class="name">Wilayah</td>'
 
-        s += '<td class="sum pas1">Jokowi-Amin<br><span class="kp">(Kawal Pemilu)</span></td>'
-        if (mode == 'full')
-            s += '<td class="sum pas1">Jokowi-Amin<br><span class="kp">(Situng KPU)</span></td>'
-
-        s += '<td class="sum pas2">Prabowo-Sandi<br><span class="kp">(Kawal Pemilu)</span></td>'
-        if (mode == 'full')
-            s += '<td class="sum pas2">Prabowo-Sandi<br><span class="kp">(Situng KPU)</span></td>'
+        s += '<td class="sum pas1">Jokowi-Amin</span></td>'
+        s += '<td class="sum pas2">Prabowo-Sandi</span></td>'
 
         if (mode == 'compact') {
             if (this.screenSize.is('phone'))
@@ -59,8 +55,8 @@ export class AggPilpresRenderer {
 
         let F = (n: number) => n.toLocaleString('id')
 
-        let pas1Fmt = PasFormatter.newForPas1()
-        let pas2Fmt = PasFormatter.newForPas2()
+        let pas1Fmt = PasKpKpuFormatter.newForPas1()
+        let pas2Fmt = PasKpKpuFormatter.newForPas2()
         let pas1KpuFmt = PasKpuFormatter.newForPas1()
         let pas2KpuFmt = PasKpuFormatter.newForPas2()
         let estFmt = new EstimasiFormatter()
@@ -88,12 +84,7 @@ export class AggPilpresRenderer {
             s += `<td class="name darken"><a href="${url}">${name}</a></td>`
 
             s += pas1Fmt.format(entry)
-            if (mode == 'full')
-                s += pas1KpuFmt.format(entry)
-
             s += pas2Fmt.format(entry)
-            if (mode == 'full')
-                s += pas2KpuFmt.format(entry)
 
             if (mode == 'compact')
                 s += estFmt.format(entry)
@@ -116,12 +107,7 @@ export class AggPilpresRenderer {
         s += '<td class="name">Total</td>'
 
         s += pas1Fmt.format(total)
-        if (mode == 'full')
-            s += pas1KpuFmt.format(total)
-
         s += pas2Fmt.format(total)
-        if (mode == 'full')
-            s += pas2KpuFmt.format(total)
 
         if (mode == 'compact')
             s += estFmt.format(total)

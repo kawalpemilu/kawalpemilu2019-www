@@ -53,6 +53,53 @@ export class PasFormatter {
     }
 }
 
+export class PasKpKpuFormatter {
+    static newForPas1(): PasKpKpuFormatter {
+        return new PasKpKpuFormatter(
+            'pas1',
+            (entry) => entry.pas1,
+            (entry) => entry.pas1Ratio100,
+            (entry) => entry.pas1kpu
+        )
+    }
+
+    static newForPas2(): PasKpKpuFormatter {
+        return new PasKpKpuFormatter(
+            'pas2',
+            (entry) => entry.pas2,
+            (entry) => entry.pas2Ratio100,
+            (entry) => entry.pas2kpu
+        )
+    }
+
+    constructor(
+        private key: string,
+        private pasFn: (entry: Entry) => number,
+        private pasRatio100Fn: (entry: Entry) => number,
+        private pasKpuFn: (entry: Entry) => number
+    ) {
+    }
+
+    format(entry: Entry): string {
+        let showPercentage = entry.tpsEstimasiRatio >= THRESHOLD_PERCENTAGE
+        let per = showPercentage ? 'per' : ''
+        let pasRatio100 = this.pasRatio100Fn(entry)
+        let pas = this.pasFn(entry)
+        let kpu = this.pasKpuFn(entry)
+        let win = pasRatio100 > 50 ? 'win' : ''
+        let diff = pas - kpu
+
+        let s = ''
+        s += `<td class="sum pas ${this.key} ${per} ${win}">`
+        s += `<span class="abs">${_F(pas)}</span>`
+        if (showPercentage)
+            s += `<span class="per">${_F(pasRatio100)}%</span>`
+        s += `<span class="diff">Situng ${_FSign(diff)}</span>`
+        s += '</td>'
+        return s
+    }
+}
+
 export class PasKpuFormatter {
     static newForPas1(): PasKpuFormatter {
         return new PasKpuFormatter(
