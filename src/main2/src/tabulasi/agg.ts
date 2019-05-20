@@ -6,7 +6,7 @@ import { AggPilegRenderer } from "./agg-pileg";
 import { updateStickyTableHeader, updateStickyTableColumn, updateStickyTableCorner, updateStickyTableFooter, updateStickyTableTotal } from "./sticky";
 import { AggPilpresFullRenderer } from "./agg-pilpres-full";
 
-import { setupSort, sort } from "./sort";
+import { setupSort } from "./sort";
 
 export class AggRenderer {
     private pilpres: AggPilpresRenderer
