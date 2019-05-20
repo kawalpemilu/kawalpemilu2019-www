@@ -87,14 +87,14 @@ export class PasKpKpuFormatter {
         let pas = this.pasFn(entry)
         let kpu = this.pasKpuFn(entry)
         let win = pasRatio100 > 50 ? 'win' : ''
-        let diff = pas - kpu
+        let diff = kpu - pas
 
         let s = ''
         s += `<td class="sum pas ${this.key} ${per} ${win}">`
         s += `<span class="abs">${_F(pas)}</span>`
         if (showPercentage)
             s += `<span class="per">${_F(pasRatio100)}%</span>`
-        s += `<span class="diff">Situng ${_FSign(diff)}</span>`
+        s += `<span class="diff">Situng: ${_FSign(diff)}</span>`
         s += '</td>'
         return s
     }
