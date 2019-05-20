@@ -213,7 +213,7 @@ export class TpsRenderer {
             let imageUrl = url.replace('http://', 'https://')
 
             s += `<div class="photo ${errorClass}">`
-            s += `<p><a href="${imageUrl}=s1280" target="_blank"><img src="${imageUrl}=s120" loading="lazy"/></a></p>`
+            s += `<p><a href="${imageUrl}=s1280" target="_blank"><img src="${imageUrl}=s120" style="min-height:120px" loading="lazy"/></a></p>`
 
             s += '<ul class="detail">'
             for (var j = 0; j < keys.length; j++) {
