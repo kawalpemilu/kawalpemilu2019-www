@@ -36,9 +36,11 @@ export class Entry {
         entry.ntps = ch[2] as number
         entry.error = N(sum.error)
 
-        var kpu = node.kpu[id]
-        entry.pas1kpu = kpu && N(kpu.pas1) || 0
-        entry.pas2kpu = kpu && N(kpu.pas2) || 0
+        if (node.kpu && node.kpu[id]) {
+            var kpu = node.kpu[id]
+            entry.pas1kpu = N(kpu.pas1) || 0
+            entry.pas2kpu = N(kpu.pas2) || 0
+        }
         return entry
     }
 
