@@ -35,18 +35,25 @@ export const enum SUM_KEY {
 }
 
 export const enum FORM_TYPE {
-    PPWP = 1,
-    DPR = 2,
-    DPD = 3,
-    DPRP = 4,
-    DPRPB = 5,
-    DPRA = 6,
-    DPRD_PROV = 7,
-    DPRD_KAB_KOTA = 8,
-    DPRK = 9,
-    OTHERS = 10,
-    MALICIOUS = 11
+  // Full blown until digitized.
+  PPWP = 1,
+  DPR,
+
+  // Only up to halaman, not digitized.
+  DPD,
+  DPRP,
+  DPRPB,
+  DPRA,
+  DPRD_PROV,
+  DPRD_KAB_KOTA,
+  DPRK,
+
+  // Up to choosing this type.
+  OTHERS,
+  PEMANDANGAN,
+  MALICIOUS
 }
+
 
 export declare type SumMap = {
     [key in SUM_KEY]: number;
