@@ -8,7 +8,7 @@ apt install -y rsync
 
 rm -rf /kp/_public/
 
-pushd /kp/src/main2
+pushd /kp/
 rm -rf node_modules dist
 
 npm install
@@ -19,5 +19,5 @@ popd
 # copy for public
 
 mkdir -p /kp/_public/
-rsync -avH --delete-excluded /kp/src/main2/dist/ /kp/_public/
+rsync -avH --delete-excluded /kp/dist/ /kp/_public/
 

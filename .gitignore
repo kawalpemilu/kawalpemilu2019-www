@@ -71,3 +71,4 @@ _build/
 _staging/
 _public/
 
+dist/
