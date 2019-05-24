@@ -20,5 +20,4 @@ popd
 
 mkdir -p /kp/_public/
 rsync -avH --delete-excluded /kp/src/main2/dist/ /kp/_public/
-rsync -avH /kp/src/tabulasi/tabulasi/index.html /kp/_public/index2.html
 

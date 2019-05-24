@@ -35,6 +35,7 @@ module.exports = {
         new CopyPlugin([
             { from: 'src/assets', to: 'assets' },
             { from: 'src/404.html', to: '404.html' },
+            { from: 'src/index2.html', to: 'index2.html' },
         ]),
         new MiniCssExtractPlugin({
             filename: '[name].[contenthash].css',
