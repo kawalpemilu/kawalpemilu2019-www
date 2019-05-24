@@ -20,6 +20,8 @@ export class Entry {
 
     pas1kpu: number = 0
     pas2kpu: number = 0
+    sahKpu: number = 0
+    tSahKpu: number = 0
 
     static newFromNode(node: HierarchyNode, idx: number): Entry {
         var ch = node.children[idx]
@@ -40,6 +42,8 @@ export class Entry {
             var kpu = node.kpu[id]
             entry.pas1kpu = N(kpu.pas1) || 0
             entry.pas2kpu = N(kpu.pas2) || 0
+            entry.sahKpu = N(kpu.sah) || 0
+            entry.tSahKpu = N(kpu.tSah) || 0
         }
         return entry
     }
@@ -57,6 +61,8 @@ export class Entry {
 
         result.pas1kpu = this.pas1kpu + entry.pas1kpu
         result.pas2kpu = this.pas2kpu + entry.pas2kpu
+        result.sahKpu = this.sahKpu + entry.sahKpu
+        result.tSahKpu = this.tSahKpu + entry.tSahKpu
 
         return result
     }

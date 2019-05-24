@@ -3,18 +3,14 @@ import { HierarchyNode, TpsAggregate } from "./types";
 import { ScreenSize } from "./screen";
 import { Entry } from "./agg-pilpres-common";
 import {
-    PasFormatter,
     PasKpKpuFormatter,
-    PasKpuFormatter,
     SahFormatter,
     EstimasiFormatter,
     TidakSahFormatter,
-    TpsKpuFormatter,
     TpsCakupanFormatter,
-    TpsPendingFormatter,
-    TpsErrorFormatter,
-    EstimasiFullFormatter,
-    EstimasiFull2Formatter
+    EstimasiFull2Formatter,
+    SahKpKpuFormatter,
+    TidakSahKpKpuFormatter
 } from "./agg-pilpres-formatter";
 
 export declare type Mode = 'compact' | 'full'
@@ -57,16 +53,11 @@ export class AggPilpresRenderer {
 
         let pas1Fmt = PasKpKpuFormatter.newForPas1()
         let pas2Fmt = PasKpKpuFormatter.newForPas2()
-        let pas1KpuFmt = PasKpuFormatter.newForPas1()
-        let pas2KpuFmt = PasKpuFormatter.newForPas2()
         let estFmt = new EstimasiFormatter()
-        let sahFmt = new SahFormatter()
-        let tSahFmt = new TidakSahFormatter()
-        let tpsKpuFmt = new TpsKpuFormatter()
+        let sahFmt = new SahKpKpuFormatter()
+        let tSahFmt = new TidakSahKpKpuFormatter()
         let estFullFmt = new EstimasiFull2Formatter()
         let tpsCakupanFmt = new TpsCakupanFormatter()
-        let tpsPendingFmt = new TpsPendingFormatter()
-        let tpsErrorFmt = new TpsErrorFormatter()
 
         let total = new Entry()
         for (var i = 0; i < node.children.length; i++) {

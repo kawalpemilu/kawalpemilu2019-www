@@ -203,11 +203,32 @@ export class SahFormatter {
     }
 }
 
+export class SahKpKpuFormatter {
+    format(entry: Entry): string {
+        var error = entry.pas1 + entry.pas2 === entry.sah ? '' : 'error'
+        var content = `<span class="sah">${_F(entry.sah)}</span>`
+        var diff = entry.sahKpu - entry.sah
+        if (error) content += `<span class="diff">(${_FSign(entry.sah - entry.pas1 - entry.pas2)})</span>`
+        content += `<span class="diff">Situng: ${_FSign(diff)}</span>`
+        return `<td class="sum sah ${error}">${content}</td>`
+    }
+}
+
 export class TidakSahFormatter {
     format(entry: Entry): string {
         return `<td class="sum tsah">${_F(entry.tSah)}</td>`
     }
 }
+
+export class TidakSahKpKpuFormatter {
+    format(entry: Entry): string {
+        var diff = entry.tSahKpu - entry.tSah
+        var content = `<span class="tsah">${_F(entry.tSah)}</span>`
+        content += `<span class="diff">Situng: ${_FSign(diff)}</span>`
+        return `<td class="sum tsah">${content}</td>`
+    }
+}
+
 
 export class TpsKpuFormatter {
     format(entry: Entry): string {
