@@ -176,13 +176,13 @@ export class EstimasiFullFormatter {
 
 export class EstimasiFull2Formatter {
     format(entry: Entry): string {
-        let tpsEstimasi = (Math.round(entry.tpsEstimasiRatio * 1000) / 10).toLocaleString('id')
+        let tpsEstimasi = (Math.round(entry.tpsEstimasiRatio * 10000) / 100).toLocaleString('id')
         let estimasiStyle = this.createEstimasiStyle(entry)
         let title = [
             `Estimasi TPS terproses: ${_F(entry.tpsEstimasi)} (${tpsEstimasi}%)`,
-            `TPS dengan Foto: ${_F(entry.cakupan)}`,
+            `Total TPS dengan Foto: ${_F(entry.cakupan)}`,
             `Belum diproses: ${_F(entry.pending)}`,
-            `Total TPS dari KPU: ${_F(entry.ntps)}`,
+            `Total TPS tercatat: ${_F(entry.ntps)}`,
         ].join("\n")
         return `<td class="tps estimasi-full2" title="${title}"><span class="diff">${_F(entry.tpsEstimasi)}</span><span class="per" style="${estimasiStyle}">${tpsEstimasi}%</span></td>`
     }

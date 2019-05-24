@@ -44,8 +44,8 @@ export class AggPilpresRenderer {
         if (mode == 'full') {
             s += '<td class="sum sah">Suara Sah</td>'
             s += '<td class="sum tsah">Tidak Sah</td>'
-            s += '<td class="tps kpu">TPS<br>KPU</td>'
-            s += '<td class="tps cakupan">TPS<br>Kawal Pemilu</td>'
+            // s += '<td class="tps kpu">TPS<br>KPU</td>'
+            // s += '<td class="tps cakupan">TPS<br>Terdata</td>'
             s += '<td class="tps estimasi">Estimasi<br>TPS</td>'
             // s += '<td class="tps pending">Belum<br>Diproses</td>'
             // s += '<td class="tps error">Dengan<br>Laporan</td>'
@@ -92,8 +92,8 @@ export class AggPilpresRenderer {
             if (mode == 'full') {
                 s += sahFmt.format(entry)
                 s += tSahFmt.format(entry)
-                s += tpsKpuFmt.format(entry)
-                s += tpsCakupanFmt.format(entry)
+                // s += tpsKpuFmt.format(entry)
+                // s += tpsCakupanFmt.format(entry)
                 s += estFullFmt.format(entry)
                 // s += tpsPendingFmt.format(entry)
                 // s += tpsErrorFmt.format(entry)
@@ -115,8 +115,8 @@ export class AggPilpresRenderer {
         if (mode == 'full') {
             s += sahFmt.format(total)
             s += tSahFmt.format(total)
-            s += tpsKpuFmt.format(total)
-            s += tpsCakupanFmt.format(total)
+            // s += tpsKpuFmt.format(total)
+            // s += tpsCakupanFmt.format(total)
             s += estFullFmt.format(total)
             // s += tpsPendingFmt.format(total)
             // s += tpsErrorFmt.format(total)
