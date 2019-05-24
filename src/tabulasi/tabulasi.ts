@@ -37,7 +37,11 @@ function getPageParam(): PageParam {
         type = 'pilpres'
     var form = type == 'pileg' ? FORM_TYPE.DPR : FORM_TYPE.PPWP
 
-    return { type, form, id, tps }
+    var photos: FORM_TYPE[] = [form]
+    if (form == FORM_TYPE.PPWP)
+        photos.push(FORM_TYPE.PEMANDANGAN)
+
+    return { type, form, id, tps, photos }
 }
 
 function updatePageHash(param: PageParam) {

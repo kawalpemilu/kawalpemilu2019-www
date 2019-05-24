@@ -212,7 +212,7 @@ export class TpsRenderer {
         var keys = sumKeys.concat(summaryKeys)
 
         var urls = Object.keys(data.photos)
-            .filter(url => data.photos[url].c1.type == param.form)
+            .filter(url => param.photos.indexOf(data.photos[url].c1.type) >= 0)
             .sort((a, b) => {
                 const pa = data.photos[a]
                 const pb = data.photos[b]

@@ -5,6 +5,7 @@ export class PageParam {
     form: FORM_TYPE
     id: number
     tps: number | null
+    photos: FORM_TYPE[]
 }
 
 export const PageTypes = ['pilpres', 'pileg']
