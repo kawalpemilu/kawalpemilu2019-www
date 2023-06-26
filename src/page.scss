@@ -29,7 +29,7 @@ body {
 }
 
 h1 {
-  margin: 0px;
+  margin: 0;
   font-size: 32px;
 
   @media #{$phone-small} {
@@ -37,6 +37,18 @@ h1 {
   }
   @media #{$phone-wide} {
     font-size: 24px;
+  }
+}
+
+h2 {
+  margin: 0;
+  font-size: 20px;
+
+  @media #{$phone-small} {
+    font-size: 12px;
+  }
+  @media #{$phone-wide} {
+    font-size: 14px;
   }
 }
 
@@ -76,4 +88,11 @@ a:hover {
   @media (min-width: 1340px) {
     max-width: 1260px;
   }
+}
+
+iframe {
+  width: 330px;
+  height: 315px;
+  border-style: solid;
+  border-width: 1px;
 }
