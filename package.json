@@ -1,9 +1,14 @@
 {
   "name": "kawalpemilu",
   "version": "2019.0.0",
+  "repository": {
+    "url": "git+https://github.com/kawalpemilu/kawalpemilu2019-www.git"
+  },
   "description": "",
   "private": true,
   "scripts": {
+    "predeploy": "npm run build && touch dist/.nojekyll && touch dist/CNAME && echo \"kawalpemilu.org\" > dist/CNAME",
+    "deploy": "gh-pages -d dist",
     "build": "webpack --config webpack.prod.js",
     "start": "webpack-dev-server --open --config webpack.dev.js"
   },
@@ -13,6 +18,7 @@
     "clean-webpack-plugin": "^2.0.1",
     "copy-webpack-plugin": "^5.0.3",
     "css-loader": "^2.1.1",
+    "gh-pages": "^5.0.0",
     "handlebars": "^4.3.0",
     "handlebars-loader": "^1.7.1",
     "html-webpack-plugin": "^3.2.0",
