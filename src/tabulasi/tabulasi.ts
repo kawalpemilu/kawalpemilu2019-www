@@ -61,7 +61,7 @@ function xhr(url: string, cb: (txt: string) => void) {
 
 function get(id: number, cb: (node: HierarchyNode) => void) {
     var ts = new Date().getTime()
-    var url = 'https://kawal-c1.appspot.com/api/c/' + id + '?' + ts
+    var url = 'https://kawalc1.github.io/kawalpemilu2019-extract/c/' + id + '.json?' + ts
     xhr(url + id + '?' + new Date().getTime(), function (res) {
         var duration = new Date().getTime() - ts
         ga('send', 'timing', 'kp-data', 'load', duration)
