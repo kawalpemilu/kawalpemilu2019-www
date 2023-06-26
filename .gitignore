@@ -72,3 +72,7 @@ _staging/
 _public/
 
 dist/
+
+# IntelliJ
+.idea/
+*.iml
