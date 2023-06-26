@@ -99,7 +99,6 @@ export class TpsRenderer {
 
         var s = `<div id="tps-${param.id}-${tpsNo}" class="tps tps-${tpsNo} ${janggalClass} ${pendingClass}">`
         var tpsUrl = `https://kawalpemilu.org/#${param.type}:${param.id}/${tpsNo}`
-        console.log(tpsUrl)
 
         // info
         s += '<div class="info">'
@@ -232,8 +231,12 @@ export class TpsRenderer {
 
             let imageUrl = url.replace('http://', 'https://')
 
-            s += `<div class="photo ${errorClass}">`
-            s += `<p><a href="${imageUrl}=s1280" target="_blank"><img src="${imageUrl}=s120" style="min-height:120px" loading="lazy"/></a></p>`
+            const imageFile = imageUrl.split('/').pop()
+            const clipUrl = `https://storage.googleapis.com/kawalc1/static/transformed/${param.id}/${tpsNo}/extracted/${imageFile}%3Ds1280~digit-area.webp`
+            const photoId = `photo-${tpsNo}-${i}`
+
+            s += `<div class="photo ${errorClass}" id="${photoId}" >`
+            s += `<p><a href="${imageUrl}=s1280" target="_blank"><img alt="TPS ${tpsNo}, photo ${i}" onload="addTooltip('${photoId}', '${clipUrl}')" src="${imageUrl}=s120" style="min-height:120px" loading="lazy"/></a></p>`
 
             s += '<ul class="detail">'
             for (var j = 0; j < keys.length; j++) {

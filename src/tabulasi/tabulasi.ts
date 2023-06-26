@@ -104,6 +104,56 @@ function updateScreenSize() {
     })
 }
 
+interface TippyInstance {
+    _isFetching: boolean
+    props: any
+    setContent(content: string | HTMLElement): void
+    hide(): void
+}
+
+function addTooltip(photoId: string, imageFile: string) {
+    tippy(`#${photoId}`, {
+        placement: 'right-start',
+        touch: false,
+        onCreate(instance: TippyInstance) {
+            instance._isFetching = false;
+        },
+        onShow(instance: TippyInstance) {
+            if (instance._isFetching) {
+                return;
+            }
+
+            instance._isFetching = true;
+            fetch(imageFile)
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error(`${response.status} ${response.statusText}`);
+                    }
+                    return response.blob()
+                })
+                .then((blob) => {
+                    const src = URL.createObjectURL(blob);
+                    const image = new Image();
+                    image.style.display = 'block';
+                    image.style.width = '150px';
+                    image.src = src;
+                    instance.setContent(image);
+                    instance.props['maxWidth'] = '170px';
+                })
+                .catch(() => {
+                    instance.setContent('');
+                    instance.hide()
+
+                })
+                .finally(() => {
+                    instance._isFetching = false;
+                });
+        }
+    });
+}
+
+window.addTooltip = addTooltip
+
 window.onload = load
 window.onhashchange = load
 
