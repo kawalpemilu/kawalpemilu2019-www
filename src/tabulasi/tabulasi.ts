@@ -61,7 +61,7 @@ function xhr(url: string, cb: (txt: string) => void) {
 
 function get(id: number, cb: (node: HierarchyNode) => void) {
     var ts = new Date().getTime()
-    var url = 'https://kawal-c1.appspot.com/api/c/' + id + '?' + ts
+    var url = 'https://kawalc1.github.io/kawalpemilu2019-extract/c/' + id + '.json?' + ts
     xhr(url + id + '?' + new Date().getTime(), function (res) {
         var duration = new Date().getTime() - ts
         ga('send', 'timing', 'kp-data', 'load', duration)
@@ -103,6 +103,57 @@ function updateScreenSize() {
         desktop: C("only screen and (min-width: 1001px)"),
     })
 }
+interface TippyInstance {
+    _isFetching: boolean
+    _failedToLoad: boolean
+    props: any
+    setContent(content: string | HTMLElement): void
+    hide(): void
+    disable(): void
+}
+
+function addTooltip(photoId: string, imageFile: string) {
+    tippy(`#${photoId}`, {
+        placement: 'right-start',
+        touch: false,
+        onCreate(instance: TippyInstance) {
+            instance._isFetching = true;
+            instance._failedToLoad = true;
+            fetch(imageFile)
+                .then((response) => {
+                    if (!response.ok) {
+                        throw new Error(`${response.status} ${response.statusText}`);
+                    }
+                    return response.blob()
+                })
+                .then((blob) => {
+                    const src = URL.createObjectURL(blob);
+                    const image = new Image();
+                    image.style.display = 'block';
+                    image.style.width = '150px';
+                    image.src = src;
+                    instance.setContent(image);
+                    instance.props['maxWidth'] = '170px';
+                    instance._failedToLoad = false
+                })
+                .catch(() => {
+                    instance.setContent('');
+                    instance._failedToLoad = true;
+                    instance.disable();
+                })
+                .finally(() => {
+                    instance._isFetching = false;
+                });
+        },
+        onShow(instance: TippyInstance) {
+            if (instance._isFetching || instance._failedToLoad) {
+                return;
+            }
+        }
+    });
+}
+
+window.addTooltip = addTooltip
 
 window.onload = load
 window.onhashchange = load
